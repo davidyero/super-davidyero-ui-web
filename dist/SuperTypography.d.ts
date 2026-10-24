@@ -92,7 +92,7 @@ declare const fontWeight: {
 };
 type FontWeight = keyof typeof fontWeight;
 
-type TypographyColor = 'text' | 'textBody' | 'textMuted' | 'primary' | 'onPrimary' | 'primarySoftText' | 'success' | 'warning' | 'danger' | 'info' | 'inherit';
+type TypographyColor = 'text' | 'textBody' | 'textMuted' | 'textSubtle' | 'primary' | 'accent' | 'onAccent' | 'onPrimary' | 'primarySoftText' | 'success' | 'warning' | 'danger' | 'info' | 'inherit';
 type TypographyAlign = 'left' | 'center' | 'right';
 interface SuperTypographyProps {
     variant?: TextVariant;

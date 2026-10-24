@@ -1,4 +1,9 @@
 type ToastTone = 'success' | 'danger' | 'warning' | 'info';
+/** Acción dentro del toast (p. ej. «Deshacer»). Al pulsarla, el toast se cierra. */
+interface ToastAction {
+    label: string;
+    onClick: () => void;
+}
 interface ToastItem {
     id: string;
     tone: ToastTone;
@@ -7,12 +12,20 @@ interface ToastItem {
     title?: string;
     /** ms hasta cerrarse solo. 0 = no se cierra solo. */
     durationMs: number;
+    action?: ToastAction;
 }
 interface ShowToastInput {
     tone?: ToastTone;
     message: string;
     title?: string;
     durationMs?: number;
+    action?: ToastAction;
+}
+/** Opciones de los atajos `toast.success()/error()…`. */
+interface ToastOptions {
+    title?: string;
+    durationMs?: number;
+    action?: ToastAction;
 }
 type Listener = () => void;
 /**
@@ -20,11 +33,11 @@ type Listener = () => void;
  * traducidos desde el sistema de errores de la app.
  */
 declare const toast: {
-    show: ({ tone, message, title, durationMs }: ShowToastInput) => string;
-    success: (message: string, title?: string) => string;
-    error: (message: string, title?: string) => string;
-    warning: (message: string, title?: string) => string;
-    info: (message: string, title?: string) => string;
+    show: ({ tone, message, title, durationMs, action }: ShowToastInput) => string;
+    success: (message: string, opts?: string | ToastOptions) => string;
+    error: (message: string, opts?: string | ToastOptions) => string;
+    warning: (message: string, opts?: string | ToastOptions) => string;
+    info: (message: string, opts?: string | ToastOptions) => string;
     dismiss: (id: string) => void;
     clear(): void;
     getAll(): ReadonlyArray<ToastItem>;
@@ -32,4 +45,4 @@ declare const toast: {
 };
 declare const useToasts: () => ReadonlyArray<ToastItem>;
 
-export { type ShowToastInput, type ToastItem, type ToastTone, toast, useToasts };
+export { type ShowToastInput, type ToastAction, type ToastItem, type ToastOptions, type ToastTone, toast, useToasts };

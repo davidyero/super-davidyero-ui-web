@@ -35,7 +35,7 @@ export const CardRoot = styled.div<{
     ? {
         cursor: 'pointer',
         transition: `border-color ${transition}, box-shadow ${transition}`,
-        '&:hover': { borderColor: v.borderStrong, boxShadow: v.shadow.md },
+        '&:hover': { borderColor: v.accent, boxShadow: v.shadow.md },
         '&:focus-visible': focusVisible,
       }
     : {}),

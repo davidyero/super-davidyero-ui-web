@@ -38,6 +38,49 @@ export interface SuperColorTokens {
   focusRing: string;
 }
 
+/**
+ * Tokens opcionales que, si la app no los define, se derivan de otros:
+ * - `accent`/`accentSoft`/`onAccent`: color de marca distinto del de acción
+ *   (`primary`). Por defecto, iguales a `primary`/`primarySoft`/`onPrimary`.
+ * - `textSubtle`: cuarto nivel de texto (pistas, metadatos). Por defecto, `textMuted`.
+ * - `surfaceField`: fondo de los campos (input, textarea, select). Por defecto, `surface`.
+ */
+export interface SuperDerivedColorTokens {
+  accent: string;
+  accentSoft: string;
+  onAccent: string;
+  textSubtle: string;
+  surfaceField: string;
+}
+
+/**
+ * Ajuste de una variante tipográfica por app. El tamaño NO se toca (la escala
+ * es única y no baja de 13px): solo peso, interlineado, tracking y mayúsculas.
+ */
+export interface SuperTextStyle {
+  fontWeight?: number;
+  lineHeight?: string | number;
+  letterSpacing?: string;
+  textTransform?: 'none' | 'uppercase';
+}
+
+export type SuperTextVariant =
+  | 'display'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'title'
+  | 'subtitle'
+  | 'body'
+  | 'bodySmall'
+  | 'caption'
+  | 'label';
+
+export type SuperTextTokens = Partial<Record<SuperTextVariant, SuperTextStyle>>;
+
 export interface SuperFontTokens {
   base: string;
   heading: string;
@@ -57,18 +100,24 @@ export interface SuperShadowTokens {
   lg: string;
 }
 
-export interface SuperTokens extends SuperColorTokens {
+interface SuperBaseTokens extends SuperColorTokens {
   fontFamily: SuperFontTokens;
   radius: SuperRadiusTokens;
   shadow: SuperShadowTokens;
 }
 
+export interface SuperTokens extends SuperBaseTokens, SuperDerivedColorTokens {
+  typography: SuperTextTokens;
+}
+
 /** Lo que pasa una app: cualquier token que omita cae al valor por defecto. */
-export type SuperTokensInput = Partial<SuperColorTokens> & {
-  fontFamily?: Partial<SuperFontTokens>;
-  radius?: Partial<SuperRadiusTokens>;
-  shadow?: Partial<SuperShadowTokens>;
-};
+export type SuperTokensInput = Partial<SuperColorTokens> &
+  Partial<SuperDerivedColorTokens> & {
+    fontFamily?: Partial<SuperFontTokens>;
+    radius?: Partial<SuperRadiusTokens>;
+    shadow?: Partial<SuperShadowTokens>;
+    typography?: SuperTextTokens;
+  };
 
 export interface SuperThemeTokens {
   light: SuperTokensInput;
@@ -107,6 +156,14 @@ export const COLOR_TOKEN_KEYS = [
   'focusRing',
 ] as const satisfies ReadonlyArray<keyof SuperColorTokens>;
 
+export const DERIVED_COLOR_TOKEN_KEYS = [
+  'accent',
+  'accentSoft',
+  'onAccent',
+  'textSubtle',
+  'surfaceField',
+] as const satisfies ReadonlyArray<keyof SuperDerivedColorTokens>;
+
 const fonts: SuperFontTokens = {
   base: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   heading: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
@@ -116,7 +173,7 @@ const fonts: SuperFontTokens = {
 const radius: SuperRadiusTokens = { sm: '6px', md: '10px', lg: '16px', pill: '999px' };
 
 /** Valores neutros y legibles para que una app arranque sin definir nada. */
-export const DEFAULT_TOKENS: Record<SuperThemeMode, SuperTokens> = {
+export const DEFAULT_TOKENS: Record<SuperThemeMode, SuperBaseTokens> = {
   light: {
     background: '#f6f7f9',
     surface: '#ffffff',
@@ -197,12 +254,32 @@ export const defineTokens = (tokens: SuperThemeTokens): SuperThemeTokens => toke
 /** Mezcla los tokens de la app sobre los valores por defecto de ese modo. */
 export const resolveTokens = (mode: SuperThemeMode, input: SuperTokensInput = {}): SuperTokens => {
   const base = DEFAULT_TOKENS[mode];
-  const { fontFamily, radius: r, shadow, ...colors } = input;
-  return {
+  const {
+    fontFamily,
+    radius: r,
+    shadow,
+    typography,
+    accent,
+    accentSoft,
+    onAccent,
+    textSubtle,
+    surfaceField,
+    ...colors
+  } = input;
+  const merged: SuperBaseTokens = {
     ...base,
     ...colors,
     fontFamily: { ...base.fontFamily, ...fontFamily },
     radius: { ...base.radius, ...r },
     shadow: { ...base.shadow, ...shadow },
+  };
+  return {
+    ...merged,
+    accent: accent ?? merged.primary,
+    accentSoft: accentSoft ?? merged.primarySoft,
+    onAccent: onAccent ?? merged.onPrimary,
+    textSubtle: textSubtle ?? merged.textMuted,
+    surfaceField: surfaceField ?? merged.surface,
+    typography: typography ?? {},
   };
 };

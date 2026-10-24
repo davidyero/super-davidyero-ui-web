@@ -1,14 +1,40 @@
-import { COLOR_TOKEN_KEYS, type SuperColorTokens, type SuperTokens } from './tokens';
+import {
+  COLOR_TOKEN_KEYS,
+  DERIVED_COLOR_TOKEN_KEYS,
+  type SuperColorTokens,
+  type SuperDerivedColorTokens,
+  type SuperTextStyle,
+  type SuperTextVariant,
+  type SuperTokens,
+} from './tokens';
 
 const kebab = (key: string): string => key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
 
 export const cssVarName = (key: string): string => `--sd-${kebab(key)}`;
 
-type ColorVars = Record<keyof SuperColorTokens, string>;
+type ColorVars = Record<keyof SuperColorTokens | keyof SuperDerivedColorTokens, string>;
 
 const colorVars = Object.fromEntries(
-  COLOR_TOKEN_KEYS.map((key) => [key, `var(${cssVarName(key)})`]),
+  [...COLOR_TOKEN_KEYS, ...DERIVED_COLOR_TOKEN_KEYS].map((key) => [key, `var(${cssVarName(key)})`]),
 ) as ColorVars;
+
+const TEXT_PROPS: Record<keyof SuperTextStyle, string> = {
+  fontWeight: 'weight',
+  lineHeight: 'leading',
+  letterSpacing: 'tracking',
+  textTransform: 'transform',
+};
+
+/** Variable del ajuste tipográfico de una variante, p. ej. `--sd-text-label-weight`. */
+export const textVarName = (variant: SuperTextVariant, prop: keyof SuperTextStyle): string =>
+  `--sd-text-${kebab(variant)}-${TEXT_PROPS[prop]}`;
+
+/** `var(--sd-text-label-weight, 600)`: el valor de la app o, si no lo define, el de la librería. */
+export const textVar = (
+  variant: SuperTextVariant,
+  prop: keyof SuperTextStyle,
+  fallback: string | number,
+): string => `var(${textVarName(variant, prop)}, ${fallback})`;
 
 /**
  * Referencias `var(--sd-*)` para usar en los estilos de los componentes. Nunca
@@ -38,6 +64,18 @@ export const v = {
 export const tokensToCssVars = (tokens: SuperTokens): Record<string, string> => {
   const out: Record<string, string> = {};
   for (const key of COLOR_TOKEN_KEYS) out[cssVarName(key)] = tokens[key];
+  for (const key of DERIVED_COLOR_TOKEN_KEYS) out[cssVarName(key)] = tokens[key];
+  for (const [variant, style] of Object.entries(tokens.typography) as [
+    SuperTextVariant,
+    SuperTextStyle,
+  ][]) {
+    for (const [prop, value] of Object.entries(style) as [
+      keyof SuperTextStyle,
+      string | number,
+    ][]) {
+      if (value !== undefined) out[textVarName(variant, prop)] = String(value);
+    }
+  }
   out['--sd-font-base'] = tokens.fontFamily.base;
   out['--sd-font-heading'] = tokens.fontFamily.heading;
   out['--sd-font-mono'] = tokens.fontFamily.mono;

@@ -1,8 +1,8 @@
-import { SuperIcon } from './chunk-HTU3L4JR.js';
+import { SuperIcon } from './chunk-F73VLIRK.js';
 import './chunk-XMET5A6D.js';
-import { space, focusVisible, transition } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import { useId, useRef } from 'react';
 import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
@@ -22,7 +22,7 @@ var Tab = styled.button(
     padding: $size === "sm" ? `${space.xs} ${space.sm}` : `${space.sm} ${space.md}`,
     marginBottom: "-1px",
     border: "none",
-    borderBottom: `2px solid ${$active ? v.primary : "transparent"}`,
+    borderBottom: `2px solid ${$active ? v.accent : "transparent"}`,
     background: "transparent",
     color: $active ? v.text : v.textMuted,
     fontFamily: v.font.base,

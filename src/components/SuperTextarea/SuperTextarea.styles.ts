@@ -11,11 +11,12 @@ export const Box = styled.div<{ $invalid: boolean; $disabled: boolean }>(
   }),
 );
 
-export const Area = styled.textarea(controlText, {
+export const Area = styled.textarea<{ $mono: boolean }>(controlText, ({ $mono }) => ({
   minHeight: '96px',
   resize: 'vertical',
   lineHeight: 1.5,
-});
+  ...($mono ? { fontFamily: v.font.mono } : {}),
+}));
 
 export const Footer = styled.div({
   display: 'flex',

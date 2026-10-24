@@ -1,9 +1,10 @@
-import { space, focusVisible, transition } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
+import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
 import styled from '@emotion/styled';
 
 var FieldRoot = styled.div(({ $fullWidth }) => ({
-  display: "inline-flex",
+  // Bloque: en un formulario el campo ocupa su fila (con `fullWidth`, el 100%).
+  display: "flex",
   flexDirection: "column",
   gap: space.xs,
   width: $fullWidth ? "100%" : "auto",
@@ -12,8 +13,8 @@ var FieldRoot = styled.div(({ $fullWidth }) => ({
 var FieldLabel = styled.label({
   fontFamily: v.font.base,
   fontSize: "13px",
-  fontWeight: 600,
-  color: v.text
+  fontWeight: 500,
+  color: v.textBody
 });
 var FieldHint = styled.p({
   margin: 0,
@@ -37,7 +38,7 @@ var controlBox = (invalid) => ({
   boxSizing: "border-box",
   borderRadius: v.radius.md,
   border: `1px solid ${invalid ? v.danger : v.borderStrong}`,
-  background: v.surface,
+  background: v.surfaceField,
   color: v.text,
   transition: `border-color ${transition}, box-shadow ${transition}`,
   "&:focus-within": { ...focusVisible, borderColor: invalid ? v.danger : v.primary }

@@ -1,17 +1,18 @@
 import type { ReactElement } from 'react';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
-import { Spinner } from './SuperLoader.styles';
+import { Center, Spinner } from './SuperLoader.styles';
 import type { SuperLoaderProps } from './SuperLoader.types';
 
 /** Indicador de carga. Para bloquear la pantalla usa `SuperLoaderOverlay`. */
 export const SuperLoader = ({
   size = 'md',
+  layout = 'inline',
   color = 'primary',
   decorative = false,
   className,
 }: SuperLoaderProps): ReactElement => {
   const labels = useSuperLabels();
-  return (
+  const spinner = (
     <Spinner
       $size={size}
       $color={color}
@@ -21,6 +22,7 @@ export const SuperLoader = ({
       aria-hidden={decorative ? true : undefined}
     />
   );
+  return layout === 'inline' ? spinner : <Center $layout={layout}>{spinner}</Center>;
 };
 
-export type { SuperLoaderProps, LoaderSize } from './SuperLoader.types';
+export type { SuperLoaderProps, LoaderSize, LoaderLayout } from './SuperLoader.types';

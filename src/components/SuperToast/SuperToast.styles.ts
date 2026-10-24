@@ -62,6 +62,8 @@ export const Texts = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: '2px',
+  // La acción del toast (p. ej. «Deshacer») no se estira a todo el ancho.
+  '& > button': { alignSelf: 'flex-start', marginTop: '4px' },
 });
 
 export const Dismiss = styled.button({

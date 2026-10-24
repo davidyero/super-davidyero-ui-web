@@ -37,6 +37,32 @@ interface SuperColorTokens {
     infoText: string;
     focusRing: string;
 }
+/**
+ * Tokens opcionales que, si la app no los define, se derivan de otros:
+ * - `accent`/`accentSoft`/`onAccent`: color de marca distinto del de acción
+ *   (`primary`). Por defecto, iguales a `primary`/`primarySoft`/`onPrimary`.
+ * - `textSubtle`: cuarto nivel de texto (pistas, metadatos). Por defecto, `textMuted`.
+ * - `surfaceField`: fondo de los campos (input, textarea, select). Por defecto, `surface`.
+ */
+interface SuperDerivedColorTokens {
+    accent: string;
+    accentSoft: string;
+    onAccent: string;
+    textSubtle: string;
+    surfaceField: string;
+}
+/**
+ * Ajuste de una variante tipográfica por app. El tamaño NO se toca (la escala
+ * es única y no baja de 13px): solo peso, interlineado, tracking y mayúsculas.
+ */
+interface SuperTextStyle {
+    fontWeight?: number;
+    lineHeight?: string | number;
+    letterSpacing?: string;
+    textTransform?: 'none' | 'uppercase';
+}
+type SuperTextVariant = 'display' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'title' | 'subtitle' | 'body' | 'bodySmall' | 'caption' | 'label';
+type SuperTextTokens = Partial<Record<SuperTextVariant, SuperTextStyle>>;
 interface SuperFontTokens {
     base: string;
     heading: string;
@@ -53,16 +79,20 @@ interface SuperShadowTokens {
     md: string;
     lg: string;
 }
-interface SuperTokens extends SuperColorTokens {
+interface SuperBaseTokens extends SuperColorTokens {
     fontFamily: SuperFontTokens;
     radius: SuperRadiusTokens;
     shadow: SuperShadowTokens;
 }
+interface SuperTokens extends SuperBaseTokens, SuperDerivedColorTokens {
+    typography: SuperTextTokens;
+}
 /** Lo que pasa una app: cualquier token que omita cae al valor por defecto. */
-type SuperTokensInput = Partial<SuperColorTokens> & {
+type SuperTokensInput = Partial<SuperColorTokens> & Partial<SuperDerivedColorTokens> & {
     fontFamily?: Partial<SuperFontTokens>;
     radius?: Partial<SuperRadiusTokens>;
     shadow?: Partial<SuperShadowTokens>;
+    typography?: SuperTextTokens;
 };
 interface SuperThemeTokens {
     light: SuperTokensInput;
@@ -70,11 +100,12 @@ interface SuperThemeTokens {
 }
 type SuperThemeMode = 'light' | 'dark';
 declare const COLOR_TOKEN_KEYS: readonly ["background", "surface", "surfaceSunken", "surfaceElevated", "border", "borderStrong", "text", "textBody", "textMuted", "primary", "primaryHover", "onPrimary", "primarySoft", "primarySoftText", "success", "successSoft", "successText", "warning", "warningSoft", "warningText", "danger", "dangerSoft", "dangerText", "info", "infoSoft", "infoText", "focusRing"];
+declare const DERIVED_COLOR_TOKEN_KEYS: readonly ["accent", "accentSoft", "onAccent", "textSubtle", "surfaceField"];
 /** Valores neutros y legibles para que una app arranque sin definir nada. */
-declare const DEFAULT_TOKENS: Record<SuperThemeMode, SuperTokens>;
+declare const DEFAULT_TOKENS: Record<SuperThemeMode, SuperBaseTokens>;
 /** Ayuda de tipado para declarar los tokens de una app. */
 declare const defineTokens: (tokens: SuperThemeTokens) => SuperThemeTokens;
 /** Mezcla los tokens de la app sobre los valores por defecto de ese modo. */
 declare const resolveTokens: (mode: SuperThemeMode, input?: SuperTokensInput) => SuperTokens;
 
-export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, type SuperColorTokens, type SuperFontTokens, type SuperRadiusTokens, type SuperShadowTokens, type SuperThemeMode, type SuperThemeTokens, type SuperTokens, type SuperTokensInput, defineTokens, resolveTokens };
+export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, DERIVED_COLOR_TOKEN_KEYS, type SuperColorTokens, type SuperDerivedColorTokens, type SuperFontTokens, type SuperRadiusTokens, type SuperShadowTokens, type SuperTextStyle, type SuperTextTokens, type SuperTextVariant, type SuperThemeMode, type SuperThemeTokens, type SuperTokens, type SuperTokensInput, defineTokens, resolveTokens };

@@ -1,7 +1,7 @@
-import { SuperTypography } from './chunk-YHFTDPNA.js';
-import { space, focusVisible, transition } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { SuperTypography } from './chunk-YLQR7YNT.js';
+import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import { useId } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -31,9 +31,9 @@ var Box = styled.span(
     height: "20px",
     marginTop: "1px",
     borderRadius: v.radius.sm,
-    border: `1.5px solid ${$invalid ? v.danger : $checked ? v.primary : v.borderStrong}`,
-    background: $checked ? v.primary : v.surface,
-    color: v.onPrimary,
+    border: `1.5px solid ${$invalid ? v.danger : $checked ? v.accent : v.borderStrong}`,
+    background: $checked ? v.accent : v.surface,
+    color: v.onAccent,
     transition: `background ${transition}, border-color ${transition}`,
     "input:focus-visible + &": focusVisible
   })

@@ -1,10 +1,12 @@
-import { useToasts, toast } from './chunk-F2RD2WYP.js';
-import { SuperTypography } from './chunk-YHFTDPNA.js';
-import { SuperIcon } from './chunk-HTU3L4JR.js';
+import { useToasts, toast } from './chunk-Y3WTWHVJ.js';
+import { SuperButton } from './chunk-W5KLOV4L.js';
+import './chunk-ONWISGSA.js';
+import { SuperTypography } from './chunk-YLQR7YNT.js';
+import { SuperIcon } from './chunk-F73VLIRK.js';
 import { useSuperLabels } from './chunk-XMET5A6D.js';
-import { space, zIndex, focusVisible } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { space, zIndex, focusVisible } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
 
@@ -58,7 +60,9 @@ var Texts = styled.div({
   minWidth: 0,
   display: "flex",
   flexDirection: "column",
-  gap: "2px"
+  gap: "2px",
+  // La acción del toast (p. ej. «Deshacer») no se estira a todo el ancho.
+  "& > button": { alignSelf: "flex-start", marginTop: "4px" }
 });
 var Dismiss = styled.button({
   display: "inline-flex",
@@ -79,7 +83,19 @@ var SuperToast = ({ position = "top-right" }) => {
     /* @__PURE__ */ jsx(IconSlot, { $tone: item.tone, children: /* @__PURE__ */ jsx(SuperIcon, { name: TOAST_TONE[item.tone].icon, size: 20 }) }),
     /* @__PURE__ */ jsxs(Texts, { children: [
       item.title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "label", as: "p", children: item.title }) : null,
-      /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textBody", as: "p", children: item.message })
+      /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textBody", as: "p", children: item.message }),
+      item.action ? /* @__PURE__ */ jsx(
+        SuperButton,
+        {
+          variant: "ghost",
+          size: "sm",
+          onClick: () => {
+            item.action?.onClick();
+            toast.dismiss(item.id);
+          },
+          children: item.action.label
+        }
+      ) : null
     ] }),
     /* @__PURE__ */ jsx(Dismiss, { type: "button", "aria-label": labels.dismiss, onClick: () => toast.dismiss(item.id), children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 18 }) })
   ] }, item.id)) });

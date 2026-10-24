@@ -25,6 +25,13 @@ const VARIANT: Record<ButtonVariant, ReturnType<typeof css>> = {
     border: '1px solid transparent',
     '&:hover:not([aria-disabled="true"])': { borderColor: v.primary },
   }),
+  // Gris con borde: acción secundaria sin color de marca.
+  neutral: css({
+    background: v.surfaceSunken,
+    color: v.text,
+    border: `1px solid ${v.border}`,
+    '&:hover:not([aria-disabled="true"])': { borderColor: v.borderStrong },
+  }),
   outline: css({
     background: 'transparent',
     color: v.text,

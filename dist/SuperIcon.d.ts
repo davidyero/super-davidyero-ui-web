@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-type IconColor = 'inherit' | 'text' | 'textBody' | 'textMuted' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
+type IconColor = 'inherit' | 'text' | 'textBody' | 'textMuted' | 'textSubtle' | 'primary' | 'onPrimary' | 'accent' | 'onAccent' | 'success' | 'warning' | 'danger' | 'info';
 interface SuperIconProps {
     /**
      * Nombre semántico del registro (`icons` del provider, p. ej. `settings`) o

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode, ReactElement } from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+type ButtonVariant = 'primary' | 'secondary' | 'neutral' | 'outline' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
 interface SuperButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     variant?: ButtonVariant;

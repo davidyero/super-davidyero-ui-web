@@ -1,6 +1,6 @@
-import { space, focusVisible, transition } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import styled from '@emotion/styled';
 import { jsx } from '@emotion/react/jsx-runtime';
 
@@ -29,7 +29,7 @@ var CardRoot = styled.div(({ $variant, $padding, $interactive }) => ({
   ...$interactive ? {
     cursor: "pointer",
     transition: `border-color ${transition}, box-shadow ${transition}`,
-    "&:hover": { borderColor: v.borderStrong, boxShadow: v.shadow.md },
+    "&:hover": { borderColor: v.accent, boxShadow: v.shadow.md },
     "&:focus-visible": focusVisible
   } : {}
 }));

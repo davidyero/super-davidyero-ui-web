@@ -22,11 +22,18 @@ var dismiss = (id) => {
   items = items.filter((t) => t.id !== id);
   emit();
 };
-var show = ({ tone = "info", message, title, durationMs }) => {
+var show = ({ tone = "info", message, title, durationMs, action }) => {
   seq += 1;
   const id = `sd-toast-${seq}`;
   const duration = durationMs ?? (tone === "danger" ? DEFAULT_DURATION * 1.5 : DEFAULT_DURATION);
-  const item = { id, tone, message, durationMs: duration, ...title ? { title } : {} };
+  const item = {
+    id,
+    tone,
+    message,
+    durationMs: duration,
+    ...title ? { title } : {},
+    ...action ? { action } : {}
+  };
   items = [...items, item].slice(-4);
   if (duration > 0)
     timers.set(
@@ -36,12 +43,14 @@ var show = ({ tone = "info", message, title, durationMs }) => {
   emit();
   return id;
 };
+var toOptions = (opts) => typeof opts === "string" ? { title: opts } : opts ?? {};
 var toast = {
   show,
-  success: (message, title) => show({ tone: "success", message, ...title ? { title } : {} }),
-  error: (message, title) => show({ tone: "danger", message, ...title ? { title } : {} }),
-  warning: (message, title) => show({ tone: "warning", message, ...title ? { title } : {} }),
-  info: (message, title) => show({ tone: "info", message, ...title ? { title } : {} }),
+  // El segundo argumento acepta el título (atajo) o las opciones completas.
+  success: (message, opts) => show({ tone: "success", message, ...toOptions(opts) }),
+  error: (message, opts) => show({ tone: "danger", message, ...toOptions(opts) }),
+  warning: (message, opts) => show({ tone: "warning", message, ...toOptions(opts) }),
+  info: (message, opts) => show({ tone: "info", message, ...toOptions(opts) }),
   dismiss,
   clear() {
     for (const t of timers.values()) clearTimeout(t);

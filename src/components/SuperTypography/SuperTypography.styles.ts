@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { fontWeight, textScale, type FontWeight, type TextVariant } from '../../styles/scale';
-import { v } from '../../theme/vars';
+import { textVar, v } from '../../theme/vars';
 import type { TypographyAlign, TypographyColor } from './SuperTypography.types';
 
 const DEFAULT_COLOR: Record<TextVariant, TypographyColor> = {
@@ -38,11 +38,14 @@ export const Text = styled.span<TextProps>(
       margin: 0,
       fontFamily: $mono ? v.font.mono : scale.heading ? v.font.heading : v.font.base,
       fontSize: scale.fontSize,
-      lineHeight: scale.lineHeight,
-      fontWeight: $weight ? fontWeight[$weight] : scale.fontWeight,
+      // Peso, interlineado, tracking y mayúsculas admiten ajuste por app (token
+      // `typography`); sin él, mandan los valores de la escala.
+      lineHeight: textVar($variant, 'lineHeight', scale.lineHeight),
+      fontWeight: $weight ? fontWeight[$weight] : textVar($variant, 'fontWeight', scale.fontWeight),
+      letterSpacing: $uppercase ? '0.04em' : textVar($variant, 'letterSpacing', 'normal'),
+      textTransform: $uppercase ? 'uppercase' : textVar($variant, 'textTransform', 'none'),
       color: $color === 'inherit' ? 'inherit' : v[$color],
       textAlign: $align,
-      ...($uppercase ? { textTransform: 'uppercase', letterSpacing: '0.04em' } : {}),
       ...($truncate
         ? { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }
         : { overflowWrap: 'anywhere' }),

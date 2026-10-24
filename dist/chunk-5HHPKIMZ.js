@@ -28,6 +28,13 @@ var COLOR_TOKEN_KEYS = [
   "infoText",
   "focusRing"
 ];
+var DERIVED_COLOR_TOKEN_KEYS = [
+  "accent",
+  "accentSoft",
+  "onAccent",
+  "textSubtle",
+  "surfaceField"
+];
 var fonts = {
   base: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   heading: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
@@ -111,14 +118,34 @@ var DEFAULT_TOKENS = {
 var defineTokens = (tokens) => tokens;
 var resolveTokens = (mode, input = {}) => {
   const base = DEFAULT_TOKENS[mode];
-  const { fontFamily, radius: r, shadow, ...colors } = input;
-  return {
+  const {
+    fontFamily,
+    radius: r,
+    shadow,
+    typography,
+    accent,
+    accentSoft,
+    onAccent,
+    textSubtle,
+    surfaceField,
+    ...colors
+  } = input;
+  const merged = {
     ...base,
     ...colors,
     fontFamily: { ...base.fontFamily, ...fontFamily },
     radius: { ...base.radius, ...r },
     shadow: { ...base.shadow, ...shadow }
   };
+  return {
+    ...merged,
+    accent: accent ?? merged.primary,
+    accentSoft: accentSoft ?? merged.primarySoft,
+    onAccent: onAccent ?? merged.onPrimary,
+    textSubtle: textSubtle ?? merged.textMuted,
+    surfaceField: surfaceField ?? merged.surface,
+    typography: typography ?? {}
+  };
 };
 
-export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, defineTokens, resolveTokens };
+export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, DERIVED_COLOR_TOKEN_KEYS, defineTokens, resolveTokens };

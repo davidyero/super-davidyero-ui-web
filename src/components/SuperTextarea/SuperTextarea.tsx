@@ -10,6 +10,8 @@ export const SuperTextarea = ({
   hint,
   fullWidth = false,
   showCount = false,
+  maxCount,
+  mono = false,
   id,
   disabled,
   className,
@@ -20,6 +22,8 @@ export const SuperTextarea = ({
   const autoId = useId();
   const areaId = id ?? autoId;
   const length = typeof value === 'string' ? value.length : 0;
+  // `maxCount` informa sin cortar; `showCount` + `maxLength` usa el límite nativo.
+  const countMax = maxCount ?? (showCount ? maxLength : undefined);
   const describedBy = error ? `${areaId}-error` : hint ? `${areaId}-hint` : undefined;
 
   return (
@@ -29,6 +33,7 @@ export const SuperTextarea = ({
         <Area
           {...rest}
           id={areaId}
+          $mono={mono}
           value={value}
           maxLength={maxLength}
           disabled={disabled}
@@ -44,9 +49,9 @@ export const SuperTextarea = ({
         ) : hint ? (
           <FieldHint id={`${areaId}-hint`}>{hint}</FieldHint>
         ) : null}
-        {showCount && maxLength ? (
-          <Count $over={length >= maxLength} aria-live="polite">
-            {length}/{maxLength}
+        {countMax ? (
+          <Count $over={maxCount ? length > maxCount : length >= countMax} aria-live="polite">
+            {length}/{countMax}
           </Count>
         ) : null}
       </Footer>

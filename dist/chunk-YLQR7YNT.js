@@ -1,5 +1,5 @@
-import { textScale, fontWeight } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
+import { textScale, fontWeight } from './chunk-UD6QNXPQ.js';
+import { v, textVar } from './chunk-TRHOZRUW.js';
 import styled from '@emotion/styled';
 import { jsx } from '@emotion/react/jsx-runtime';
 
@@ -26,11 +26,14 @@ var Text = styled.span(
       margin: 0,
       fontFamily: $mono ? v.font.mono : scale.heading ? v.font.heading : v.font.base,
       fontSize: scale.fontSize,
-      lineHeight: scale.lineHeight,
-      fontWeight: $weight ? fontWeight[$weight] : scale.fontWeight,
+      // Peso, interlineado, tracking y mayúsculas admiten ajuste por app (token
+      // `typography`); sin él, mandan los valores de la escala.
+      lineHeight: textVar($variant, "lineHeight", scale.lineHeight),
+      fontWeight: $weight ? fontWeight[$weight] : textVar($variant, "fontWeight", scale.fontWeight),
+      letterSpacing: $uppercase ? "0.04em" : textVar($variant, "letterSpacing", "normal"),
+      textTransform: $uppercase ? "uppercase" : textVar($variant, "textTransform", "none"),
       color: $color === "inherit" ? "inherit" : v[$color],
       textAlign: $align,
-      ...$uppercase ? { textTransform: "uppercase", letterSpacing: "0.04em" } : {},
       ...$truncate ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 } : { overflowWrap: "anywhere" }
     };
   }

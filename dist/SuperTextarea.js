@@ -1,7 +1,7 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-KNLNG6ED.js';
-import { space } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-AWXBPRQM.js';
+import { space } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import { useId } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -13,11 +13,12 @@ var Box = styled.div(
     opacity: $disabled ? 0.6 : 1
   })
 );
-var Area = styled.textarea(controlText, {
+var Area = styled.textarea(controlText, ({ $mono }) => ({
   minHeight: "96px",
   resize: "vertical",
-  lineHeight: 1.5
-});
+  lineHeight: 1.5,
+  ...$mono ? { fontFamily: v.font.mono } : {}
+}));
 var Footer = styled.div({
   display: "flex",
   justifyContent: "space-between",
@@ -35,6 +36,8 @@ var SuperTextarea = ({
   hint,
   fullWidth = false,
   showCount = false,
+  maxCount,
+  mono = false,
   id,
   disabled,
   className,
@@ -45,6 +48,7 @@ var SuperTextarea = ({
   const autoId = useId();
   const areaId = id ?? autoId;
   const length = typeof value === "string" ? value.length : 0;
+  const countMax = maxCount ?? (showCount ? maxLength : void 0);
   const describedBy = error ? `${areaId}-error` : hint ? `${areaId}-hint` : void 0;
   return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
     label ? /* @__PURE__ */ jsx(FieldLabel, { htmlFor: areaId, children: label }) : null,
@@ -53,6 +57,7 @@ var SuperTextarea = ({
       {
         ...rest,
         id: areaId,
+        $mono: mono,
         value,
         maxLength,
         disabled,
@@ -62,10 +67,10 @@ var SuperTextarea = ({
     ) }),
     /* @__PURE__ */ jsxs(Footer, { children: [
       error ? /* @__PURE__ */ jsx(FieldError, { id: `${areaId}-error`, role: "alert", children: error }) : hint ? /* @__PURE__ */ jsx(FieldHint, { id: `${areaId}-hint`, children: hint }) : null,
-      showCount && maxLength ? /* @__PURE__ */ jsxs(Count, { $over: length >= maxLength, "aria-live": "polite", children: [
+      countMax ? /* @__PURE__ */ jsxs(Count, { $over: maxCount ? length > maxCount : length >= countMax, "aria-live": "polite", children: [
         length,
         "/",
-        maxLength
+        countMax
       ] }) : null
     ] })
   ] });

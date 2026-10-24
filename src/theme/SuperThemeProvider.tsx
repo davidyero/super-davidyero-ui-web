@@ -62,6 +62,10 @@ export type {
   SuperTokens,
   SuperTokensInput,
   SuperColorTokens,
+  SuperDerivedColorTokens,
+  SuperTextStyle,
+  SuperTextTokens,
+  SuperTextVariant,
 } from './tokens';
 export { useSuperTheme, useSuperLabels, DEFAULT_ICONS } from './SuperThemeContext';
 export type { SuperLabels } from './SuperThemeContext';

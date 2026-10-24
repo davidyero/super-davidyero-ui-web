@@ -1,7 +1,7 @@
-import { SuperTypography } from './chunk-YHFTDPNA.js';
-import { space, focusVisible, transition } from './chunk-OJWPWQVY.js';
-import { v } from './chunk-BSDVG7PM.js';
-import './chunk-ASN2VLDU.js';
+import { SuperTypography } from './chunk-YLQR7YNT.js';
+import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
+import { v } from './chunk-TRHOZRUW.js';
+import './chunk-5HHPKIMZ.js';
 import { useId } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -27,7 +27,7 @@ var Track = styled.span(({ $checked }) => ({
   width: "38px",
   height: "22px",
   borderRadius: v.radius.pill,
-  background: $checked ? v.primary : v.borderStrong,
+  background: $checked ? v.accent : v.borderStrong,
   transition: `background ${transition}`,
   "input:focus-visible + &": focusVisible
 }));
@@ -38,7 +38,7 @@ var Thumb = styled.span(({ $checked }) => ({
   width: "16px",
   height: "16px",
   borderRadius: "50%",
-  background: $checked ? v.onPrimary : v.surface,
+  background: $checked ? v.onAccent : v.surface,
   boxShadow: v.shadow.sm,
   transition: `left ${transition}`
 }));

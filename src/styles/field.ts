@@ -4,7 +4,8 @@ import { v } from '../theme/vars';
 
 /** Piezas comunes de campo (label, ayuda, error) para Input, Textarea, Dropdown… */
 export const FieldRoot = styled.div<{ $fullWidth: boolean }>(({ $fullWidth }) => ({
-  display: 'inline-flex',
+  // Bloque: en un formulario el campo ocupa su fila (con `fullWidth`, el 100%).
+  display: 'flex',
   flexDirection: 'column',
   gap: space.xs,
   width: $fullWidth ? '100%' : 'auto',
@@ -14,8 +15,8 @@ export const FieldRoot = styled.div<{ $fullWidth: boolean }>(({ $fullWidth }) =>
 export const FieldLabel = styled.label({
   fontFamily: v.font.base,
   fontSize: '13px',
-  fontWeight: 600,
-  color: v.text,
+  fontWeight: 500,
+  color: v.textBody,
 });
 
 export const FieldHint = styled.p({
@@ -44,7 +45,7 @@ export const controlBox = (invalid: boolean) =>
     boxSizing: 'border-box',
     borderRadius: v.radius.md,
     border: `1px solid ${invalid ? v.danger : v.borderStrong}`,
-    background: v.surface,
+    background: v.surfaceField,
     color: v.text,
     transition: `border-color ${transition}, box-shadow ${transition}`,
     '&:focus-within': { ...focusVisible, borderColor: invalid ? v.danger : v.primary },

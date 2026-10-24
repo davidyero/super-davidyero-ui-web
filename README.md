@@ -14,7 +14,7 @@ tokens.
 Se instala por git, fijando la etiqueta de versión:
 
 ```bash
-npm i "github:davidyero/super-davidyero-ui-web#v0.1.0"
+npm i "github:davidyero/super-davidyero-ui-web#v0.2.0"
 ```
 
 Peers que la app ya tiene: `react` y `react-dom` (≥18), `@emotion/react`,
@@ -108,6 +108,21 @@ su token de texto (`primarySoft`→`primarySoftText`, `successSoft`→`successTe
 Comprueba los dos modos. El espaciado y la escala tipográfica son fijos en la librería, y
 **ningún texto baja de 13px**.
 
+**Tokens opcionales** (si no los defines, se derivan): `accent`/`accentSoft`/`onAccent`
+(color de marca distinto del de acción; por defecto, los de `primary`), `textSubtle` (cuarto
+nivel de texto; por defecto `textMuted`) y `surfaceField` (fondo de los campos; por defecto
+`surface`).
+
+**Ajuste tipográfico por app** (`typography`): peso, interlineado, tracking y mayúsculas de
+cada variante. El tamaño no se toca.
+
+```ts
+typography: {
+  label: { textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500 },
+  h1: { fontWeight: 600 },
+}
+```
+
 ## Iconos
 
 `SuperIcon name="settings"` resuelve el nombre en el registro `icons` del provider
@@ -156,29 +171,29 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 
 ## Componentes
 
-| Componente                      | Props principales                                                                                                                              |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SuperTypography`               | `variant` (display, h1–h6, title, subtitle, body, bodySmall, caption, label), `color`, `weight`, `align`, `truncate`, `as`                     |
-| `SuperButton`                   | `variant` (primary, secondary, outline, ghost, danger), `size`, `loading`, `disabled`, `leftIcon`/`rightIcon`, `iconOnly`, `href`, `fullWidth` |
-| `SuperIcon`                     | `name`, `size`, `color`, `spin`, `label`                                                                                                       |
-| `SuperCard`                     | `variant` (default, sunken, elevated, outline), `padding`, `interactive`, `as`                                                                 |
-| `SuperBadge`                    | `tone` (neutral, primary, success, warning, danger, info), `size`, `icon`, `dot`                                                               |
-| `SuperSkeleton`                 | `variant` (text, block, circle), `width`, `height`, `lines`                                                                                    |
-| `SuperLoader`                   | `size`, `color`, `decorative`                                                                                                                  |
-| `SuperLoaderOverlay`            | `visible` (opcional; por defecto lo decide `loaderStore`), `delayMs`                                                                           |
-| `SuperInput`                    | `label`, `error`, `hint`, `leftIcon`/`rightIcon`, `size`, `fullWidth`; `type="password"` trae el ojo                                           |
-| `SuperTextarea`                 | `label`, `error`, `hint`, `showCount` + `maxLength`                                                                                            |
-| `SuperSwitch` / `SuperCheckbox` | `checked`, `onChange(checked)`, `label`, `hint`, `ariaLabel`                                                                                   |
-| `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                   |
-| `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                               |
-| `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                   |
-| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title?)`, `toast.dismiss(id)`                                                                       |
-| `SuperEmptyState`               | `icon`, `title`, `description`, `action`, `compact`                                                                                            |
-| `SuperAlert`                    | `tone`, `title`, `dismissible`, `onDismiss`, `action`                                                                                          |
-| `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                           |
-| `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                          |
-| `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                  |
-| `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                  |
+| Componente                      | Props principales                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SuperTypography`               | `variant` (display, h1–h6, title, subtitle, body, bodySmall, caption, label), `color`, `weight`, `align`, `truncate`, `as`                              |
+| `SuperButton`                   | `variant` (primary, secondary, neutral, outline, ghost, danger), `size`, `loading`, `disabled`, `leftIcon`/`rightIcon`, `iconOnly`, `href`, `fullWidth` |
+| `SuperIcon`                     | `name`, `size`, `color`, `spin`, `label`                                                                                                                |
+| `SuperCard`                     | `variant` (default, sunken, elevated, outline), `padding`, `interactive`, `as`                                                                          |
+| `SuperBadge`                    | `tone` (neutral, primary, success, warning, danger, info), `size`, `icon`, `dot`                                                                        |
+| `SuperSkeleton`                 | `variant` (text, block, circle), `width`, `height`, `lines`                                                                                             |
+| `SuperLoader`                   | `size`, `layout` (inline/block/page), `color`, `decorative`                                                                                             |
+| `SuperLoaderOverlay`            | `visible` (opcional; por defecto lo decide `loaderStore`), `delayMs`                                                                                    |
+| `SuperInput`                    | `label`, `error`, `hint`, `leftIcon`/`rightIcon`, `size`, `fullWidth`; `type="password"` trae el ojo                                                    |
+| `SuperTextarea`                 | `label`, `error`, `hint`, `showCount` + `maxLength`, `maxCount`, `mono`                                                                                 |
+| `SuperSwitch` / `SuperCheckbox` | `checked`, `onChange(checked)`, `label`, `hint`, `ariaLabel`                                                                                            |
+| `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                            |
+| `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                                        |
+| `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                            |
+| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title \| { title, durationMs, action })`, `toast.dismiss(id)`                                                |
+| `SuperEmptyState`               | `icon`, `title`, `description`, `action`, `compact`                                                                                                     |
+| `SuperAlert`                    | `tone`, `title`, `dismissible`, `onDismiss`, `action`                                                                                                   |
+| `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                                    |
+| `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                                   |
+| `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                           |
+| `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                           |
 
 ## Desarrollo
 

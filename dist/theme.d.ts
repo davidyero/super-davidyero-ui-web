@@ -1,6 +1,6 @@
 import { ReactNode, ReactElement } from 'react';
 import { SuperThemeMode, SuperThemeTokens } from './tokens.js';
-export { DEFAULT_TOKENS, SuperColorTokens, SuperTokens, SuperTokensInput, defineTokens, resolveTokens } from './tokens.js';
+export { DEFAULT_TOKENS, SuperColorTokens, SuperDerivedColorTokens, SuperTextStyle, SuperTextTokens, SuperTextVariant, SuperTokens, SuperTokensInput, defineTokens, resolveTokens } from './tokens.js';
 
 /**
  * Textos accesibles que necesitan los componentes. La librería NO trae textos

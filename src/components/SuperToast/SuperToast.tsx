@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import { toast, useToasts } from '../../stores/toastStore';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
+import { SuperButton } from '../SuperButton/SuperButton';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
 import { Dismiss, IconSlot, Item, Texts, TOAST_TONE, Viewport } from './SuperToast.styles';
@@ -29,6 +30,18 @@ export const SuperToast = ({ position = 'top-right' }: SuperToastProps): ReactEl
             <SuperTypography variant="body" color="textBody" as="p">
               {item.message}
             </SuperTypography>
+            {item.action ? (
+              <SuperButton
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  item.action?.onClick();
+                  toast.dismiss(item.id);
+                }}
+              >
+                {item.action.label}
+              </SuperButton>
+            ) : null}
           </Texts>
           <Dismiss type="button" aria-label={labels.dismiss} onClick={() => toast.dismiss(item.id)}>
             <SuperIcon name="close" size={18} />

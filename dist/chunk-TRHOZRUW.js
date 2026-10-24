@@ -1,11 +1,19 @@
-import { COLOR_TOKEN_KEYS } from './chunk-ASN2VLDU.js';
+import { COLOR_TOKEN_KEYS, DERIVED_COLOR_TOKEN_KEYS } from './chunk-5HHPKIMZ.js';
 
 // src/theme/vars.ts
 var kebab = (key) => key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
 var cssVarName = (key) => `--sd-${kebab(key)}`;
 var colorVars = Object.fromEntries(
-  COLOR_TOKEN_KEYS.map((key) => [key, `var(${cssVarName(key)})`])
+  [...COLOR_TOKEN_KEYS, ...DERIVED_COLOR_TOKEN_KEYS].map((key) => [key, `var(${cssVarName(key)})`])
 );
+var TEXT_PROPS = {
+  fontWeight: "weight",
+  lineHeight: "leading",
+  letterSpacing: "tracking",
+  textTransform: "transform"
+};
+var textVarName = (variant, prop) => `--sd-text-${kebab(variant)}-${TEXT_PROPS[prop]}`;
+var textVar = (variant, prop, fallback) => `var(${textVarName(variant, prop)}, ${fallback})`;
 var v = {
   ...colorVars,
   font: {
@@ -28,6 +36,12 @@ var v = {
 var tokensToCssVars = (tokens) => {
   const out = {};
   for (const key of COLOR_TOKEN_KEYS) out[cssVarName(key)] = tokens[key];
+  for (const key of DERIVED_COLOR_TOKEN_KEYS) out[cssVarName(key)] = tokens[key];
+  for (const [variant, style] of Object.entries(tokens.typography)) {
+    for (const [prop, value] of Object.entries(style)) {
+      if (value !== void 0) out[textVarName(variant, prop)] = String(value);
+    }
+  }
   out["--sd-font-base"] = tokens.fontFamily.base;
   out["--sd-font-heading"] = tokens.fontFamily.heading;
   out["--sd-font-mono"] = tokens.fontFamily.mono;
@@ -41,4 +55,4 @@ var tokensToCssVars = (tokens) => {
   return out;
 };
 
-export { tokensToCssVars, v };
+export { textVar, tokensToCssVars, v };

@@ -18,7 +18,7 @@ export const Tab = styled.button<{ $active: boolean; $size: 'sm' | 'md' }>(
     padding: $size === 'sm' ? `${space.xs} ${space.sm}` : `${space.sm} ${space.md}`,
     marginBottom: '-1px',
     border: 'none',
-    borderBottom: `2px solid ${$active ? v.primary : 'transparent'}`,
+    borderBottom: `2px solid ${$active ? v.accent : 'transparent'}`,
     background: 'transparent',
     color: $active ? v.text : v.textMuted,
     fontFamily: v.font.base,
