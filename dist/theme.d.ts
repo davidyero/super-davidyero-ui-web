@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement } from 'react';
+import { ComponentType, AnchorHTMLAttributes, ReactNode, ReactElement } from 'react';
 import { SuperThemeMode, SuperThemeTokens } from './tokens.js';
 export { DEFAULT_TOKENS, SuperColorTokens, SuperDerivedColorTokens, SuperTextStyle, SuperTextTokens, SuperTextVariant, SuperTokens, SuperTokensInput, defineTokens, resolveTokens } from './tokens.js';
 
@@ -26,10 +26,20 @@ declare const DEFAULT_ICONS: {
     readonly danger: "solar:close-circle-broken";
     readonly empty: "solar:box-minimalistic-broken";
 };
+/**
+ * Enlace interno de la app (p. ej. un wrapper de `Link` de React Router que
+ * traduce `href` a `to`). Si se pasa, `SuperButton href="/ruta"` navega sin
+ * recargar; los enlaces externos siguen siendo `<a target="_blank">`.
+ */
+type SuperLinkComponent = ComponentType<AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    children?: ReactNode;
+}>;
 interface SuperThemeContextValue {
     mode: SuperThemeMode;
     labels: SuperLabels;
     icons: Readonly<Record<string, string>>;
+    LinkComponent?: SuperLinkComponent;
 }
 declare const useSuperTheme: () => SuperThemeContextValue;
 declare const useSuperLabels: () => SuperLabels;
@@ -42,6 +52,8 @@ interface SuperThemeProviderProps {
     labels: SuperLabels;
     /** Registro de iconos de la app: nombre semántico → id de Iconify (`solar:home-2-broken`). */
     icons?: Readonly<Record<string, string>>;
+    /** Enlace interno de la app para `SuperButton href` (ver `SuperLinkComponent`). */
+    LinkComponent?: SuperLinkComponent;
     children: ReactNode;
 }
 /**
@@ -49,6 +61,6 @@ interface SuperThemeProviderProps {
  * CSS `--sd-*` en `:root` y da a los componentes los textos e iconos.
  * Se monta UNA vez en la raíz.
  */
-declare const SuperThemeProvider: ({ tokens, mode, labels, icons, children, }: SuperThemeProviderProps) => ReactElement;
+declare const SuperThemeProvider: ({ tokens, mode, labels, icons, LinkComponent, children, }: SuperThemeProviderProps) => ReactElement;
 
-export { DEFAULT_ICONS, type SuperLabels, SuperThemeMode, SuperThemeProvider, type SuperThemeProviderProps, SuperThemeTokens, useSuperLabels, useSuperTheme };
+export { DEFAULT_ICONS, type SuperLabels, type SuperLinkComponent, SuperThemeMode, SuperThemeProvider, type SuperThemeProviderProps, SuperThemeTokens, useSuperLabels, useSuperTheme };

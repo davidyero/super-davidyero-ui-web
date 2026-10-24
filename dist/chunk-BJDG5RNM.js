@@ -1,4 +1,4 @@
-import { v } from './chunk-TRHOZRUW.js';
+import { v } from './chunk-524J7YGQ.js';
 
 // src/styles/scale.ts
 var space = {
@@ -25,7 +25,15 @@ var textScale = {
   caption: { fontSize: "13px", lineHeight: 1.45, fontWeight: 400, heading: false },
   label: { fontSize: "13px", lineHeight: 1.4, fontWeight: 600, heading: false }
 };
+var MIN_FONT_SIZE = 13;
 var fontWeight = { regular: 400, medium: 500, semibold: 600, bold: 700 };
+var breakpoints = { sm: 600, md: 900, lg: 1200, xl: 1536 };
+var media = {
+  sm: `@media (min-width: ${breakpoints.sm}px)`,
+  md: `@media (min-width: ${breakpoints.md}px)`,
+  lg: `@media (min-width: ${breakpoints.lg}px)`,
+  xl: `@media (min-width: ${breakpoints.xl}px)`
+};
 var zIndex = { dropdown: 800, modal: 1e3, toast: 1200, overlay: 1400 };
 var transition = "150ms ease";
 var focusVisible = {
@@ -33,4 +41,4 @@ var focusVisible = {
   boxShadow: `0 0 0 3px ${v.focusRing}`
 };
 
-export { focusVisible, fontWeight, space, textScale, transition, zIndex };
+export { MIN_FONT_SIZE, breakpoints, focusVisible, fontWeight, media, space, textScale, transition, zIndex };

@@ -1,6 +1,6 @@
-import { DEFAULT_ICONS, SuperThemeContext } from './chunk-XMET5A6D.js';
-export { DEFAULT_ICONS, useSuperLabels, useSuperTheme } from './chunk-XMET5A6D.js';
-import { tokensToCssVars } from './chunk-TRHOZRUW.js';
+import { DEFAULT_ICONS, SuperThemeContext } from './chunk-V6RXFFM7.js';
+export { DEFAULT_ICONS, useSuperLabels, useSuperTheme } from './chunk-V6RXFFM7.js';
+import { tokensToCssVars } from './chunk-524J7YGQ.js';
 import { resolveTokens } from './chunk-5HHPKIMZ.js';
 export { DEFAULT_TOKENS, defineTokens, resolveTokens } from './chunk-5HHPKIMZ.js';
 import { Global } from '@emotion/react';
@@ -12,12 +12,13 @@ var SuperThemeProvider = ({
   mode,
   labels,
   icons,
+  LinkComponent,
   children
 }) => {
   const vars = useMemo(() => tokensToCssVars(resolveTokens(mode, tokens?.[mode])), [mode, tokens]);
   const value = useMemo(
-    () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons } }),
-    [mode, labels, icons]
+    () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons }, LinkComponent }),
+    [mode, labels, icons, LinkComponent]
   );
   return /* @__PURE__ */ jsxs(SuperThemeContext.Provider, { value, children: [
     /* @__PURE__ */ jsx(

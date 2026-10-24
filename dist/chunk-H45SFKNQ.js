@@ -1,7 +1,8 @@
-import { SuperLoader } from './chunk-ONWISGSA.js';
-import { SuperIcon } from './chunk-F73VLIRK.js';
-import { space, focusVisible, transition } from './chunk-UD6QNXPQ.js';
-import { v } from './chunk-TRHOZRUW.js';
+import { SuperLoader } from './chunk-EQLP6N2V.js';
+import { SuperIcon } from './chunk-ZLC5VFBD.js';
+import { useSuperTheme } from './chunk-V6RXFFM7.js';
+import { space, focusVisible, transition } from './chunk-BJDG5RNM.js';
+import { v } from './chunk-524J7YGQ.js';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
@@ -81,7 +82,9 @@ var base = ({ $variant, $size, $fullWidth, $iconOnly }) => {
   );
 };
 var ButtonEl = styled.button(base);
-var AnchorEl = styled.a(base);
+var AnchorEl = styled("a", {
+  shouldForwardProp: (prop) => prop !== "as" && !prop.startsWith("$")
+})(base);
 var Content = styled.span(({ $hidden }) => ({
   display: "inline-flex",
   alignItems: "center",
@@ -114,6 +117,7 @@ var SuperButton = ({
   children,
   ...rest
 }) => {
+  const { LinkComponent } = useSuperTheme();
   const inactive = disabled || loading;
   const iconPx = ICON_PX[size];
   const styleProps = { $variant: variant, $size: size, $fullWidth: fullWidth, $iconOnly: iconOnly };
@@ -134,6 +138,7 @@ var SuperButton = ({
       AnchorEl,
       {
         ...styleProps,
+        as: !isExternal && !inactive && LinkComponent ? LinkComponent : void 0,
         href: inactive ? void 0 : href,
         target: isExternal ? "_blank" : void 0,
         rel: isExternal ? "noopener noreferrer" : void 0,

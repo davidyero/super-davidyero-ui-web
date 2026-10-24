@@ -1,4 +1,5 @@
 import type { MouseEvent, ReactElement } from 'react';
+import { useSuperTheme } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperLoader } from '../SuperLoader/SuperLoader';
 import { AnchorEl, ButtonEl, Content, SpinnerSlot } from './SuperButton.styles';
@@ -26,6 +27,7 @@ export const SuperButton = ({
   children,
   ...rest
 }: SuperButtonProps): ReactElement => {
+  const { LinkComponent } = useSuperTheme();
   const inactive = disabled || loading;
   const iconPx = ICON_PX[size];
   const styleProps = { $variant: variant, $size: size, $fullWidth: fullWidth, $iconOnly: iconOnly };
@@ -53,6 +55,7 @@ export const SuperButton = ({
     return (
       <AnchorEl
         {...styleProps}
+        as={!isExternal && !inactive && LinkComponent ? LinkComponent : undefined}
         href={inactive ? undefined : href}
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}

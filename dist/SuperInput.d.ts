@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, ReactElement } from 'react';
+import * as react from 'react';
+import { InputHTMLAttributes } from 'react';
 
 interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
     label?: string;
@@ -14,6 +15,6 @@ interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 's
  * Campo de texto. `type="password"` trae SIEMPRE el ojo de mostrar/ocultar
  * dentro del propio campo: nunca un input de contraseña sin ojo.
  */
-declare const SuperInput: ({ label, error, hint, leftIcon, rightIcon, size, fullWidth, id, type, disabled, className, ...rest }: SuperInputProps) => ReactElement;
+declare const SuperInput: react.ForwardRefExoticComponent<SuperInputProps & react.RefAttributes<HTMLInputElement>>;
 
 export { SuperInput, type SuperInputProps };

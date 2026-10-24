@@ -14,7 +14,7 @@ tokens.
 Se instala por git, fijando la etiqueta de versión:
 
 ```bash
-npm i "github:davidyero/super-davidyero-ui-web#v0.2.0"
+npm i "github:davidyero/super-davidyero-ui-web#v0.3.0"
 ```
 
 Peers que la app ya tiene: `react` y `react-dom` (≥18), `@emotion/react`,
@@ -121,6 +121,35 @@ typography: {
   label: { textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 500 },
   h1: { fontWeight: 600 },
 }
+```
+
+## Enlaces internos con el router
+
+```tsx
+import { Link } from 'react-router-dom';
+import type { SuperLinkComponent } from '@davidyero/ui-web/theme';
+
+const RouterLink: SuperLinkComponent = ({ href, ...rest }) => <Link to={href} {...rest} />;
+
+<SuperThemeProvider LinkComponent={RouterLink} /* … */>
+```
+
+Con eso, `<SuperButton href="/ajustes">` navega sin recargar. Los `href` externos
+(`https://…`) siguen abriendo en pestaña nueva.
+
+## Estilos de la app
+
+Para que la app no redefina espaciado ni breakpoints:
+
+```ts
+import { media, space } from '@davidyero/ui-web/scale';
+import { v } from '@davidyero/ui-web/vars';
+
+export const Panel = styled.section({
+  padding: space.lg,
+  background: v.surface,
+  [media.md]: { padding: space.xl },
+});
 ```
 
 ## Iconos

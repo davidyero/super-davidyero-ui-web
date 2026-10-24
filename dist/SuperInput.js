@@ -1,11 +1,11 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-AWXBPRQM.js';
-import { SuperIcon } from './chunk-F73VLIRK.js';
-import { useSuperLabels } from './chunk-XMET5A6D.js';
-import { space, focusVisible } from './chunk-UD6QNXPQ.js';
-import { v } from './chunk-TRHOZRUW.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-ZNUXLCOE.js';
+import { SuperIcon } from './chunk-ZLC5VFBD.js';
+import { useSuperLabels } from './chunk-V6RXFFM7.js';
+import { space, focusVisible } from './chunk-BJDG5RNM.js';
+import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';
+import { forwardRef, useId, useState } from 'react';
 import styled from '@emotion/styled';
-import { useId, useState } from 'react';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
 var HEIGHT = { sm: "34px", md: "42px", lg: "50px" };
@@ -48,7 +48,7 @@ var useSuperInput = ({ id, type, error, hint }) => {
     describedBy
   };
 };
-var SuperInput = ({
+var SuperInput = forwardRef(function SuperInput2({
   label,
   error,
   hint,
@@ -61,7 +61,7 @@ var SuperInput = ({
   disabled,
   className,
   ...rest
-}) => {
+}, ref) {
   const labels = useSuperLabels();
   const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy } = useSuperInput(
     { id, type, error, hint }
@@ -74,6 +74,7 @@ var SuperInput = ({
         Input,
         {
           ...rest,
+          ref,
           id: inputId,
           type: effectiveType,
           disabled,
@@ -96,6 +97,6 @@ var SuperInput = ({
     ] }),
     error ? /* @__PURE__ */ jsx(FieldError, { id: `${inputId}-error`, role: "alert", children: error }) : hint ? /* @__PURE__ */ jsx(FieldHint, { id: `${inputId}-hint`, children: hint }) : null
   ] });
-};
+});
 
 export { SuperInput };

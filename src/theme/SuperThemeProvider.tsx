@@ -4,6 +4,7 @@ import {
   DEFAULT_ICONS,
   SuperThemeContext,
   type SuperLabels,
+  type SuperLinkComponent,
   type SuperThemeContextValue,
 } from './SuperThemeContext';
 import { resolveTokens, type SuperThemeMode, type SuperThemeTokens } from './tokens';
@@ -17,6 +18,8 @@ export interface SuperThemeProviderProps {
   labels: SuperLabels;
   /** Registro de iconos de la app: nombre semántico → id de Iconify (`solar:home-2-broken`). */
   icons?: Readonly<Record<string, string>>;
+  /** Enlace interno de la app para `SuperButton href` (ver `SuperLinkComponent`). */
+  LinkComponent?: SuperLinkComponent;
   children: ReactNode;
 }
 
@@ -30,12 +33,13 @@ export const SuperThemeProvider = ({
   mode,
   labels,
   icons,
+  LinkComponent,
   children,
 }: SuperThemeProviderProps): ReactElement => {
   const vars = useMemo(() => tokensToCssVars(resolveTokens(mode, tokens?.[mode])), [mode, tokens]);
   const value = useMemo<SuperThemeContextValue>(
-    () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons } }),
-    [mode, labels, icons],
+    () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons }, LinkComponent }),
+    [mode, labels, icons, LinkComponent],
   );
 
   return (
@@ -68,4 +72,4 @@ export type {
   SuperTextVariant,
 } from './tokens';
 export { useSuperTheme, useSuperLabels, DEFAULT_ICONS } from './SuperThemeContext';
-export type { SuperLabels } from './SuperThemeContext';
+export type { SuperLabels, SuperLinkComponent } from './SuperThemeContext';

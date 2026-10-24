@@ -91,7 +91,11 @@ const base = ({ $variant, $size, $fullWidth, $iconOnly }: ButtonStyleProps) => {
 };
 
 export const ButtonEl = styled.button<ButtonStyleProps>(base);
-export const AnchorEl = styled.a<ButtonStyleProps>(base);
+// Con `as={LinkComponent}` Emotion pasaría todas las props al componente de la
+// app; las de estilo (`$…`) no deben llegar al DOM.
+export const AnchorEl = styled('a', {
+  shouldForwardProp: (prop) => prop !== 'as' && !prop.startsWith('$'),
+})<ButtonStyleProps>(base);
 
 export const Content = styled.span<{ $hidden: boolean }>(({ $hidden }) => ({
   display: 'inline-flex',

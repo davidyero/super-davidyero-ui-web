@@ -55,4 +55,4 @@ var tokensToCssVars = (tokens) => {
   return out;
 };
 
-export { textVar, tokensToCssVars, v };
+export { cssVarName, textVar, textVarName, tokensToCssVars, v };

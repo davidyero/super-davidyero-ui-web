@@ -1,5 +1,18 @@
 # Changelog — @davidyero/ui-web
 
+## 0.3.0 — 2026-10-24
+
+Lo que echó en falta la plantilla `template-web`. Retrocompatible.
+
+- `SuperInput` y `SuperTextarea` reenvían `ref` al elemento nativo (enfocar el primer campo
+  con error, librerías de formularios).
+- `SuperThemeProvider` acepta `LinkComponent`: con él, `SuperButton href="/ruta"` navega con
+  el router de la app sin recargar. Los enlaces externos y los botones inactivos siguen
+  siendo `<a>` normales, y las props de estilo ya no llegan al DOM.
+- Entradas nuevas para los estilos de la app: `@davidyero/ui-web/scale` (`space`,
+  `breakpoints`, `media`, `textScale`, `zIndex`) y `@davidyero/ui-web/vars` (`v.primary` →
+  `var(--sd-primary)`), para no redefinirlos en cada app.
+
 ## 0.2.0 — 2026-10-24
 
 Lo que necesitó el backoffice (primera app migrada) para verse igual que antes sin dejar

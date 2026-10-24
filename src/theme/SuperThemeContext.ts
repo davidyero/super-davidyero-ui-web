@@ -1,4 +1,10 @@
-import { createContext, useContext } from 'react';
+import {
+  createContext,
+  useContext,
+  type AnchorHTMLAttributes,
+  type ComponentType,
+  type ReactNode,
+} from 'react';
 import type { SuperThemeMode } from './tokens';
 
 /**
@@ -27,10 +33,20 @@ export const DEFAULT_ICONS = {
   empty: 'solar:box-minimalistic-broken',
 } as const satisfies Record<string, string>;
 
+/**
+ * Enlace interno de la app (p. ej. un wrapper de `Link` de React Router que
+ * traduce `href` a `to`). Si se pasa, `SuperButton href="/ruta"` navega sin
+ * recargar; los enlaces externos siguen siendo `<a target="_blank">`.
+ */
+export type SuperLinkComponent = ComponentType<
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; children?: ReactNode }
+>;
+
 export interface SuperThemeContextValue {
   mode: SuperThemeMode;
   labels: SuperLabels;
   icons: Readonly<Record<string, string>>;
+  LinkComponent?: SuperLinkComponent;
 }
 
 export const SuperThemeContext = createContext<SuperThemeContextValue | null>(null);

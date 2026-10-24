@@ -14,6 +14,9 @@ export default defineConfig({
     tokens: 'src/theme/tokens.ts',
     loader: 'src/stores/loaderStore.ts',
     toast: 'src/stores/toastStore.ts',
+    // Para los estilos de la app: espaciado, breakpoints, escala y `v.primary` → var(--sd-primary).
+    scale: 'src/styles/scale.ts',
+    vars: 'src/theme/vars.ts',
   },
   format: ['esm'],
   dts: true,

@@ -37,6 +37,17 @@ export const MIN_FONT_SIZE = 13;
 export const fontWeight = { regular: 400, medium: 500, semibold: 600, bold: 700 } as const;
 export type FontWeight = keyof typeof fontWeight;
 
+/** Puntos de corte, mobile-first: `media.md` = desde tablet. */
+export const breakpoints = { sm: 600, md: 900, lg: 1200, xl: 1536 } as const;
+export type Breakpoint = keyof typeof breakpoints;
+
+export const media = {
+  sm: `@media (min-width: ${breakpoints.sm}px)`,
+  md: `@media (min-width: ${breakpoints.md}px)`,
+  lg: `@media (min-width: ${breakpoints.lg}px)`,
+  xl: `@media (min-width: ${breakpoints.xl}px)`,
+} as const;
+
 export const zIndex = { dropdown: 800, modal: 1000, toast: 1200, overlay: 1400 } as const;
 
 export const transition = '150ms ease';

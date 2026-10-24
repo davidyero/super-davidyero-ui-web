@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { forwardRef, type ReactElement } from 'react';
 import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
@@ -10,20 +10,23 @@ import { useSuperInput } from './useSuperInput';
  * Campo de texto. `type="password"` trae SIEMPRE el ojo de mostrar/ocultar
  * dentro del propio campo: nunca un input de contraseña sin ojo.
  */
-export const SuperInput = ({
-  label,
-  error,
-  hint,
-  leftIcon,
-  rightIcon,
-  size = 'md',
-  fullWidth = false,
-  id,
-  type = 'text',
-  disabled,
-  className,
-  ...rest
-}: SuperInputProps): ReactElement => {
+export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function SuperInput(
+  {
+    label,
+    error,
+    hint,
+    leftIcon,
+    rightIcon,
+    size = 'md',
+    fullWidth = false,
+    id,
+    type = 'text',
+    disabled,
+    className,
+    ...rest
+  },
+  ref,
+): ReactElement {
   const labels = useSuperLabels();
   const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy } = useSuperInput(
     { id, type, error, hint },
@@ -36,6 +39,7 @@ export const SuperInput = ({
         {leftIcon ? <SuperIcon name={leftIcon} size={18} /> : null}
         <Input
           {...rest}
+          ref={ref}
           id={inputId}
           type={effectiveType}
           disabled={disabled}
@@ -66,6 +70,6 @@ export const SuperInput = ({
       ) : null}
     </FieldRoot>
   );
-};
+});
 
 export type { SuperInputProps } from './SuperInput.types';

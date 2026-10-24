@@ -1,4 +1,5 @@
-import { TextareaHTMLAttributes, ReactElement } from 'react';
+import * as react from 'react';
+import { TextareaHTMLAttributes } from 'react';
 
 interface SuperTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
@@ -17,6 +18,6 @@ interface SuperTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
 }
 
 /** Texto largo con contador opcional. */
-declare const SuperTextarea: ({ label, error, hint, fullWidth, showCount, maxCount, mono, id, disabled, className, value, maxLength, ...rest }: SuperTextareaProps) => ReactElement;
+declare const SuperTextarea: react.ForwardRefExoticComponent<SuperTextareaProps & react.RefAttributes<HTMLTextAreaElement>>;
 
 export { SuperTextarea, type SuperTextareaProps };
