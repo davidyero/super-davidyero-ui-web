@@ -15,7 +15,13 @@ export const Box = styled.div<{ $invalid: boolean; $size: 'sm' | 'md' | 'lg'; $d
   }),
 );
 
-export const Input = styled.input(controlText, { height: '100%' });
+export const Input = styled('input', {
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
+})<{ $mono?: boolean }>(controlText, ({ $mono }) => ({
+  height: '100%',
+  fontFamily: $mono ? v.font.mono : undefined,
+  fontVariantNumeric: $mono ? 'tabular-nums' : undefined,
+}));
 
 export const Toggle = styled.button({
   display: 'inline-flex',

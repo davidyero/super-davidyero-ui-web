@@ -50,6 +50,13 @@ const VARIANT: Record<ButtonVariant, ReturnType<typeof css>> = {
     border: `1px solid ${v.danger}`,
     '&:hover:not([aria-disabled="true"])': { background: v.danger, color: v.surface },
   }),
+  // Confirmar algo positivo (aprobar, marcar como hecho). Mismo patrón que danger.
+  success: css({
+    background: v.successSoft,
+    color: v.successText,
+    border: `1px solid ${v.success}`,
+    '&:hover:not([aria-disabled="true"])': { background: v.success, color: v.surface },
+  }),
 };
 
 interface ButtonStyleProps {

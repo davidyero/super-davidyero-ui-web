@@ -1,4 +1,4 @@
-import { SuperTypography } from './chunk-4J2IOUG6.js';
+import { SuperTypography } from './chunk-XCRJXV2B.js';
 import { space, focusVisible, transition } from './chunk-BJDG5RNM.js';
 import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';

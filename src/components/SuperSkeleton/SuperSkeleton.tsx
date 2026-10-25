@@ -11,6 +11,7 @@ export const SuperSkeleton = ({
   width,
   height,
   lines = 3,
+  aspectRatio,
   className,
 }: SuperSkeletonProps): ReactElement => {
   if (variant === 'circle') {
@@ -34,8 +35,9 @@ export const SuperSkeleton = ({
   return (
     <Shimmer
       $w={width ?? '100%'}
-      $h={height ?? '80px'}
+      $h={aspectRatio ? 'auto' : (height ?? '80px')}
       $round={false}
+      style={aspectRatio ? { aspectRatio } : undefined}
       className={className}
       aria-hidden
     />

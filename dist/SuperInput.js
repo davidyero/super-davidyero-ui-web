@@ -18,7 +18,13 @@ var Box = styled.div(
     color: v.textMuted
   })
 );
-var Input = styled.input(controlText, { height: "100%" });
+var Input = styled("input", {
+  shouldForwardProp: (prop) => !prop.startsWith("$")
+})(controlText, ({ $mono }) => ({
+  height: "100%",
+  fontFamily: $mono ? v.font.mono : void 0,
+  fontVariantNumeric: $mono ? "tabular-nums" : void 0
+}));
 var Toggle = styled.button({
   display: "inline-flex",
   alignItems: "center",
@@ -56,6 +62,9 @@ var SuperInput = forwardRef(function SuperInput2({
   rightIcon,
   size = "md",
   fullWidth = false,
+  invalid = false,
+  mono = false,
+  onClear,
   id,
   type = "text",
   disabled,
@@ -68,7 +77,7 @@ var SuperInput = forwardRef(function SuperInput2({
   );
   return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
     label ? /* @__PURE__ */ jsx(FieldLabel, { htmlFor: inputId, children: label }) : null,
-    /* @__PURE__ */ jsxs(Box, { $invalid: Boolean(error), $size: size, $disabled: Boolean(disabled), children: [
+    /* @__PURE__ */ jsxs(Box, { $invalid: Boolean(error) || invalid, $size: size, $disabled: Boolean(disabled), children: [
       leftIcon ? /* @__PURE__ */ jsx(SuperIcon, { name: leftIcon, size: 18 }) : null,
       /* @__PURE__ */ jsx(
         Input,
@@ -78,7 +87,8 @@ var SuperInput = forwardRef(function SuperInput2({
           id: inputId,
           type: effectiveType,
           disabled,
-          "aria-invalid": error ? true : void 0,
+          $mono: mono,
+          "aria-invalid": error || invalid ? true : void 0,
           "aria-describedby": describedBy
         }
       ),
@@ -92,6 +102,15 @@ var SuperInput = forwardRef(function SuperInput2({
           "aria-controls": inputId,
           disabled,
           children: /* @__PURE__ */ jsx(SuperIcon, { name: revealed ? "eyeOff" : "eye", size: 18 })
+        }
+      ) : onClear && rest.value !== void 0 && rest.value !== "" ? /* @__PURE__ */ jsx(
+        Toggle,
+        {
+          type: "button",
+          onClick: onClear,
+          "aria-label": labels.clear ?? labels.close,
+          disabled,
+          children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 18 })
         }
       ) : rightIcon ? /* @__PURE__ */ jsx(SuperIcon, { name: rightIcon, size: 18 }) : null
     ] }),

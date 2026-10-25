@@ -9,6 +9,8 @@ interface SuperSkeletonProps {
     height?: string;
     /** Líneas (text). La última sale más corta, como un párrafo real. */
     lines?: number;
+    /** Relación de aspecto CSS del bloque (`'4 / 5'`); gana a `height`. */
+    aspectRatio?: string;
     className?: string;
 }
 
@@ -16,6 +18,6 @@ interface SuperSkeletonProps {
  * Esqueleto con shimmer mientras carga. Respeta el tamaño del contenido real
  * para que no haya salto de layout. Decorativo: oculto a lectores de pantalla.
  */
-declare const SuperSkeleton: ({ variant, width, height, lines, className, }: SuperSkeletonProps) => ReactElement;
+declare const SuperSkeleton: ({ variant, width, height, lines, aspectRatio, className, }: SuperSkeletonProps) => ReactElement;
 
 export { type SkeletonVariant, SuperSkeleton, type SuperSkeletonProps };

@@ -1,4 +1,4 @@
-export type ProgressTone = 'primary' | 'success' | 'warning' | 'danger';
+export type ProgressTone = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
 export interface SuperProgressBarProps {
   value: number;

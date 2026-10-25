@@ -8,7 +8,8 @@ var FILL = {
   primary: v.primary,
   success: v.success,
   warning: v.warning,
-  danger: v.danger
+  danger: v.danger,
+  info: v.info
 };
 var Row = styled.div({
   display: "flex",

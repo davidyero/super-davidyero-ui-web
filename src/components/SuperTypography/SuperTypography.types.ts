@@ -30,6 +30,9 @@ export interface SuperTypographyProps {
   uppercase?: boolean;
   mono?: boolean;
   id?: string;
+  role?: string;
+  'aria-live'?: 'polite' | 'assertive' | 'off';
+  'aria-label'?: string;
   title?: string;
   className?: string;
   children: ReactNode;

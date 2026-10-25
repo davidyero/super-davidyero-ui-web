@@ -12,6 +12,7 @@ export const SuperModal = ({
   open,
   onClose,
   title,
+  subtitle,
   footer,
   align = 'center',
   width = 520,
@@ -43,10 +44,19 @@ export const SuperModal = ({
         $padded={padded}
       >
         <Header>
-          {title ? (
-            <SuperTypography variant="h3" as="h2" id={titleId}>
-              {title}
-            </SuperTypography>
+          {title || subtitle ? (
+            <div>
+              {title ? (
+                <SuperTypography variant="h3" as="h2" id={titleId}>
+                  {title}
+                </SuperTypography>
+              ) : null}
+              {subtitle ? (
+                <SuperTypography variant="bodySmall" color="textMuted">
+                  {subtitle}
+                </SuperTypography>
+              ) : null}
+            </div>
           ) : null}
           <Close type="button" aria-label={labels.close} onClick={onClose}>
             <SuperIcon name="close" size={20} />

@@ -1,4 +1,4 @@
-import { SuperTypography } from './chunk-4J2IOUG6.js';
+import { SuperTypography } from './chunk-XCRJXV2B.js';
 import { SuperIcon } from './chunk-ZLC5VFBD.js';
 import { useSuperLabels } from './chunk-V6RXFFM7.js';
 import { space, zIndex, focusVisible } from './chunk-BJDG5RNM.js';
@@ -110,6 +110,7 @@ var SuperModal = ({
   open,
   onClose,
   title,
+  subtitle,
   footer,
   align = "center",
   width = 520,
@@ -142,7 +143,10 @@ var SuperModal = ({
             $padded: padded,
             children: [
               /* @__PURE__ */ jsxs(Header, { children: [
-                title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "h3", as: "h2", id: titleId, children: title }) : null,
+                title || subtitle ? /* @__PURE__ */ jsxs("div", { children: [
+                  title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "h3", as: "h2", id: titleId, children: title }) : null,
+                  subtitle ? /* @__PURE__ */ jsx(SuperTypography, { variant: "bodySmall", color: "textMuted", children: subtitle }) : null
+                ] }) : null,
                 /* @__PURE__ */ jsx(Close, { type: "button", "aria-label": labels.close, onClick: onClose, children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 20 }) })
               ] }),
               /* @__PURE__ */ jsx(Body, { "data-sd-modal-body": true, children }),
