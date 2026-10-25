@@ -4,6 +4,8 @@ export interface SuperModalProps {
   open: boolean;
   onClose: () => void;
   title?: string;
+  /** Línea de apoyo bajo el título. */
+  subtitle?: string;
   /** Pie con acciones (normalmente `SuperButton`s). */
   footer?: ReactNode;
   align?: 'center' | 'top';

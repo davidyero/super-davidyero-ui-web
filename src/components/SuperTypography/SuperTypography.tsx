@@ -33,8 +33,10 @@ export const SuperTypography = ({
   title,
   className,
   children,
+  ...a11y
 }: SuperTypographyProps): ReactElement => (
   <Text
+    {...a11y}
     as={as ?? DEFAULT_TAG[variant]}
     $variant={variant}
     $color={color ?? defaultColorFor(variant)}

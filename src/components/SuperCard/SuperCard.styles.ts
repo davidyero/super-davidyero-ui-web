@@ -16,12 +16,16 @@ const BG: Record<CardVariant, { background: string; border: string; boxShadow: s
   outline: { background: 'transparent', border: `1px solid ${v.borderStrong}`, boxShadow: 'none' },
 };
 
-export const CardRoot = styled.div<{
+export const CardRoot = styled('div', {
+  shouldForwardProp: (prop) => prop !== 'as' && !prop.startsWith('$'),
+})<{
   $variant: CardVariant;
   $padding: CardPadding;
   $interactive: boolean;
-}>(({ $variant, $padding, $interactive }) => ({
+  $minHeight?: number | string;
+}>(({ $variant, $padding, $interactive, $minHeight }) => ({
   display: 'block',
+  minHeight: $minHeight,
   boxSizing: 'border-box',
   width: '100%',
   minWidth: 0,
@@ -40,3 +44,21 @@ export const CardRoot = styled.div<{
       }
     : {}),
 }));
+
+export const CardHeader = styled.div<{ $padding: CardPadding }>(({ $padding }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  gap: space.md,
+  marginBottom: space.md,
+  // Sin padding (tablas a sangre) la cabecera se indenta para no pegarse al borde.
+  padding: $padding === 'none' ? `${space.md} ${space.lg} 0` : 0,
+  minWidth: 0,
+}));
+
+export const CardTitleArea = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2px',
+  minWidth: 0,
+});

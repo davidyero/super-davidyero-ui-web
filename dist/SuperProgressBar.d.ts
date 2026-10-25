@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-type ProgressTone = 'primary' | 'success' | 'warning' | 'danger';
+type ProgressTone = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 interface SuperProgressBarProps {
     value: number;
     max?: number;

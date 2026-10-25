@@ -19,6 +19,9 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
     rightIcon,
     size = 'md',
     fullWidth = false,
+    invalid = false,
+    mono = false,
+    onClear,
     id,
     type = 'text',
     disabled,
@@ -35,7 +38,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
   return (
     <FieldRoot $fullWidth={fullWidth} className={className}>
       {label ? <FieldLabel htmlFor={inputId}>{label}</FieldLabel> : null}
-      <Box $invalid={Boolean(error)} $size={size} $disabled={Boolean(disabled)}>
+      <Box $invalid={Boolean(error) || invalid} $size={size} $disabled={Boolean(disabled)}>
         {leftIcon ? <SuperIcon name={leftIcon} size={18} /> : null}
         <Input
           {...rest}
@@ -43,7 +46,8 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
           id={inputId}
           type={effectiveType}
           disabled={disabled}
-          aria-invalid={error ? true : undefined}
+          $mono={mono}
+          aria-invalid={error || invalid ? true : undefined}
           aria-describedby={describedBy}
         />
         {isPassword ? (
@@ -56,6 +60,15 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
             disabled={disabled}
           >
             <SuperIcon name={revealed ? 'eyeOff' : 'eye'} size={18} />
+          </Toggle>
+        ) : onClear && rest.value !== undefined && rest.value !== '' ? (
+          <Toggle
+            type="button"
+            onClick={onClear}
+            aria-label={labels.clear ?? labels.close}
+            disabled={disabled}
+          >
+            <SuperIcon name="close" size={18} />
           </Toggle>
         ) : rightIcon ? (
           <SuperIcon name={rightIcon} size={18} />

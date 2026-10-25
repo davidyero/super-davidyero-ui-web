@@ -1,5 +1,22 @@
 # Changelog — @davidyero/ui-web
 
+## 0.4.0 — 2026-10-24
+
+Lo que necesitó el dashboard (segunda app migrada) para quedarse sin copias locales.
+Retrocompatible.
+
+- `SuperCard`: cabecera opcional (`title`, `subtitle`, `trailing`), `minHeight` y atributos
+  ARIA (`role`, `tabIndex`, `aria-*`) para cards interactivas.
+- `SuperBadge`: `wrap` (texto largo en varias líneas) y `onRemove` + `removeLabel` (etiqueta
+  con X para quitarla).
+- `SuperButton`: variante `success` (confirmar algo positivo, mismo patrón que `danger`).
+- `SuperInput`: `invalid` (sin mensaje), `mono` (importes, códigos) y `onClear` (X para
+  vaciar; su etiqueta sale de `labels.clear`, opcional).
+- `SuperModal`: `subtitle` bajo el título.
+- `SuperProgressBar`: tono `info`.
+- `SuperSkeleton`: `aspectRatio` (gana a `height`).
+- `SuperTypography`: `role`, `aria-live` y `aria-label` (mensajes de estado anunciados).
+
 ## 0.3.0 — 2026-10-24
 
 Lo que echó en falta la plantilla `template-web`. Retrocompatible.

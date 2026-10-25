@@ -65,10 +65,12 @@ var SuperTypography = ({
   id,
   title,
   className,
-  children
+  children,
+  ...a11y
 }) => /* @__PURE__ */ jsx(
   Text,
   {
+    ...a11y,
     as: as ?? DEFAULT_TAG[variant],
     $variant: variant,
     $color: color ?? defaultColorFor(variant),

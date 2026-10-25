@@ -8,4 +8,10 @@ export interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   rightIcon?: string;
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  /** Marca el campo como inválido sin mensaje (el mensaje va en `error`). */
+  invalid?: boolean;
+  /** Texto en monoespaciada (importes, códigos). */
+  mono?: boolean;
+  /** Si se pasa y hay valor, aparece una X para vaciar el campo. */
+  onClear?: () => void;
 }

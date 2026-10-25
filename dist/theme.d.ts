@@ -12,6 +12,8 @@ interface SuperLabels {
     close: string;
     loading: string;
     dismiss: string;
+    /** Botón de vaciar un campo (`SuperInput` con `onClear`). Opcional: si falta, se usa `close`. */
+    clear?: string;
 }
 /** Iconos internos de la librería (nombre semántico → id de Iconify). */
 declare const DEFAULT_ICONS: {

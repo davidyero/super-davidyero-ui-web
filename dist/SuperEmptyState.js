@@ -1,4 +1,4 @@
-import { SuperTypography } from './chunk-4J2IOUG6.js';
+import { SuperTypography } from './chunk-XCRJXV2B.js';
 import { SuperIcon } from './chunk-ZLC5VFBD.js';
 import './chunk-V6RXFFM7.js';
 import { space } from './chunk-BJDG5RNM.js';

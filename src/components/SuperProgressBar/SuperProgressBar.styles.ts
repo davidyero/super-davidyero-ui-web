@@ -8,6 +8,7 @@ const FILL: Record<ProgressTone, string> = {
   success: v.success,
   warning: v.warning,
   danger: v.danger,
+  info: v.info,
 };
 
 export const Row = styled.div({

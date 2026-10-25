@@ -24,6 +24,7 @@ var SuperSkeleton = ({
   width,
   height,
   lines = 3,
+  aspectRatio,
   className
 }) => {
   if (variant === "circle") {
@@ -45,8 +46,9 @@ var SuperSkeleton = ({
     Shimmer,
     {
       $w: width ?? "100%",
-      $h: height ?? "80px",
+      $h: aspectRatio ? "auto" : height ?? "80px",
       $round: false,
+      style: aspectRatio ? { aspectRatio } : void 0,
       className,
       "aria-hidden": true
     }
