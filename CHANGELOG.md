@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.4.2 — 2026-11-06
+
+- `SuperThemeProvider`: en pantallas táctiles, todo `input`, `textarea` y `select` de la app va a
+  16px, aunque no sea del design system. Evita el zoom de iOS al enfocar.
+
 ## 0.4.1 — 2026-11-06
 
 - `SuperInput`, `SuperTextarea` y demás campos: texto a 16px en pantallas táctiles. Con 14px,

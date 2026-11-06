@@ -26,6 +26,11 @@ var SuperThemeProvider = ({
       {
         styles: {
           ":root": { ...vars, colorScheme: mode },
+          // iOS amplía la página al enfocar un campo con letra de menos de 16px y no la
+          // devuelve. Red de seguridad también para campos que no son del design system.
+          "@media (pointer: coarse)": {
+            "input, textarea, select": { fontSize: "16px !important" }
+          },
           "@keyframes sd-spin": { to: { transform: "rotate(360deg)" } },
           "@keyframes sd-shimmer": {
             "0%": { backgroundPosition: "200% 0" },
