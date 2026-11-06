@@ -60,6 +60,9 @@ export const controlText = {
   color: v.text,
   fontFamily: v.font.base,
   fontSize: '14px',
+  // En pantallas táctiles, 16px: con menos, iOS amplía la página al enfocar el campo
+  // y no la devuelve a su tamaño.
+  '@media (pointer: coarse)': { fontSize: '16px' },
   '&::placeholder': { color: v.textMuted },
   '&:disabled': { cursor: 'not-allowed' },
 } as const;
