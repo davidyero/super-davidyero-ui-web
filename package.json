@@ -1,6 +1,6 @@
 {
   "name": "@davidyero/ui-web",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Design system web del ecosistema super-davidyero: componentes Super* con temas por variables CSS.",
   "type": "module",
   "license": "MIT",

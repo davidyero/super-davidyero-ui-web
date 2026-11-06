@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.5.0 — 2026-11-06
+
+- `SuperAuthTemplate`: plantilla de login y registro. Marca con su frase, el formulario sobre
+  vidrio y un fondo de rejilla con dos halos en `primary` y `accent` que se mueven despacio.
+  `highlights` pinta chips en carrusel (quietos y sin copia con movimiento reducido). En móvil
+  va en una columna; desde `lg`, marca a la izquierda y formulario a la derecha.
+
 ## 0.4.2 — 2026-11-06
 
 - `SuperThemeProvider`: en pantallas táctiles, todo `input`, `textarea` y `select` de la app va a

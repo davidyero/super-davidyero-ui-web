@@ -222,6 +222,7 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                                    |
 | `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                                   |
 | `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                           |
+| `SuperAuthTemplate`             | `brand`, `tagline`, `hint`, `highlights` (icon, label), `topActions`, `footer`, `children` (el formulario)                                              |
 | `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                           |
 
 ## Desarrollo
