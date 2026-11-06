@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.4.1 — 2026-11-06
+
+- `SuperInput`, `SuperTextarea` y demás campos: texto a 16px en pantallas táctiles. Con 14px,
+  iOS ampliaba la página al tocar un campo y la dejaba así.
+
 ## 0.4.0 — 2026-10-24
 
 Lo que necesitó el dashboard (segunda app migrada) para quedarse sin copias locales.
