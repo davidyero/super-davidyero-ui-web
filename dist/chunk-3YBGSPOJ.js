@@ -7,6 +7,8 @@ var DEFAULT_ICONS = {
   close: "solar:close-circle-broken",
   check: "solar:check-circle-broken",
   chevronDown: "solar:alt-arrow-down-broken",
+  chevronLeft: "solar:alt-arrow-left-broken",
+  chevronRight: "solar:alt-arrow-right-broken",
   info: "solar:info-circle-broken",
   success: "solar:check-circle-broken",
   warning: "solar:danger-triangle-broken",

@@ -223,6 +223,7 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                                   |
 | `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                           |
 | `SuperAuthTemplate`             | `brand`, `tagline`, `hint`, `highlights` (icon, label), `topActions`, `footer`, `children` (el formulario)                                              |
+| `SuperPagination`               | `page`, `pageCount`, `onPageChange`, `summary`, `labels`; con `pageSize`, `pageSizeOptions` y `onPageSizeChange`, el selector                           |
 | `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                           |
 
 ## Desarrollo
