@@ -1,4 +1,4 @@
-import { useSuperLabels } from './chunk-V6RXFFM7.js';
+import { useSuperLabels } from './chunk-3YBGSPOJ.js';
 import { space } from './chunk-BJDG5RNM.js';
 import { v } from './chunk-524J7YGQ.js';
 import styled from '@emotion/styled';

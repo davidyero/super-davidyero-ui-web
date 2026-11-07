@@ -22,6 +22,8 @@ declare const DEFAULT_ICONS: {
     readonly close: "solar:close-circle-broken";
     readonly check: "solar:check-circle-broken";
     readonly chevronDown: "solar:alt-arrow-down-broken";
+    readonly chevronLeft: "solar:alt-arrow-left-broken";
+    readonly chevronRight: "solar:alt-arrow-right-broken";
     readonly info: "solar:info-circle-broken";
     readonly success: "solar:check-circle-broken";
     readonly warning: "solar:danger-triangle-broken";

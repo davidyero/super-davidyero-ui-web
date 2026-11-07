@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.6.0 — 2026-11-06
+
+- `SuperPagination`: anterior y siguiente con un resumen entre las flechas (`summary`, lo arma
+  la app) y, opcional, el selector de cuántos por página (`pageSize`, `pageSizeOptions`,
+  `onPageSizeChange`). No corta la lista: eso lo hace la app.
+- Iconos internos `chevronLeft` y `chevronRight`.
+
 ## 0.5.0 — 2026-11-06
 
 - `SuperAuthTemplate`: plantilla de login y registro. Marca con su frase, el formulario sobre
