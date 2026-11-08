@@ -1,12 +1,24 @@
-import { useId, type ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import { createPortal } from 'react-dom';
 import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
-import { Box, Chevron, Select } from './SuperDropdown.styles';
+import {
+  Box,
+  Check,
+  Chevron,
+  List,
+  Option,
+  OptionLabel,
+  Trigger,
+  Value,
+} from './SuperDropdown.styles';
 import type { SuperDropdownProps } from './SuperDropdown.types';
+import { useSuperDropdown } from './useSuperDropdown';
 
 /**
- * Selector. Nativo a propósito: hereda teclado, accesibilidad y el picker del
- * sistema en móvil. Todo selector de la app pasa por aquí.
+ * Selector propio (no el nativo): la misma apariencia en todos los navegadores y en el
+ * tema de cada app. Teclado y lectores de pantalla siguen el patrón de WAI-ARIA para un
+ * combobox de solo selección. Todo selector de la app pasa por aquí.
  */
 export const SuperDropdown = <TValue extends string = string>({
   value,
@@ -23,49 +35,104 @@ export const SuperDropdown = <TValue extends string = string>({
   ariaLabel,
   className,
 }: SuperDropdownProps<TValue>): ReactElement => {
-  const autoId = useId();
-  const selectId = id ?? autoId;
-  const describedBy = error ? `${selectId}-error` : hint ? `${selectId}-hint` : undefined;
-
-  const handleChange = (raw: string): void => {
-    const match = options.find((o) => o.value === raw);
-    if (match) onChange(match.value);
-  };
+  // Las refs aparte: leer `d.*` durante el render no debe tocar una ref (react-hooks/refs).
+  const { triggerRef, listRef, ...d } = useSuperDropdown({
+    value,
+    options,
+    onChange,
+    disabled,
+    id,
+  });
+  const labelId = `${d.baseId}-label`;
+  const describedBy = error ? `${d.baseId}-error` : hint ? `${d.baseId}-hint` : undefined;
 
   return (
     <FieldRoot $fullWidth={fullWidth} className={className}>
-      {label ? <FieldLabel htmlFor={selectId}>{label}</FieldLabel> : null}
+      {label ? (
+        <FieldLabel id={labelId} htmlFor={d.baseId}>
+          {label}
+        </FieldLabel>
+      ) : null}
       <Box $invalid={Boolean(error)} $size={size} $disabled={disabled}>
-        <Select
-          id={selectId}
-          value={value}
-          disabled={disabled}
+        <Trigger
+          ref={triggerRef}
+          id={d.baseId}
+          type="button"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={d.open}
+          aria-controls={d.listId}
+          aria-activedescendant={d.open && d.active >= 0 ? d.optionId(d.active) : undefined}
+          aria-labelledby={label ? labelId : undefined}
           aria-label={label ? undefined : ariaLabel}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
-          onChange={(event) => handleChange(event.target.value)}
+          disabled={disabled}
+          onClick={d.toggle}
+          onKeyDown={d.onKeyDown}
+          $placeholder={!d.selected}
         >
-          {placeholder ? (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          ) : null}
-          {options.map((option) => (
-            <option key={option.value} value={option.value} disabled={option.disabled}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
-        <Chevron>
+          <Value>{d.selected?.label ?? placeholder ?? ''}</Value>
+        </Trigger>
+        <Chevron $open={d.open}>
           <SuperIcon name="chevronDown" size={16} />
         </Chevron>
       </Box>
+      {d.open && d.position
+        ? createPortal(
+            <List
+              ref={listRef}
+              id={d.listId}
+              role="listbox"
+              aria-labelledby={label ? labelId : undefined}
+              aria-label={label ? undefined : ariaLabel}
+              $up={d.position.up}
+              style={{
+                top: d.position.top,
+                left: d.position.left,
+                width: d.position.width,
+                maxHeight: d.position.maxHeight,
+              }}
+            >
+              {options.map((option, index) => {
+                const selected = option.value === value;
+                return (
+                  <Option
+                    key={option.value}
+                    id={d.optionId(index)}
+                    data-index={index}
+                    role="option"
+                    aria-selected={selected}
+                    aria-disabled={option.disabled || undefined}
+                    $active={index === d.active}
+                    $selected={selected}
+                    $disabled={Boolean(option.disabled)}
+                    // mousedown: elige antes de que el botón pierda el foco.
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      d.choose(index);
+                    }}
+                    onMouseEnter={() => !option.disabled && d.setActive(index)}
+                  >
+                    <OptionLabel>{option.label}</OptionLabel>
+                    {selected ? (
+                      <Check>
+                        <SuperIcon name="check" size={16} />
+                      </Check>
+                    ) : null}
+                  </Option>
+                );
+              })}
+            </List>,
+            document.body,
+          )
+        : null}
       {error ? (
-        <FieldError id={`${selectId}-error`} role="alert">
+        <FieldError id={`${d.baseId}-error`} role="alert">
           {error}
         </FieldError>
       ) : hint ? (
-        <FieldHint id={`${selectId}-hint`}>{hint}</FieldHint>
+        <FieldHint id={`${d.baseId}-hint`}>{hint}</FieldHint>
       ) : null}
     </FieldRoot>
   );

@@ -51,9 +51,8 @@ describe('0.6.0', () => {
       'aria-disabled',
       'true',
     );
-    fireEvent.change(screen.getByRole('combobox', { name: 'Por página' }), {
-      target: { value: '50' },
-    });
+    fireEvent.click(screen.getByRole('combobox', { name: 'Por página' }));
+    fireEvent.mouseDown(screen.getByRole('option', { name: '50' }));
     expect(onPageSizeChange).toHaveBeenCalledWith(50);
   });
 });

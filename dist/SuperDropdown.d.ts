@@ -24,8 +24,9 @@ interface SuperDropdownProps<TValue extends string = string> {
 }
 
 /**
- * Selector. Nativo a propósito: hereda teclado, accesibilidad y el picker del
- * sistema en móvil. Todo selector de la app pasa por aquí.
+ * Selector propio (no el nativo): la misma apariencia en todos los navegadores y en el
+ * tema de cada app. Teclado y lectores de pantalla siguen el patrón de WAI-ARIA para un
+ * combobox de solo selección. Todo selector de la app pasa por aquí.
  */
 declare const SuperDropdown: <TValue extends string = string>({ value, onChange, options, label, placeholder, error, hint, disabled, fullWidth, size, id, ariaLabel, className, }: SuperDropdownProps<TValue>) => ReactElement;
 

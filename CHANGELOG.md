@@ -1,5 +1,16 @@
 # Changelog — @davidyero/ui-web
 
+## 0.8.0 — 2026-11-08
+
+- `SuperDropdown` deja de ser el `<select>` nativo: botón con la opción elegida y una lista
+  propia con los colores del tema (elegida en `primarySoft` con check, activa en
+  `surfaceSunken`). Misma API: las apps no cambian código.
+- Teclado y lectores de pantalla con el patrón WAI-ARIA de combobox de solo selección:
+  flechas (saltan las deshabilitadas), Inicio/Fin, Enter/Espacio, Escape, Tab y búsqueda por
+  letra. Se cierra con clic fuera.
+- La lista va en un portal con posición fija: no la recorta un contenedor con scroll (columnas
+  de filtros, hojas). Si no cabe debajo, se abre hacia arriba.
+
 ## 0.7.0 — 2026-11-08
 
 Sin cambios visuales ni de API.
