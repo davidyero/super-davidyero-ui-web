@@ -24,18 +24,15 @@ var useSuperLoaderOverlay = (visible, delayMs) => {
   const wanted = visible ?? active;
   const [shown, setShown] = useState(false);
   useEffect(() => {
-    if (!wanted) {
-      setShown(false);
-      return void 0;
-    }
-    if (delayMs <= 0) {
-      setShown(true);
-      return void 0;
-    }
+    if (!wanted || delayMs <= 0) return void 0;
     const timer = setTimeout(() => setShown(true), delayMs);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      setShown(false);
+    };
   }, [wanted, delayMs]);
-  return shown && wanted;
+  if (!wanted) return false;
+  return delayMs <= 0 || shown;
 };
 var SuperLoaderOverlay = ({
   visible,

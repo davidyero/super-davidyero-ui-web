@@ -15,4 +15,5 @@ interface SuperSwitchProps {
 /** Interruptor on/off (`role="switch"`). */
 declare const SuperSwitch: ({ checked, onChange, label, hint, disabled, id, ariaLabel, className, }: SuperSwitchProps) => ReactElement;
 
-export { SuperSwitch, type SuperSwitchProps };
+export { SuperSwitch };
+export type { SuperSwitchProps };

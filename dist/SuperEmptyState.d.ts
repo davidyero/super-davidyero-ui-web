@@ -14,4 +14,5 @@ interface SuperEmptyStateProps {
 /** Estado vacío: qué pasa aquí y qué puede hacer el usuario. */
 declare const SuperEmptyState: ({ icon, title, description, action, compact, className, }: SuperEmptyStateProps) => ReactElement;
 
-export { SuperEmptyState, type SuperEmptyStateProps };
+export { SuperEmptyState };
+export type { SuperEmptyStateProps };

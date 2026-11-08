@@ -20,4 +20,5 @@ interface SuperSkeletonProps {
  */
 declare const SuperSkeleton: ({ variant, width, height, lines, aspectRatio, className, }: SuperSkeletonProps) => ReactElement;
 
-export { type SkeletonVariant, SuperSkeleton, type SuperSkeletonProps };
+export { SuperSkeleton };
+export type { SkeletonVariant, SuperSkeletonProps };

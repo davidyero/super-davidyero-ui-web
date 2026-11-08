@@ -8,17 +8,15 @@ export const useSuperLoaderOverlay = (visible: boolean | undefined, delayMs: num
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    if (!wanted) {
-      setShown(false);
-      return undefined;
-    }
-    if (delayMs <= 0) {
-      setShown(true);
-      return undefined;
-    }
+    if (!wanted || delayMs <= 0) return undefined;
     const timer = setTimeout(() => setShown(true), delayMs);
-    return () => clearTimeout(timer);
+    // Al dejar de quererse, se reinicia: la próxima vez vuelve a esperar el retardo.
+    return () => {
+      clearTimeout(timer);
+      setShown(false);
+    };
   }, [wanted, delayMs]);
 
-  return shown && wanted;
+  if (!wanted) return false;
+  return delayMs <= 0 || shown;
 };

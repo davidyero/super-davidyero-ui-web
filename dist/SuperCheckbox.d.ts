@@ -15,4 +15,5 @@ interface SuperCheckboxProps {
 /** Casilla de verificación con label, ayuda y error. */
 declare const SuperCheckbox: ({ checked, onChange, label, hint, error, disabled, id, ariaLabel, className, }: SuperCheckboxProps) => ReactElement;
 
-export { SuperCheckbox, type SuperCheckboxProps };
+export { SuperCheckbox };
+export type { SuperCheckboxProps };

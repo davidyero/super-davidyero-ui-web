@@ -20,4 +20,5 @@ interface SuperModalProps {
 /** Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar. */
 declare const SuperModal: ({ open, onClose, title, subtitle, footer, align, width, padded, closeOnBackdrop, children, }: SuperModalProps) => ReactElement | null;
 
-export { SuperModal, type SuperModalProps };
+export { SuperModal };
+export type { SuperModalProps };

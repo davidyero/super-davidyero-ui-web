@@ -45,4 +45,5 @@ declare const toast: {
 };
 declare const useToasts: () => ReadonlyArray<ToastItem>;
 
-export { type ShowToastInput, type ToastAction, type ToastItem, type ToastOptions, type ToastTone, toast, useToasts };
+export { toast, useToasts };
+export type { ShowToastInput, ToastAction, ToastItem, ToastOptions, ToastTone };

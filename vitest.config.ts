@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  esbuild: { jsx: 'automatic', jsxImportSource: '@emotion/react' },
+  // Vite 8 transforma con Oxc (antes esbuild): JSX de Emotion.
+  oxc: { jsx: { runtime: 'automatic', importSource: '@emotion/react' } },
   test: {
     environment: 'jsdom',
     globals: true,

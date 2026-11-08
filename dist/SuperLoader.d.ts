@@ -19,4 +19,5 @@ interface SuperLoaderProps {
 /** Indicador de carga. Para bloquear la pantalla usa `SuperLoaderOverlay`. */
 declare const SuperLoader: ({ size, layout, color, decorative, className, }: SuperLoaderProps) => ReactElement;
 
-export { type LoaderLayout, type LoaderSize, SuperLoader, type SuperLoaderProps };
+export { SuperLoader };
+export type { LoaderLayout, LoaderSize, SuperLoaderProps };

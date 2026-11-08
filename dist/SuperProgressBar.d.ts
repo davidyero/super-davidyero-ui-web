@@ -16,4 +16,5 @@ interface SuperProgressBarProps {
 /** Barra de progreso accesible (`role="progressbar"`). */
 declare const SuperProgressBar: ({ value, max, tone, size, label, showValue, className, }: SuperProgressBarProps) => ReactElement;
 
-export { type ProgressTone, SuperProgressBar, type SuperProgressBarProps };
+export { SuperProgressBar };
+export type { ProgressTone, SuperProgressBarProps };

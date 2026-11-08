@@ -23,4 +23,5 @@ interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 's
  */
 declare const SuperInput: react.ForwardRefExoticComponent<SuperInputProps & react.RefAttributes<HTMLInputElement>>;
 
-export { SuperInput, type SuperInputProps };
+export { SuperInput };
+export type { SuperInputProps };

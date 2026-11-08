@@ -108,4 +108,5 @@ declare const defineTokens: (tokens: SuperThemeTokens) => SuperThemeTokens;
 /** Mezcla los tokens de la app sobre los valores por defecto de ese modo. */
 declare const resolveTokens: (mode: SuperThemeMode, input?: SuperTokensInput) => SuperTokens;
 
-export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, DERIVED_COLOR_TOKEN_KEYS, type SuperColorTokens, type SuperDerivedColorTokens, type SuperFontTokens, type SuperRadiusTokens, type SuperShadowTokens, type SuperTextStyle, type SuperTextTokens, type SuperTextVariant, type SuperThemeMode, type SuperThemeTokens, type SuperTokens, type SuperTokensInput, defineTokens, resolveTokens };
+export { COLOR_TOKEN_KEYS, DEFAULT_TOKENS, DERIVED_COLOR_TOKEN_KEYS, defineTokens, resolveTokens };
+export type { SuperColorTokens, SuperDerivedColorTokens, SuperFontTokens, SuperRadiusTokens, SuperShadowTokens, SuperTextStyle, SuperTextTokens, SuperTextVariant, SuperThemeMode, SuperThemeTokens, SuperTokens, SuperTokensInput };

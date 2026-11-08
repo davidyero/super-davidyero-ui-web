@@ -29,4 +29,5 @@ interface SuperButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>,
  */
 declare const SuperButton: ({ variant, size, loading, disabled, fullWidth, leftIcon, rightIcon, iconOnly, href, external, type, onClick, children, ...rest }: SuperButtonProps) => ReactElement;
 
-export { type ButtonSize, type ButtonVariant, SuperButton, type SuperButtonProps };
+export { SuperButton };
+export type { ButtonSize, ButtonVariant, SuperButtonProps };

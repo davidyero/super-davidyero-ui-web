@@ -25,4 +25,5 @@ interface SuperTypographyProps {
 /** Todo texto de la app pasa por aquí. La escala vive en un solo sitio y no baja de 13px. */
 declare const SuperTypography: ({ variant, as, color, weight, align, truncate, uppercase, mono, id, title, className, children, ...a11y }: SuperTypographyProps) => ReactElement;
 
-export { SuperTypography, type SuperTypographyProps, TextVariant, type TypographyAlign, type TypographyColor };
+export { SuperTypography, TextVariant };
+export type { SuperTypographyProps, TypographyAlign, TypographyColor };

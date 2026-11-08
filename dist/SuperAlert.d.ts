@@ -16,4 +16,5 @@ interface SuperAlertProps {
 /** Aviso en línea. Fondo soft con su token de texto en claro y oscuro. */
 declare const SuperAlert: ({ tone, title, children, dismissible, onDismiss, action, className, }: SuperAlertProps) => ReactElement;
 
-export { type AlertTone, SuperAlert, type SuperAlertProps };
+export { SuperAlert };
+export type { AlertTone, SuperAlertProps };

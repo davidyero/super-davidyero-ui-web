@@ -29,4 +29,5 @@ interface SuperDropdownProps<TValue extends string = string> {
  */
 declare const SuperDropdown: <TValue extends string = string>({ value, onChange, options, label, placeholder, error, hint, disabled, fullWidth, size, id, ariaLabel, className, }: SuperDropdownProps<TValue>) => ReactElement;
 
-export { SuperDropdown, type SuperDropdownOption, type SuperDropdownProps };
+export { SuperDropdown };
+export type { SuperDropdownOption, SuperDropdownProps };

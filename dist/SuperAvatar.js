@@ -1,6 +1,6 @@
 import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { jsx } from '@emotion/react/jsx-runtime';
 
@@ -29,10 +29,9 @@ var SuperAvatar = ({
   size = 36,
   className
 }) => {
-  const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [src]);
-  const showImage = Boolean(src) && !failed;
-  return /* @__PURE__ */ jsx(Circle, { $size: size, className, role: "img", "aria-label": name, children: showImage ? /* @__PURE__ */ jsx(Img, { src, alt: "", onError: () => setFailed(true) }) : /* @__PURE__ */ jsx("span", { "aria-hidden": true, children: initialsOf(name) }) });
+  const [failedSrc, setFailedSrc] = useState(void 0);
+  const showImage = Boolean(src) && failedSrc !== src;
+  return /* @__PURE__ */ jsx(Circle, { $size: size, className, role: "img", "aria-label": name, children: showImage ? /* @__PURE__ */ jsx(Img, { src, alt: "", onError: () => setFailedSrc(src) }) : /* @__PURE__ */ jsx("span", { "aria-hidden": true, children: initialsOf(name) }) });
 };
 
 export { SuperAvatar };

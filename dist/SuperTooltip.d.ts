@@ -13,4 +13,5 @@ interface SuperTooltipProps {
 /** Ayuda breve al pasar el ratón o enfocar. Nunca guarda información esencial. */
 declare const SuperTooltip: ({ label, children, placement, className, }: SuperTooltipProps) => ReactElement;
 
-export { SuperTooltip, type SuperTooltipProps };
+export { SuperTooltip };
+export type { SuperTooltipProps };

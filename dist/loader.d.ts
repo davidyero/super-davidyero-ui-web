@@ -27,4 +27,5 @@ declare const loaderStore: {
 /** true mientras haya al menos una petición activa. */
 declare const useLoaderActive: () => boolean;
 
-export { type TrackOptions, loaderStore, useLoaderActive };
+export { loaderStore, useLoaderActive };
+export type { TrackOptions };

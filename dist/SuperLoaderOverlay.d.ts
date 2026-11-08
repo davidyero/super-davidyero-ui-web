@@ -17,4 +17,5 @@ interface SuperLoaderOverlayProps {
  */
 declare const SuperLoaderOverlay: ({ visible, delayMs, }: SuperLoaderOverlayProps) => ReactElement | null;
 
-export { SuperLoaderOverlay, type SuperLoaderOverlayProps };
+export { SuperLoaderOverlay };
+export type { SuperLoaderOverlayProps };

@@ -11,4 +11,5 @@ interface SuperToastProps {
  */
 declare const SuperToast: ({ position }: SuperToastProps) => ReactElement;
 
-export { SuperToast, type SuperToastProps };
+export { SuperToast };
+export type { SuperToastProps };

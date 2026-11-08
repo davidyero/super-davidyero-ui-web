@@ -66,7 +66,9 @@ var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:
 var useSuperModal = (open, onClose) => {
   const dialogRef = useRef(null);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
   useEffect(() => {
     if (!open) return void 0;
     const previouslyFocused = document.activeElement;

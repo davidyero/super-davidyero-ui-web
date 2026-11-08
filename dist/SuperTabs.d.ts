@@ -26,4 +26,5 @@ interface SuperTabsProps<TId extends string = string> {
  */
 declare const SuperTabs: <TId extends string = string>({ items, value, onChange, ariaLabel, idBase, size, className, }: SuperTabsProps<TId>) => ReactElement;
 
-export { type SuperTabItem, SuperTabs, type SuperTabsProps };
+export { SuperTabs };
+export type { SuperTabItem, SuperTabsProps };

@@ -12,4 +12,5 @@ interface SuperBulletListProps {
 /** Lista con viñetas: un único marcador en toda la app (nada de `•` sueltos). */
 declare const SuperBulletList: ({ items, spacing, ordered, className, }: SuperBulletListProps) => ReactElement;
 
-export { SuperBulletList, type SuperBulletListProps };
+export { SuperBulletList };
+export type { SuperBulletListProps };

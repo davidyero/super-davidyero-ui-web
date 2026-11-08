@@ -30,4 +30,5 @@ interface SuperAuthTemplateProps {
  */
 declare const SuperAuthTemplate: ({ brand, tagline, hint, highlights, topActions, footer, children, className, }: SuperAuthTemplateProps) => ReactElement;
 
-export { type SuperAuthHighlight, SuperAuthTemplate, type SuperAuthTemplateProps };
+export { SuperAuthTemplate };
+export type { SuperAuthHighlight, SuperAuthTemplateProps };

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from 'react';
+import { useState, type ReactElement } from 'react';
 import { Circle, Img } from './SuperAvatar.styles';
 import type { SuperAvatarProps } from './SuperAvatar.types';
 
@@ -17,14 +17,14 @@ export const SuperAvatar = ({
   size = 36,
   className,
 }: SuperAvatarProps): ReactElement => {
-  const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [src]);
-  const showImage = Boolean(src) && !failed;
+  // Se recuerda qué `src` falló: si cambia, se vuelve a intentar con la nueva.
+  const [failedSrc, setFailedSrc] = useState<string | undefined>(undefined);
+  const showImage = Boolean(src) && failedSrc !== src;
 
   return (
     <Circle $size={size} className={className} role="img" aria-label={name}>
       {showImage ? (
-        <Img src={src} alt="" onError={() => setFailed(true)} />
+        <Img src={src} alt="" onError={() => setFailedSrc(src)} />
       ) : (
         <span aria-hidden>{initialsOf(name)}</span>
       )}

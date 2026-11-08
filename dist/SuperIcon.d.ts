@@ -18,4 +18,5 @@ interface SuperIconProps {
 /** Icono por nombre semántico. Todo icono de la app pasa por aquí. */
 declare const SuperIcon: ({ name, size, color, spin, label, className, }: SuperIconProps) => ReactElement;
 
-export { type IconColor, SuperIcon, type SuperIconProps };
+export { SuperIcon };
+export type { IconColor, SuperIconProps };

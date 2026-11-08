@@ -12,4 +12,5 @@ interface SuperAvatarProps {
 /** Avatar con foto o, si falta o falla, las iniciales. */
 declare const SuperAvatar: ({ name, src, size, className, }: SuperAvatarProps) => ReactElement;
 
-export { SuperAvatar, type SuperAvatarProps };
+export { SuperAvatar };
+export type { SuperAvatarProps };

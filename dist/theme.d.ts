@@ -67,4 +67,5 @@ interface SuperThemeProviderProps {
  */
 declare const SuperThemeProvider: ({ tokens, mode, labels, icons, LinkComponent, children, }: SuperThemeProviderProps) => ReactElement;
 
-export { DEFAULT_ICONS, type SuperLabels, type SuperLinkComponent, SuperThemeMode, SuperThemeProvider, type SuperThemeProviderProps, SuperThemeTokens, useSuperLabels, useSuperTheme };
+export { DEFAULT_ICONS, SuperThemeMode, SuperThemeProvider, SuperThemeTokens, useSuperLabels, useSuperTheme };
+export type { SuperLabels, SuperLinkComponent, SuperThemeProviderProps };

@@ -25,4 +25,5 @@ interface SuperCardProps extends Pick<AriaAttributes, 'aria-label' | 'aria-label
 /** Contenedor de bloque. Variantes por `variant`/`padding`, nunca una card nueva. */
 declare const SuperCard: ({ variant, padding, interactive, title, subtitle, trailing, minHeight, as, onClick, className, id, children, ...aria }: SuperCardProps) => ReactElement;
 
-export { type CardPadding, type CardVariant, SuperCard, type SuperCardProps };
+export { SuperCard };
+export type { CardPadding, CardVariant, SuperCardProps };

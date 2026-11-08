@@ -23,4 +23,5 @@ interface SuperBadgeProps {
 /** Etiqueta/pill. El tono va por `tone`; el texto nunca depende solo del color. */
 declare const SuperBadge: ({ tone, size, icon, dot, mono, wrap, onRemove, removeLabel, className, children, }: SuperBadgeProps) => ReactElement;
 
-export { type BadgeSize, type BadgeTone, SuperBadge, type SuperBadgeProps };
+export { SuperBadge };
+export type { BadgeSize, BadgeTone, SuperBadgeProps };

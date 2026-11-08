@@ -1,5 +1,18 @@
 # Changelog — @davidyero/ui-web
 
+## 0.7.0 — 2026-11-08
+
+Sin cambios visuales ni de API.
+
+- Peers: `react` y `react-dom` pasan de `>=18` a `^18.2.0 || ^19.0.0` (los dos que se prueban).
+- Herramientas a su mayor: eslint 10, `@eslint/js` 10, `eslint-plugin-react-hooks` 7, vite 8,
+  `@vitejs/plugin-react` 6, vitest 5, jsdom 31, `@testing-library/jest-dom` 7, tsup 9 y
+  TypeScript 6.0. Vitest transforma con Oxc (`oxc.jsx`) en vez de esbuild.
+- Las reglas nuevas de react-hooks 7 pidieron tres ajustes sin cambio de comportamiento:
+  `SuperAvatar` recuerda qué `src` falló en vez de reiniciar con un efecto, `SuperModal`
+  actualiza su ref de `onClose` en un efecto y `SuperLoaderOverlay` reinicia el retardo en el
+  cleanup.
+
 ## 0.6.1 — 2026-11-08
 
 Sin cambios visuales.

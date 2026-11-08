@@ -139,4 +139,5 @@ declare const focusVisible: {
     readonly boxShadow: `0 0 0 3px ${string}`;
 };
 
-export { type Breakpoint, type FontWeight, MIN_FONT_SIZE, type TextVariant, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export type { Breakpoint, FontWeight, TextVariant };

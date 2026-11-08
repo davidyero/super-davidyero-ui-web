@@ -20,4 +20,5 @@ interface SuperTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
 /** Texto largo con contador opcional. */
 declare const SuperTextarea: react.ForwardRefExoticComponent<SuperTextareaProps & react.RefAttributes<HTMLTextAreaElement>>;
 
-export { SuperTextarea, type SuperTextareaProps };
+export { SuperTextarea };
+export type { SuperTextareaProps };
