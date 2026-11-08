@@ -1,26 +1,12 @@
-import { SuperTypography } from './chunk-XCRJXV2B.js';
-import { space, focusVisible, transition } from './chunk-BJDG5RNM.js';
+import { ChoiceWrap, ChoiceHiddenInput, ChoiceTexts } from './chunk-F7JA7GZL.js';
+import { SuperTypography } from './chunk-EVE5RNUX.js';
+import { focusVisible, transition } from './chunk-MULP5OKD.js';
 import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';
 import { useId } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
-var Wrap = styled.label(({ $disabled }) => ({
-  display: "inline-flex",
-  alignItems: "flex-start",
-  gap: space.sm,
-  cursor: $disabled ? "not-allowed" : "pointer",
-  opacity: $disabled ? 0.55 : 1,
-  userSelect: "none"
-}));
-var HiddenInput = styled.input({
-  position: "absolute",
-  opacity: 0,
-  width: "1px",
-  height: "1px",
-  margin: 0
-});
 var Box = styled.span(
   ({ $checked, $invalid }) => ({
     display: "inline-flex",
@@ -38,7 +24,6 @@ var Box = styled.span(
     "input:focus-visible + &": focusVisible
   })
 );
-var Texts = styled.span({ display: "flex", flexDirection: "column", gap: "2px" });
 var CheckMark = () => /* @__PURE__ */ jsx("svg", { width: "12", height: "12", viewBox: "0 0 12 12", "aria-hidden": true, focusable: "false", children: /* @__PURE__ */ jsx(
   "path",
   {
@@ -64,9 +49,9 @@ var SuperCheckbox = ({
   const autoId = useId();
   const inputId = id ?? autoId;
   const describedBy = error ? `${inputId}-error` : hint ? `${inputId}-hint` : void 0;
-  return /* @__PURE__ */ jsxs(Wrap, { $disabled: disabled, htmlFor: inputId, className, children: [
+  return /* @__PURE__ */ jsxs(ChoiceWrap, { $disabled: disabled, htmlFor: inputId, className, children: [
     /* @__PURE__ */ jsx(
-      HiddenInput,
+      ChoiceHiddenInput,
       {
         id: inputId,
         type: "checkbox",
@@ -79,7 +64,7 @@ var SuperCheckbox = ({
       }
     ),
     /* @__PURE__ */ jsx(Box, { $checked: checked, $invalid: Boolean(error), "aria-hidden": true, children: checked ? /* @__PURE__ */ jsx(CheckMark, {}) : null }),
-    label || hint || error ? /* @__PURE__ */ jsxs(Texts, { children: [
+    label || hint || error ? /* @__PURE__ */ jsxs(ChoiceTexts, { children: [
       label ? /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "text", as: "span", children: label }) : null,
       error ? /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", color: "danger", as: "span", id: `${inputId}-error`, children: error }) : hint ? /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", id: `${inputId}-hint`, children: hint }) : null
     ] }) : null

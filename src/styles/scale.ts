@@ -9,6 +9,7 @@ export const space = {
   lg: '16px',
   xl: '24px',
   xxl: '32px',
+  xxxl: '48px',
 } as const;
 
 /**
@@ -31,6 +32,14 @@ export const textScale = {
 } as const;
 
 export type TextVariant = keyof typeof textScale;
+
+/**
+ * Titulares fluidos, fuera de la escala fija: crecen con la pantalla. `hero` va de 26px en
+ * un móvil a 44px en escritorio (titular de SuperAuthTemplate).
+ */
+export const fluidText = {
+  hero: { fontSize: 'clamp(26px, 6vw, 44px)', lineHeight: 1.12, letterSpacing: '-0.02em' },
+} as const;
 
 export const MIN_FONT_SIZE = 13;
 

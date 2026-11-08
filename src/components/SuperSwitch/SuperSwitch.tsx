@@ -1,6 +1,11 @@
 import { useId, type ReactElement } from 'react';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { HiddenInput, Texts, Thumb, Track, Wrap } from './SuperSwitch.styles';
+import {
+  ChoiceHiddenInput as HiddenInput,
+  ChoiceTexts as Texts,
+  ChoiceWrap as Wrap,
+} from '../../styles/choice';
+import { Thumb, Track } from './SuperSwitch.styles';
 import type { SuperSwitchProps } from './SuperSwitch.types';
 
 /** Interruptor on/off (`role="switch"`). */

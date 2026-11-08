@@ -60,23 +60,21 @@ export const SuperAuthTemplate = ({
         {highlights.length > 0 ? (
           <Marquee>
             <Track>
-              {highlights.map((item) => (
-                <Chip key={item.label}>
-                  <SuperIcon name={item.icon} size={14} />
-                  <SuperTypography variant="caption" as="span" color="inherit">
-                    {item.label}
-                  </SuperTypography>
-                </Chip>
-              ))}
               {/* Segunda copia para que el carrusel no tenga corte; el lector solo oye la primera. */}
-              {highlights.map((item) => (
-                <Chip key={`${item.label}-copy`} $copy aria-hidden>
-                  <SuperIcon name={item.icon} size={14} />
-                  <SuperTypography variant="caption" as="span" color="inherit">
-                    {item.label}
-                  </SuperTypography>
-                </Chip>
-              ))}
+              {[false, true].map((copy) =>
+                highlights.map((item) => (
+                  <Chip
+                    key={copy ? `${item.label}-copy` : item.label}
+                    $copy={copy}
+                    aria-hidden={copy || undefined}
+                  >
+                    <SuperIcon name={item.icon} size={14} />
+                    <SuperTypography variant="caption" as="span" color="inherit">
+                      {item.label}
+                    </SuperTypography>
+                  </Chip>
+                )),
+              )}
             </Track>
           </Marquee>
         ) : null}
