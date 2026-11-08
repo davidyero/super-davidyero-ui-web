@@ -57,6 +57,7 @@ export const List = styled.ul<{ $up: boolean }>(({ $up }) => ({
   padding: space.xs,
   listStyle: 'none',
   boxSizing: 'border-box',
+  width: 'max-content',
   overflowY: 'auto',
   overscrollBehavior: 'contain',
   borderRadius: v.radius.md,

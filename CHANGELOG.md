@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.8.1 — 2026-11-08
+
+- `SuperDropdown`: la lista mide al menos lo que el botón y crece si una opción lo necesita
+  (sin salirse de la pantalla). Antes "Orden: fecha" se partía en dos líneas en un botón estrecho.
+
 ## 0.8.0 — 2026-11-08
 
 - `SuperDropdown` deja de ser el `<select>` nativo: botón con la opción elegida y una lista

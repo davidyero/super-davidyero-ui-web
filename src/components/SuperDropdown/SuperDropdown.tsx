@@ -90,7 +90,10 @@ export const SuperDropdown = <TValue extends string = string>({
               style={{
                 top: d.position.top,
                 left: d.position.left,
-                width: d.position.width,
+                // Al menos el ancho del botón; más si una opción lo necesita, sin salirse de la
+                // pantalla (ahí el texto baja de línea).
+                minWidth: d.position.width,
+                maxWidth: `calc(100vw - ${d.position.left + 8}px)`,
                 maxHeight: d.position.maxHeight,
               }}
             >
