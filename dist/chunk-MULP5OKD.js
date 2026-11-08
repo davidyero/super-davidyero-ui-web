@@ -8,7 +8,8 @@ var space = {
   md: "12px",
   lg: "16px",
   xl: "24px",
-  xxl: "32px"
+  xxl: "32px",
+  xxxl: "48px"
 };
 var textScale = {
   display: { fontSize: "32px", lineHeight: 1.2, fontWeight: 700, heading: true },
@@ -24,6 +25,9 @@ var textScale = {
   bodySmall: { fontSize: "13px", lineHeight: 1.5, fontWeight: 400, heading: false },
   caption: { fontSize: "13px", lineHeight: 1.45, fontWeight: 400, heading: false },
   label: { fontSize: "13px", lineHeight: 1.4, fontWeight: 600, heading: false }
+};
+var fluidText = {
+  hero: { fontSize: "clamp(26px, 6vw, 44px)", lineHeight: 1.12, letterSpacing: "-0.02em" }
 };
 var MIN_FONT_SIZE = 13;
 var fontWeight = { regular: 400, medium: 500, semibold: 600, bold: 700 };
@@ -41,4 +45,4 @@ var focusVisible = {
   boxShadow: `0 0 0 3px ${v.focusRing}`
 };
 
-export { MIN_FONT_SIZE, breakpoints, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };

@@ -1,26 +1,12 @@
-import { SuperTypography } from './chunk-XCRJXV2B.js';
-import { space, focusVisible, transition } from './chunk-BJDG5RNM.js';
+import { ChoiceWrap, ChoiceHiddenInput, ChoiceTexts } from './chunk-F7JA7GZL.js';
+import { SuperTypography } from './chunk-EVE5RNUX.js';
+import { focusVisible, transition } from './chunk-MULP5OKD.js';
 import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';
 import { useId } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
-var Wrap = styled.label(({ $disabled }) => ({
-  display: "inline-flex",
-  alignItems: "flex-start",
-  gap: space.sm,
-  cursor: $disabled ? "not-allowed" : "pointer",
-  opacity: $disabled ? 0.55 : 1,
-  userSelect: "none"
-}));
-var HiddenInput = styled.input({
-  position: "absolute",
-  opacity: 0,
-  width: "1px",
-  height: "1px",
-  margin: 0
-});
 var Track = styled.span(({ $checked }) => ({
   position: "relative",
   flexShrink: 0,
@@ -42,7 +28,6 @@ var Thumb = styled.span(({ $checked }) => ({
   boxShadow: v.shadow.sm,
   transition: `left ${transition}`
 }));
-var Texts = styled.span({ display: "flex", flexDirection: "column", gap: "2px" });
 var SuperSwitch = ({
   checked,
   onChange,
@@ -55,9 +40,9 @@ var SuperSwitch = ({
 }) => {
   const autoId = useId();
   const inputId = id ?? autoId;
-  return /* @__PURE__ */ jsxs(Wrap, { $disabled: disabled, htmlFor: inputId, className, children: [
+  return /* @__PURE__ */ jsxs(ChoiceWrap, { $disabled: disabled, htmlFor: inputId, className, children: [
     /* @__PURE__ */ jsx(
-      HiddenInput,
+      ChoiceHiddenInput,
       {
         id: inputId,
         type: "checkbox",
@@ -71,7 +56,7 @@ var SuperSwitch = ({
       }
     ),
     /* @__PURE__ */ jsx(Track, { $checked: checked, "aria-hidden": true, children: /* @__PURE__ */ jsx(Thumb, { $checked: checked }) }),
-    label || hint ? /* @__PURE__ */ jsxs(Texts, { children: [
+    label || hint ? /* @__PURE__ */ jsxs(ChoiceTexts, { children: [
       label ? /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "text", as: "span", children: label }) : null,
       hint ? /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", id: `${inputId}-hint`, children: hint }) : null
     ] }) : null

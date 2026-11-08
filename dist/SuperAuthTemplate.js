@@ -1,7 +1,7 @@
 import { SuperIcon } from './chunk-SMPTWZST.js';
 import './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-XCRJXV2B.js';
-import { space, media } from './chunk-BJDG5RNM.js';
+import { SuperTypography } from './chunk-EVE5RNUX.js';
+import { space, media, fluidText } from './chunk-MULP5OKD.js';
 import { v } from './chunk-524J7YGQ.js';
 import './chunk-5HHPKIMZ.js';
 import { keyframes } from '@emotion/react';
@@ -98,7 +98,7 @@ var Hero = styled.section({
     textAlign: "left",
     justifyContent: "flex-start",
     gap: space.xl,
-    padding: "48px",
+    padding: space.xxxl,
     borderRight: `1px solid ${v.border}`,
     background: tint(v.surface, 55)
   }
@@ -122,11 +122,7 @@ var Pitch = styled.div({
   [media.lg]: { margin: "auto 0" }
 });
 var Tagline = styled.div({
-  "& > *": {
-    fontSize: "clamp(26px, 6vw, 44px)",
-    lineHeight: 1.12,
-    letterSpacing: "-0.02em"
-  }
+  "& > *": fluidText.hero
 });
 var Rule = styled.span({
   display: "block",
@@ -218,16 +214,20 @@ var SuperAuthTemplate = ({
       /* @__PURE__ */ jsx(Tagline, { children: /* @__PURE__ */ jsx(SuperTypography, { variant: "display", as: "p", children: tagline }) }),
       /* @__PURE__ */ jsx(Rule, { "aria-hidden": true }),
       hint ? /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textMuted", children: hint }) : null,
-      highlights.length > 0 ? /* @__PURE__ */ jsx(Marquee, { children: /* @__PURE__ */ jsxs(Track, { children: [
-        highlights.map((item) => /* @__PURE__ */ jsxs(Chip, { children: [
-          /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 14 }),
-          /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", color: "inherit", children: item.label })
-        ] }, item.label)),
-        highlights.map((item) => /* @__PURE__ */ jsxs(Chip, { $copy: true, "aria-hidden": true, children: [
-          /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 14 }),
-          /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", color: "inherit", children: item.label })
-        ] }, `${item.label}-copy`))
-      ] }) }) : null
+      highlights.length > 0 ? /* @__PURE__ */ jsx(Marquee, { children: /* @__PURE__ */ jsx(Track, { children: [false, true].map(
+        (copy) => highlights.map((item) => /* @__PURE__ */ jsxs(
+          Chip,
+          {
+            $copy: copy,
+            "aria-hidden": copy || void 0,
+            children: [
+              /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 14 }),
+              /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", color: "inherit", children: item.label })
+            ]
+          },
+          copy ? `${item.label}-copy` : item.label
+        ))
+      ) }) }) : null
     ] })
   ] }),
   /* @__PURE__ */ jsx(FormArea, { children: /* @__PURE__ */ jsx(Card, { children }) }),

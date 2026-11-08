@@ -1,6 +1,11 @@
 import { useId, type ReactElement } from 'react';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { Box, HiddenInput, Texts, Wrap } from './SuperCheckbox.styles';
+import {
+  ChoiceHiddenInput as HiddenInput,
+  ChoiceTexts as Texts,
+  ChoiceWrap as Wrap,
+} from '../../styles/choice';
+import { Box } from './SuperCheckbox.styles';
 import type { SuperCheckboxProps } from './SuperCheckbox.types';
 
 const CheckMark = (): ReactElement => (

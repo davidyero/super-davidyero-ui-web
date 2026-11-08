@@ -1,6 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { media, space } from '../../styles/scale';
+import { fluidText, media, space } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 const tint = (color: string, amount: number): string =>
@@ -106,7 +106,7 @@ export const Hero = styled.section({
     textAlign: 'left',
     justifyContent: 'flex-start',
     gap: space.xl,
-    padding: '48px',
+    padding: space.xxxl,
     borderRight: `1px solid ${v.border}`,
     background: tint(v.surface, 55),
   },
@@ -134,11 +134,7 @@ export const Pitch = styled.div({
 
 /** El titular crece con la pantalla: 26px en un móvil, 44px en escritorio. */
 export const Tagline = styled.div({
-  '& > *': {
-    fontSize: 'clamp(26px, 6vw, 44px)',
-    lineHeight: 1.12,
-    letterSpacing: '-0.02em',
-  },
+  '& > *': fluidText.hero,
 });
 
 /** Acento bajo el titular: una línea corta con los dos colores de la app. */

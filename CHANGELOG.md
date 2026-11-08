@@ -1,5 +1,14 @@
 # Changelog — @davidyero/ui-web
 
+## 0.6.1 — 2026-11-08
+
+Sin cambios visuales.
+
+- `scale`: nuevo `space.xxxl` (48px) y `fluidText.hero` (titular fluido de 26 a 44px).
+  `SuperAuthTemplate` los usa en vez de valores literales, y pinta los chips del carrusel y su
+  copia con un solo bloque.
+- `SuperCheckbox` y `SuperSwitch` comparten label, input oculto y textos (`styles/choice.ts`).
+
 ## 0.6.0 — 2026-11-06
 
 - `SuperPagination`: anterior y siguiente con un resumen entre las flechas (`summary`, lo arma

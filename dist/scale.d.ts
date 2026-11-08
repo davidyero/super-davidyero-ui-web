@@ -7,6 +7,7 @@ declare const space: {
     readonly lg: "16px";
     readonly xl: "24px";
     readonly xxl: "32px";
+    readonly xxxl: "48px";
 };
 /**
  * Escala tipográfica única. Ningún texto baja de 13px (regla del ecosistema).
@@ -92,6 +93,17 @@ declare const textScale: {
     };
 };
 type TextVariant = keyof typeof textScale;
+/**
+ * Titulares fluidos, fuera de la escala fija: crecen con la pantalla. `hero` va de 26px en
+ * un móvil a 44px en escritorio (titular de SuperAuthTemplate).
+ */
+declare const fluidText: {
+    readonly hero: {
+        readonly fontSize: "clamp(26px, 6vw, 44px)";
+        readonly lineHeight: 1.12;
+        readonly letterSpacing: "-0.02em";
+    };
+};
 declare const MIN_FONT_SIZE = 13;
 declare const fontWeight: {
     readonly regular: 400;
@@ -127,4 +139,4 @@ declare const focusVisible: {
     readonly boxShadow: `0 0 0 3px ${string}`;
 };
 
-export { type Breakpoint, type FontWeight, MIN_FONT_SIZE, type TextVariant, breakpoints, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export { type Breakpoint, type FontWeight, MIN_FONT_SIZE, type TextVariant, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
