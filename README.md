@@ -100,7 +100,7 @@ Lo que no definas cae a unos valores neutros y legibles. Contrato completo:
 | Semánticos  | `success`/`successSoft`/`successText`, `warning`/`warningSoft`/`warningText`, `danger`/`dangerSoft`/`dangerText`, `info`/`infoSoft`/`infoText` |
 | Foco        | `focusRing`                                                                                                                                    |
 | Fuentes     | `fontFamily.base`, `fontFamily.heading`, `fontFamily.mono`                                                                                     |
-| Radios      | `radius.sm`, `radius.md`, `radius.lg`, `radius.pill`                                                                                           |
+| Radios      | `radius.sm`, `radius.md`, `radius.lg`, `radius.pill`, `radius.button` (opcional; por defecto el de `md`)                                       |
 | Sombras     | `shadow.sm`, `shadow.md`, `shadow.lg`                                                                                                          |
 
 **Contraste:** `onPrimary` es solo para texto sobre `primary` pleno, y cada fondo soft usa
@@ -122,6 +122,20 @@ typography: {
   h1: { fontWeight: 600 },
 }
 ```
+
+## Temas listos por producto
+
+Algunos productos traen su juego de tokens en la librería, para que su web y su backoffice
+compartan aspecto sin copiarlo:
+
+```ts
+import { pilatesTokens, PILATES_FONTS_HREF } from '@davidyero/ui-web/themes/pilates';
+
+<SuperThemeProvider tokens={pilatesTokens} mode="light" /* … */>
+```
+
+`pilates` (Agenda Pilates): crema, tinta y terracota, Gilda Display + Manrope, botones en
+píldora. Solo modo claro. Las fuentes van en el `<head>` con `PILATES_FONTS_HREF`.
 
 ## Enlaces internos con el router
 
@@ -224,6 +238,9 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                           |
 | `SuperAuthTemplate`             | `brand`, `tagline`, `hint`, `highlights` (icon, label), `topActions`, `footer`, `children` (el formulario)                                              |
 | `SuperPagination`               | `page`, `pageCount`, `onPageChange`, `summary`, `labels`; con `pageSize`, `pageSizeOptions` y `onPageSizeChange`, el selector                           |
+| `SuperSegmented`                | `options` (value, label, disabled), `value`, `onChange`, `ariaLabel`, `size`, `fullWidth` (2–4 opciones; la activa en tinta)                            |
+| `SuperDrawer`                   | `open`, `onClose`, `title`, `subtitle`, `eyebrow`, `footer` (pie fijo), `width` (en móvil, pantalla completa)                                           |
+| `SuperStepper`                  | `value`, `onChange`, `min`, `max`, `step`, `formatValue`, `ariaLabel`, `decrementLabel`, `incrementLabel`                                               |
 | `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                           |
 
 ## Desarrollo

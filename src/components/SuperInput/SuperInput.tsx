@@ -2,7 +2,7 @@ import { forwardRef, type ReactElement } from 'react';
 import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
-import { Box, Input, Toggle } from './SuperInput.styles';
+import { Box, Input, Prefix, Toggle } from './SuperInput.styles';
 import type { SuperInputProps } from './SuperInput.types';
 import { useSuperInput } from './useSuperInput';
 
@@ -22,6 +22,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
     invalid = false,
     mono = false,
     onClear,
+    prefix,
     id,
     type = 'text',
     disabled,
@@ -39,6 +40,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
     <FieldRoot $fullWidth={fullWidth} className={className}>
       {label ? <FieldLabel htmlFor={inputId}>{label}</FieldLabel> : null}
       <Box $invalid={Boolean(error) || invalid} $size={size} $disabled={Boolean(disabled)}>
+        {prefix ? <Prefix aria-hidden="true">{prefix}</Prefix> : null}
         {leftIcon ? <SuperIcon name={leftIcon} size={18} /> : null}
         <Input
           {...rest}

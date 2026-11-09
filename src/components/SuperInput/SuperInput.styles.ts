@@ -37,3 +37,20 @@ export const Toggle = styled.button({
   '&:hover': { color: v.text },
   '&:focus-visible': focusVisible,
 });
+
+/** Segmento fijo a la izquierda (`+57`), separado del valor por una línea. */
+export const Prefix = styled.span({
+  display: 'inline-flex',
+  alignItems: 'center',
+  alignSelf: 'stretch',
+  marginLeft: `-${space.md}`,
+  padding: `0 ${space.md}`,
+  borderRight: `1px solid ${v.borderStrong}`,
+  background: v.surfaceSunken,
+  borderRadius: `${v.radius.md} 0 0 ${v.radius.md}`,
+  color: v.textBody,
+  fontFamily: v.font.base,
+  fontSize: '15px',
+  fontWeight: 600,
+  whiteSpace: 'nowrap',
+});

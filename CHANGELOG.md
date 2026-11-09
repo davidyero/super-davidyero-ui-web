@@ -1,5 +1,17 @@
 # Changelog — @davidyero/ui-web
 
+## 0.9.0 — 2026-11-09
+
+- Tema **Pilates** en `@davidyero/ui-web/themes/pilates` (`pilatesTokens`, `PILATES_FONTS_HREF`,
+  `PILATES_TYPE_COLORS`), según la especificación del refactor de Agenda Pilates. Solo claro.
+- Token opcional `radius.button` (por defecto, el de `md`): botones en píldora sin cambiar los
+  campos. `SuperButton` lo usa.
+- `SuperSegmented`: selector en píldora para 2–4 opciones, la activa en tinta, con flechas.
+- `SuperDrawer`: panel lateral derecho (pantalla completa en móvil) con pie fijo; mismo foco y
+  Escape que `SuperModal`.
+- `SuperStepper`: − valor + para números de reglas, con texto legible ("6 h antes").
+- `SuperInput` acepta `prefix` (segmento fijo, p. ej. `+57`).
+
 ## 0.8.1 — 2026-11-08
 
 - `SuperDropdown`: la lista mide al menos lo que el botón y crece si una opción lo necesita

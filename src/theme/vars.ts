@@ -52,6 +52,7 @@ export const v = {
     md: 'var(--sd-radius-md)',
     lg: 'var(--sd-radius-lg)',
     pill: 'var(--sd-radius-pill)',
+    button: 'var(--sd-radius-button)',
   },
   shadow: {
     sm: 'var(--sd-shadow-sm)',
@@ -83,6 +84,7 @@ export const tokensToCssVars = (tokens: SuperTokens): Record<string, string> => 
   out['--sd-radius-md'] = tokens.radius.md;
   out['--sd-radius-lg'] = tokens.radius.lg;
   out['--sd-radius-pill'] = tokens.radius.pill;
+  out['--sd-radius-button'] = tokens.radius.button;
   out['--sd-shadow-sm'] = tokens.shadow.sm;
   out['--sd-shadow-md'] = tokens.shadow.md;
   out['--sd-shadow-lg'] = tokens.shadow.lg;

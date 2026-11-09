@@ -1,8 +1,8 @@
-import { SuperLoader } from './chunk-XZLNSH22.js';
-import { SuperIcon } from './chunk-SMPTWZST.js';
+import { SuperLoader } from './chunk-ZVYWI475.js';
+import { SuperIcon } from './chunk-K5N3VAPV.js';
 import { useSuperTheme } from './chunk-3YBGSPOJ.js';
-import { space, focusVisible, transition } from './chunk-MULP5OKD.js';
-import { v } from './chunk-524J7YGQ.js';
+import { space, focusVisible, transition } from './chunk-D42FHLD7.js';
+import { v } from './chunk-VQ2WXUA7.js';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
@@ -71,7 +71,7 @@ var base = ({ $variant, $size, $fullWidth, $iconOnly }) => {
       minWidth: $iconOnly ? s.height : void 0,
       width: $fullWidth ? "100%" : $iconOnly ? s.height : void 0,
       padding: $iconOnly ? 0 : `0 ${s.padX}`,
-      borderRadius: v.radius.md,
+      borderRadius: v.radius.button,
       fontFamily: v.font.base,
       fontSize: s.font,
       fontWeight: 600,

@@ -1,10 +1,11 @@
-import { SuperIcon } from './chunk-SMPTWZST.js';
+import { useSuperModal } from './chunk-QZ5FGYI5.js';
+import { SuperIcon } from './chunk-K5N3VAPV.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-EVE5RNUX.js';
-import { space, zIndex, focusVisible } from './chunk-MULP5OKD.js';
-import { v } from './chunk-524J7YGQ.js';
-import './chunk-5HHPKIMZ.js';
-import { useId, useRef, useEffect } from 'react';
+import { SuperTypography } from './chunk-IMFSKA2U.js';
+import { space, zIndex, focusVisible } from './chunk-D42FHLD7.js';
+import { v } from './chunk-VQ2WXUA7.js';
+import './chunk-X7SCOXRS.js';
+import { useId } from 'react';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
@@ -62,52 +63,6 @@ var Close = styled.button({
   "&:hover": { color: v.text },
   "&:focus-visible": focusVisible
 });
-var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-var useSuperModal = (open, onClose) => {
-  const dialogRef = useRef(null);
-  const onCloseRef = useRef(onClose);
-  useEffect(() => {
-    onCloseRef.current = onClose;
-  }, [onClose]);
-  useEffect(() => {
-    if (!open) return void 0;
-    const previouslyFocused = document.activeElement;
-    const dialog = dialogRef.current;
-    const focusables = () => dialog ? Array.from(dialog.querySelectorAll(FOCUSABLE)) : [];
-    (focusables()[0] ?? dialog)?.focus();
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") {
-        event.stopPropagation();
-        onCloseRef.current();
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const items = focusables();
-      if (items.length === 0) {
-        event.preventDefault();
-        return;
-      }
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last?.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKeyDown, true);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown, true);
-      document.body.style.overflow = previousOverflow;
-      previouslyFocused?.focus?.();
-    };
-  }, [open]);
-  return dialogRef;
-};
 var SuperModal = ({
   open,
   onClose,

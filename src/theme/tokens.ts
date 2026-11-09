@@ -92,6 +92,8 @@ export interface SuperRadiusTokens {
   md: string;
   lg: string;
   pill: string;
+  /** Radio de los botones. Opcional al definir tokens: si falta, es el de `md`. */
+  button: string;
 }
 
 export interface SuperShadowTokens {
@@ -170,7 +172,13 @@ const fonts: SuperFontTokens = {
   mono: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
 };
 
-const radius: SuperRadiusTokens = { sm: '6px', md: '10px', lg: '16px', pill: '999px' };
+const radius: SuperRadiusTokens = {
+  sm: '6px',
+  md: '10px',
+  lg: '16px',
+  pill: '999px',
+  button: '10px',
+};
 
 /** Valores neutros y legibles para que una app arranque sin definir nada. */
 export const DEFAULT_TOKENS: Record<SuperThemeMode, SuperBaseTokens> = {
@@ -270,7 +278,7 @@ export const resolveTokens = (mode: SuperThemeMode, input: SuperTokensInput = {}
     ...base,
     ...colors,
     fontFamily: { ...base.fontFamily, ...fontFamily },
-    radius: { ...base.radius, ...r },
+    radius: { ...base.radius, ...r, button: r?.button ?? r?.md ?? base.radius.button },
     shadow: { ...base.shadow, ...shadow },
   };
   return {
