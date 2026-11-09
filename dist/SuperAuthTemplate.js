@@ -199,13 +199,15 @@ var SuperAuthTemplate = ({
   hint,
   highlights = [],
   topActions,
+  backdrop,
   footer,
   children,
   className
 }) => /* @__PURE__ */ jsxs(Shell, { className, children: [
   /* @__PURE__ */ jsxs(Backdrop, { "aria-hidden": true, children: [
     /* @__PURE__ */ jsx(Glow, { $tone: "primary" }),
-    /* @__PURE__ */ jsx(Glow, { $tone: "accent" })
+    /* @__PURE__ */ jsx(Glow, { $tone: "accent" }),
+    backdrop
   ] }),
   topActions ? /* @__PURE__ */ jsx(Top, { children: topActions }) : null,
   /* @__PURE__ */ jsxs(Hero, { children: [
