@@ -16,6 +16,11 @@ interface SuperAuthTemplateProps {
     highlights?: SuperAuthHighlight[];
     /** Arriba a la derecha: idioma y tema. */
     topActions?: ReactNode;
+    /**
+     * Decoración propia de la app sobre el fondo (rejilla y halos), p. ej. figuras
+     * animadas de su temática. Va detrás de todo y no recibe clics.
+     */
+    backdrop?: ReactNode;
     /** Bajo el formulario: versión, enlaces legales. */
     footer?: ReactNode;
     /** El formulario. */
@@ -28,7 +33,7 @@ interface SuperAuthTemplateProps {
  * y un fondo de rejilla con halos en los colores de la app. En móvil va todo en
  * una columna; desde `lg`, la marca a la izquierda y el formulario a la derecha.
  */
-declare const SuperAuthTemplate: ({ brand, tagline, hint, highlights, topActions, footer, children, className, }: SuperAuthTemplateProps) => ReactElement;
+declare const SuperAuthTemplate: ({ brand, tagline, hint, highlights, topActions, backdrop, footer, children, className, }: SuperAuthTemplateProps) => ReactElement;
 
 export { SuperAuthTemplate };
 export type { SuperAuthHighlight, SuperAuthTemplateProps };

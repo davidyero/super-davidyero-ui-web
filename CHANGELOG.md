@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.11.0 — 2026-11-09
+
+- `SuperAuthTemplate` acepta `backdrop`: decoración propia de la app (figuras animadas de su
+  temática) sobre la rejilla y los halos, detrás de todo y sin recibir clics.
+
 ## 0.10.0 — 2026-11-09
 
 - `SuperSegmented`: el fondo de la opción activa se desliza al cambiar (260 ms, sin animación

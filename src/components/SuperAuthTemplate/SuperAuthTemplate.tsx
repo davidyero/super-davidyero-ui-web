@@ -31,6 +31,7 @@ export const SuperAuthTemplate = ({
   hint,
   highlights = [],
   topActions,
+  backdrop,
   footer,
   children,
   className,
@@ -39,6 +40,7 @@ export const SuperAuthTemplate = ({
     <Backdrop aria-hidden>
       <Glow $tone="primary" />
       <Glow $tone="accent" />
+      {backdrop}
     </Backdrop>
 
     {topActions ? <Top>{topActions}</Top> : null}

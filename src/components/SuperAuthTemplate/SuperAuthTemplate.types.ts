@@ -17,6 +17,11 @@ export interface SuperAuthTemplateProps {
   highlights?: SuperAuthHighlight[];
   /** Arriba a la derecha: idioma y tema. */
   topActions?: ReactNode;
+  /**
+   * Decoración propia de la app sobre el fondo (rejilla y halos), p. ej. figuras
+   * animadas de su temática. Va detrás de todo y no recibe clics.
+   */
+  backdrop?: ReactNode;
   /** Bajo el formulario: versión, enlaces legales. */
   footer?: ReactNode;
   /** El formulario. */
