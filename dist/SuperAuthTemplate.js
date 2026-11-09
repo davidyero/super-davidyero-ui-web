@@ -4,6 +4,7 @@ import { SuperTypography } from './chunk-IMFSKA2U.js';
 import { space, media, fluidText } from './chunk-D42FHLD7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
+import { useState } from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -21,6 +22,17 @@ var rise = keyframes({
   "0%": { opacity: 0, transform: "translateY(12px)" },
   "100%": { opacity: 1, transform: "translateY(0)" }
 });
+var SHIFT = "72px";
+var slideKeyframes = (from, to, fromOpacity, toOpacity) => keyframes({
+  "0%": { transform: `translateX(${from})`, opacity: fromOpacity },
+  "100%": { transform: `translateX(${to})`, opacity: toOpacity }
+});
+var SLIDES = {
+  "enter-forward": slideKeyframes(SHIFT, "0", 0, 1),
+  "enter-back": slideKeyframes(`-${SHIFT}`, "0", 0, 1),
+  "exit-forward": slideKeyframes("0", `-${SHIFT}`, 1, 0),
+  "exit-back": slideKeyframes("0", SHIFT, 1, 0)
+};
 var reduced = "@media (prefers-reduced-motion: reduce)";
 var Shell = styled.div({
   position: "relative",
@@ -166,12 +178,14 @@ var Chip = styled.li(({ $copy }) => ({
 }));
 var FormArea = styled.main({
   gridArea: "form",
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "center",
+  display: "grid",
+  gridTemplateColumns: "minmax(0, 1fr)",
+  alignItems: "start",
+  justifyItems: "center",
   [media.lg]: { alignItems: "center", padding: space.xl }
 });
-var Card = styled.div({
+var Card = styled.div(({ $motion }) => ({
+  gridArea: "1 / 1",
   width: "100%",
   maxWidth: "400px",
   display: "flex",
@@ -184,15 +198,17 @@ var Card = styled.div({
   backdropFilter: "blur(14px)",
   WebkitBackdropFilter: "blur(14px)",
   boxShadow: v.shadow.lg,
-  animation: `${rise} 520ms 80ms ease both`,
+  animation: $motion === "rise" ? `${rise} 520ms 80ms ease both` : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
+  pointerEvents: $motion.startsWith("exit") ? "none" : void 0,
   [reduced]: { animation: "none" }
-});
+}));
 var Foot = styled.footer({
   gridArea: "foot",
   display: "flex",
   justifyContent: "center",
   [media.lg]: { padding: `0 ${space.xl} ${space.xl}` }
 });
+var prefersReducedMotion = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var SuperAuthTemplate = ({
   brand,
   tagline,
@@ -202,38 +218,65 @@ var SuperAuthTemplate = ({
   backdrop,
   footer,
   children,
+  screenKey,
+  screenDirection = "forward",
   className
-}) => /* @__PURE__ */ jsxs(Shell, { className, children: [
-  /* @__PURE__ */ jsxs(Backdrop, { "aria-hidden": true, children: [
-    /* @__PURE__ */ jsx(Glow, { $tone: "primary" }),
-    /* @__PURE__ */ jsx(Glow, { $tone: "accent" }),
-    backdrop
-  ] }),
-  topActions ? /* @__PURE__ */ jsx(Top, { children: topActions }) : null,
-  /* @__PURE__ */ jsxs(Hero, { children: [
-    /* @__PURE__ */ jsx(BrandSlot, { children: brand }),
-    /* @__PURE__ */ jsxs(Pitch, { children: [
-      /* @__PURE__ */ jsx(Tagline, { children: /* @__PURE__ */ jsx(SuperTypography, { variant: "display", as: "p", children: tagline }) }),
-      /* @__PURE__ */ jsx(Rule, { "aria-hidden": true }),
-      hint ? /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textMuted", children: hint }) : null,
-      highlights.length > 0 ? /* @__PURE__ */ jsx(Marquee, { children: /* @__PURE__ */ jsx(Track, { children: [false, true].map(
-        (copy) => highlights.map((item) => /* @__PURE__ */ jsxs(
-          Chip,
-          {
-            $copy: copy,
-            "aria-hidden": copy || void 0,
-            children: [
-              /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 14 }),
-              /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", color: "inherit", children: item.label })
-            ]
+}) => {
+  const [current, setCurrent] = useState({ key: screenKey, node: children });
+  const [leaving, setLeaving] = useState(null);
+  const [moved, setMoved] = useState(false);
+  if (screenKey !== current.key) {
+    setLeaving(prefersReducedMotion() ? null : current);
+    setCurrent({ key: screenKey, node: children });
+    setMoved(true);
+  }
+  const enter = moved ? `enter-${screenDirection}` : "rise";
+  return /* @__PURE__ */ jsxs(Shell, { className, children: [
+    /* @__PURE__ */ jsxs(Backdrop, { "aria-hidden": true, children: [
+      /* @__PURE__ */ jsx(Glow, { $tone: "primary" }),
+      /* @__PURE__ */ jsx(Glow, { $tone: "accent" }),
+      backdrop
+    ] }),
+    topActions ? /* @__PURE__ */ jsx(Top, { children: topActions }) : null,
+    /* @__PURE__ */ jsxs(Hero, { children: [
+      /* @__PURE__ */ jsx(BrandSlot, { children: brand }),
+      /* @__PURE__ */ jsxs(Pitch, { children: [
+        /* @__PURE__ */ jsx(Tagline, { children: /* @__PURE__ */ jsx(SuperTypography, { variant: "display", as: "p", children: tagline }) }),
+        /* @__PURE__ */ jsx(Rule, { "aria-hidden": true }),
+        hint ? /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textMuted", children: hint }) : null,
+        highlights.length > 0 ? /* @__PURE__ */ jsx(Marquee, { children: /* @__PURE__ */ jsx(Track, { children: [false, true].map(
+          (copy) => highlights.map((item) => /* @__PURE__ */ jsxs(
+            Chip,
+            {
+              $copy: copy,
+              "aria-hidden": copy || void 0,
+              children: [
+                /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 14 }),
+                /* @__PURE__ */ jsx(SuperTypography, { variant: "caption", as: "span", color: "inherit", children: item.label })
+              ]
+            },
+            copy ? `${item.label}-copy` : item.label
+          ))
+        ) }) }) : null
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs(FormArea, { children: [
+      leaving ? /* @__PURE__ */ jsx(
+        Card,
+        {
+          $motion: `exit-${screenDirection}`,
+          "aria-hidden": true,
+          onAnimationEnd: (event) => {
+            if (event.target === event.currentTarget) setLeaving(null);
           },
-          copy ? `${item.label}-copy` : item.label
-        ))
-      ) }) }) : null
-    ] })
-  ] }),
-  /* @__PURE__ */ jsx(FormArea, { children: /* @__PURE__ */ jsx(Card, { children }) }),
-  footer ? /* @__PURE__ */ jsx(Foot, { children: footer }) : null
-] });
+          children: leaving.node
+        },
+        leaving.key ?? "leaving"
+      ) : null,
+      /* @__PURE__ */ jsx(Card, { $motion: enter, children }, current.key ?? "screen")
+    ] }),
+    footer ? /* @__PURE__ */ jsx(Foot, { children: footer }) : null
+  ] });
+};
 
 export { SuperAuthTemplate };

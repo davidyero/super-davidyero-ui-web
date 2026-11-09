@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { useState, type ReactElement, type ReactNode } from 'react';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
 import {
@@ -17,13 +17,25 @@ import {
   Tagline,
   Top,
   Track,
+  type CardMotion,
 } from './SuperAuthTemplate.styles';
 import type { SuperAuthTemplateProps } from './SuperAuthTemplate.types';
+
+interface Screen {
+  key: string | undefined;
+  node: ReactNode;
+}
+
+const prefersReducedMotion = (): boolean =>
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * Plantilla de login y registro: marca con su frase, el formulario sobre vidrio
  * y un fondo de rejilla con halos en los colores de la app. En móvil va todo en
  * una columna; desde `lg`, la marca a la izquierda y el formulario a la derecha.
+ * Con `screenKey`, el cambio de pantalla desliza la tarjeta completa.
  */
 export const SuperAuthTemplate = ({
   brand,
@@ -34,61 +46,95 @@ export const SuperAuthTemplate = ({
   backdrop,
   footer,
   children,
+  screenKey,
+  screenDirection = 'forward',
   className,
-}: SuperAuthTemplateProps): ReactElement => (
-  <Shell className={className}>
-    <Backdrop aria-hidden>
-      <Glow $tone="primary" />
-      <Glow $tone="accent" />
-      {backdrop}
-    </Backdrop>
+}: SuperAuthTemplateProps): ReactElement => {
+  // La tarjeta que sale se queda montada (con su contenido) hasta que termina su
+  // animación; la nueva entra por el lado contrario.
+  const [current, setCurrent] = useState<Screen>({ key: screenKey, node: children });
+  const [leaving, setLeaving] = useState<Screen | null>(null);
+  const [moved, setMoved] = useState(false);
+  if (screenKey !== current.key) {
+    setLeaving(prefersReducedMotion() ? null : current);
+    setCurrent({ key: screenKey, node: children });
+    setMoved(true);
+  }
+  const enter: CardMotion = moved ? `enter-${screenDirection}` : 'rise';
 
-    {topActions ? <Top>{topActions}</Top> : null}
+  return (
+    <Shell className={className}>
+      <Backdrop aria-hidden>
+        <Glow $tone="primary" />
+        <Glow $tone="accent" />
+        {backdrop}
+      </Backdrop>
 
-    <Hero>
-      <BrandSlot>{brand}</BrandSlot>
-      <Pitch>
-        <Tagline>
-          <SuperTypography variant="display" as="p">
-            {tagline}
-          </SuperTypography>
-        </Tagline>
-        <Rule aria-hidden />
-        {hint ? (
-          <SuperTypography variant="body" color="textMuted">
-            {hint}
-          </SuperTypography>
+      {topActions ? <Top>{topActions}</Top> : null}
+
+      <Hero>
+        <BrandSlot>{brand}</BrandSlot>
+        <Pitch>
+          <Tagline>
+            <SuperTypography variant="display" as="p">
+              {tagline}
+            </SuperTypography>
+          </Tagline>
+          <Rule aria-hidden />
+          {hint ? (
+            <SuperTypography variant="body" color="textMuted">
+              {hint}
+            </SuperTypography>
+          ) : null}
+          {highlights.length > 0 ? (
+            <Marquee>
+              <Track>
+                {/* Segunda copia para que el carrusel no tenga corte; el lector solo oye la primera. */}
+                {[false, true].map((copy) =>
+                  highlights.map((item) => (
+                    <Chip
+                      key={copy ? `${item.label}-copy` : item.label}
+                      $copy={copy}
+                      aria-hidden={copy || undefined}
+                    >
+                      <SuperIcon name={item.icon} size={14} />
+                      <SuperTypography variant="caption" as="span" color="inherit">
+                        {item.label}
+                      </SuperTypography>
+                    </Chip>
+                  )),
+                )}
+              </Track>
+            </Marquee>
+          ) : null}
+        </Pitch>
+      </Hero>
+
+      <FormArea>
+        {leaving ? (
+          <Card
+            key={leaving.key ?? 'leaving'}
+            $motion={`exit-${screenDirection}`}
+            aria-hidden
+            onAnimationEnd={(event) => {
+              if (event.target === event.currentTarget) setLeaving(null);
+            }}
+          >
+            {leaving.node}
+          </Card>
         ) : null}
-        {highlights.length > 0 ? (
-          <Marquee>
-            <Track>
-              {/* Segunda copia para que el carrusel no tenga corte; el lector solo oye la primera. */}
-              {[false, true].map((copy) =>
-                highlights.map((item) => (
-                  <Chip
-                    key={copy ? `${item.label}-copy` : item.label}
-                    $copy={copy}
-                    aria-hidden={copy || undefined}
-                  >
-                    <SuperIcon name={item.icon} size={14} />
-                    <SuperTypography variant="caption" as="span" color="inherit">
-                      {item.label}
-                    </SuperTypography>
-                  </Chip>
-                )),
-              )}
-            </Track>
-          </Marquee>
-        ) : null}
-      </Pitch>
-    </Hero>
+        <Card key={current.key ?? 'screen'} $motion={enter}>
+          {children}
+        </Card>
+      </FormArea>
 
-    <FormArea>
-      <Card>{children}</Card>
-    </FormArea>
+      {footer ? <Foot>{footer}</Foot> : null}
+    </Shell>
+  );
+};
 
-    {footer ? <Foot>{footer}</Foot> : null}
-  </Shell>
-);
-
-export type { SuperAuthHighlight, SuperAuthTemplateProps } from './SuperAuthTemplate.types';
+export type {
+  SuperAuthHighlight,
+  SuperAuthScreenDirection,
+  SuperAuthTemplateProps,
+} from './SuperAuthTemplate.types';

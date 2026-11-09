@@ -21,6 +21,20 @@ const rise = keyframes({
   '100%': { opacity: 1, transform: 'translateY(0)' },
 });
 
+const SHIFT = '72px';
+const slideKeyframes = (from: string, to: string, fromOpacity: number, toOpacity: number) =>
+  keyframes({
+    '0%': { transform: `translateX(${from})`, opacity: fromOpacity },
+    '100%': { transform: `translateX(${to})`, opacity: toOpacity },
+  });
+const SLIDES = {
+  'enter-forward': slideKeyframes(SHIFT, '0', 0, 1),
+  'enter-back': slideKeyframes(`-${SHIFT}`, '0', 0, 1),
+  'exit-forward': slideKeyframes('0', `-${SHIFT}`, 1, 0),
+  'exit-back': slideKeyframes('0', SHIFT, 1, 0),
+} as const;
+export type CardMotion = keyof typeof SLIDES | 'rise';
+
 const reduced = '@media (prefers-reduced-motion: reduce)';
 
 // Móvil: barra, marca, formulario y pie en una columna. Escritorio: la marca
@@ -182,16 +196,20 @@ export const Chip = styled.li<{ $copy?: boolean }>(({ $copy }) => ({
   [reduced]: $copy ? { display: 'none' } : {},
 }));
 
+// Rejilla de una celda: al cambiar de pantalla, la tarjeta que sale y la que entra
+// se superponen en el mismo sitio.
 export const FormArea = styled.main({
   gridArea: 'form',
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr)',
+  alignItems: 'start',
+  justifyItems: 'center',
   [media.lg]: { alignItems: 'center', padding: space.xl },
 });
 
 /** El formulario sobre vidrio: deja ver la rejilla y los halos detrás. */
-export const Card = styled.div({
+export const Card = styled.div<{ $motion: CardMotion }>(({ $motion }) => ({
+  gridArea: '1 / 1',
   width: '100%',
   maxWidth: '400px',
   display: 'flex',
@@ -204,9 +222,13 @@ export const Card = styled.div({
   backdropFilter: 'blur(14px)',
   WebkitBackdropFilter: 'blur(14px)',
   boxShadow: v.shadow.lg,
-  animation: `${rise} 520ms 80ms ease both`,
+  animation:
+    $motion === 'rise'
+      ? `${rise} 520ms 80ms ease both`
+      : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
+  pointerEvents: $motion.startsWith('exit') ? 'none' : undefined,
   [reduced]: { animation: 'none' },
-});
+}));
 
 export const Foot = styled.footer({
   gridArea: 'foot',

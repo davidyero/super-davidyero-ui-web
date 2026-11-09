@@ -1,5 +1,11 @@
 # Changelog — @davidyero/ui-web
 
+## 0.12.0 — 2026-11-09
+
+- `SuperAuthTemplate` con `screenKey` y `screenDirection`: al cambiar de pantalla (login,
+  registro, recuperar) la tarjeta completa sale deslizándose y la nueva entra por el lado
+  contrario. Sin animación con `prefers-reduced-motion`.
+
 ## 0.11.0 — 2026-11-09
 
 - `SuperAuthTemplate` acepta `backdrop`: decoración propia de la app (figuras animadas de su

@@ -5,6 +5,7 @@ interface SuperAuthHighlight {
     icon: string;
     label: string;
 }
+type SuperAuthScreenDirection = 'forward' | 'back';
 interface SuperAuthTemplateProps {
     /** Monograma y nombre de la app. Arriba en móvil, en la columna de marca en escritorio. */
     brand: ReactNode;
@@ -25,6 +26,15 @@ interface SuperAuthTemplateProps {
     footer?: ReactNode;
     /** El formulario. */
     children: ReactNode;
+    /**
+     * Identifica la pantalla del formulario (la ruta: login, registro…). Al cambiar,
+     * la tarjeta entera sale deslizándose y entra la nueva por el lado contrario.
+     * Para que la saliente conserve su contenido, `children` debe ser el elemento
+     * de la ruta (p. ej. `useOutlet()`), no un `<Outlet />`.
+     */
+    screenKey?: string;
+    /** `forward`: la tarjeta sale a la izquierda y entra la nueva por la derecha; `back`, al revés. */
+    screenDirection?: SuperAuthScreenDirection;
     className?: string;
 }
 
@@ -32,8 +42,9 @@ interface SuperAuthTemplateProps {
  * Plantilla de login y registro: marca con su frase, el formulario sobre vidrio
  * y un fondo de rejilla con halos en los colores de la app. En móvil va todo en
  * una columna; desde `lg`, la marca a la izquierda y el formulario a la derecha.
+ * Con `screenKey`, el cambio de pantalla desliza la tarjeta completa.
  */
-declare const SuperAuthTemplate: ({ brand, tagline, hint, highlights, topActions, backdrop, footer, children, className, }: SuperAuthTemplateProps) => ReactElement;
+declare const SuperAuthTemplate: ({ brand, tagline, hint, highlights, topActions, backdrop, footer, children, screenKey, screenDirection, className, }: SuperAuthTemplateProps) => ReactElement;
 
 export { SuperAuthTemplate };
-export type { SuperAuthHighlight, SuperAuthTemplateProps };
+export type { SuperAuthHighlight, SuperAuthScreenDirection, SuperAuthTemplateProps };
