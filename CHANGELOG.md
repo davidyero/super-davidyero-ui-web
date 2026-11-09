@@ -1,5 +1,13 @@
 # Changelog — @davidyero/ui-web
 
+## 0.10.0 — 2026-11-09
+
+- `SuperSegmented`: el fondo de la opción activa se desliza al cambiar (260 ms, sin animación
+  con `prefers-reduced-motion`). Las opciones aceptan `icon`.
+- `SuperSegmented variant="icon"`: solo iconos redondos (selector de idioma con banderas); la
+  activa sobre un círculo de superficie y la otra atenuada. El `label` pasa a nombre accesible.
+- `SuperFlag`: bandera redonda (`co`, `us`, `gb`, `es`, `mx`, `br`), decorativa salvo con `label`.
+
 ## 0.9.1 — 2026-11-09
 
 - `SuperPagination` en móvil (menos de 600px, también el Z Fold cerrado): flechas y resumen a
