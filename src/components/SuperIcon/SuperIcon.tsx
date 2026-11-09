@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import type { ReactElement } from 'react';
 import { useSuperTheme } from '../../theme/SuperThemeContext';
+import { CUSTOM_ICONS } from './SuperIcon.custom';
 import { IconWrap } from './SuperIcon.styles';
 import type { SuperIconProps } from './SuperIcon.types';
 
@@ -14,6 +15,7 @@ export const SuperIcon = ({
   className,
 }: SuperIconProps): ReactElement => {
   const { icons } = useSuperTheme();
+  const custom = CUSTOM_ICONS[name];
   const id = name.includes(':') ? name : icons[name];
 
   return (
@@ -27,7 +29,23 @@ export const SuperIcon = ({
       aria-hidden={label ? undefined : true}
       data-icon={name}
     >
-      {id ? <Icon icon={id} width={size} height={size} /> : null}
+      {custom ? (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.75}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          focusable="false"
+        >
+          {custom}
+        </svg>
+      ) : id ? (
+        <Icon icon={id} width={size} height={size} />
+      ) : null}
     </IconWrap>
   );
 };

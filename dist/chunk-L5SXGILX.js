@@ -1,5 +1,5 @@
 import { SuperLoader } from './chunk-ZVYWI475.js';
-import { SuperIcon } from './chunk-K5N3VAPV.js';
+import { SuperIcon } from './chunk-34SSRPSU.js';
 import { useSuperTheme } from './chunk-3YBGSPOJ.js';
 import { space, focusVisible, transition } from './chunk-D42FHLD7.js';
 import { v } from './chunk-VQ2WXUA7.js';

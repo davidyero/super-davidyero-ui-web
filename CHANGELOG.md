@@ -1,5 +1,11 @@
 # Changelog — @davidyero/ui-web
 
+## 0.13.0 — 2026-11-09
+
+- `SuperIcon` con iconos propios en SVG (no Iconify): `thanos` (guantelete de armadura) y
+  `superthanos` (el mismo guantelete con un destello). Trazo en `currentColor`, legibles de
+  14 a 20 px. Para el rol, plan o nivel Thanos y SuperThanos en todas las apps.
+
 ## 0.12.0 — 2026-11-09
 
 - `SuperAuthTemplate` con `screenKey` y `screenDirection`: al cambiar de pantalla (login,
