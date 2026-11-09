@@ -1,5 +1,11 @@
 # Changelog — @davidyero/ui-web
 
+## 0.9.1 — 2026-11-09
+
+- `SuperPagination` en móvil (menos de 600px, también el Z Fold cerrado): flechas y resumen a
+  todo el ancho y el selector de tamaño debajo. Desde `sm` sigue en una fila. Las flechas van
+  primero en el orden del teclado.
+
 ## 0.9.0 — 2026-11-09
 
 - Tema **Pilates** en `@davidyero/ui-web/themes/pilates` (`pilatesTokens`, `PILATES_FONTS_HREF`,

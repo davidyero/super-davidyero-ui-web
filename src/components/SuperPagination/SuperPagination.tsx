@@ -24,20 +24,6 @@ export const SuperPagination: FC<SuperPaginationProps> = ({
 
   return (
     <Root aria-label={labels.navigation} className={className}>
-      {showSizes && (
-        <SizeGroup>
-          <SuperTypography as="span" variant="bodySmall" color="textMuted">
-            {labels.pageSize}
-          </SuperTypography>
-          <SuperDropdown
-            ariaLabel={labels.pageSize}
-            size="sm"
-            value={String(pageSize)}
-            options={pageSizeOptions.map((n) => ({ value: String(n), label: String(n) }))}
-            onChange={(v) => onPageSizeChange(Number(v))}
-          />
-        </SizeGroup>
-      )}
       <Pager>
         <SuperButton
           variant="secondary"
@@ -63,6 +49,20 @@ export const SuperPagination: FC<SuperPaginationProps> = ({
           onClick={() => onPageChange(page + 1)}
         />
       </Pager>
+      {showSizes && (
+        <SizeGroup>
+          <SuperTypography as="span" variant="bodySmall" color="textMuted">
+            {labels.pageSize}
+          </SuperTypography>
+          <SuperDropdown
+            ariaLabel={labels.pageSize}
+            size="sm"
+            value={String(pageSize)}
+            options={pageSizeOptions.map((n) => ({ value: String(n), label: String(n) }))}
+            onChange={(v) => onPageSizeChange(Number(v))}
+          />
+        </SizeGroup>
+      )}
     </Root>
   );
 };
