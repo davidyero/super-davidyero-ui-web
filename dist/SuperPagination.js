@@ -5,7 +5,7 @@ import './chunk-ZVYWI475.js';
 import './chunk-K5N3VAPV.js';
 import './chunk-3YBGSPOJ.js';
 import { SuperTypography } from './chunk-IMFSKA2U.js';
-import { space } from './chunk-D42FHLD7.js';
+import { space, media } from './chunk-D42FHLD7.js';
 import './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import styled from '@emotion/styled';
@@ -13,22 +13,31 @@ import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
 var Root = styled.nav({
   display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  flexWrap: "wrap",
-  gap: space.md,
-  minWidth: 0
+  flexDirection: "column",
+  alignItems: "stretch",
+  gap: space.sm,
+  minWidth: 0,
+  [media.sm]: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: space.md
+  }
 });
 var SizeGroup = styled.div({
   display: "flex",
   alignItems: "center",
-  gap: space.sm
+  justifyContent: "center",
+  gap: space.sm,
+  [media.sm]: { order: -1, justifyContent: "flex-start" }
 });
 var Pager = styled.div({
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between",
   gap: space.sm,
-  marginLeft: "auto"
+  minWidth: 0,
+  [media.sm]: { justifyContent: "flex-end", marginLeft: "auto" }
 });
 var SuperPagination = ({
   page,
@@ -43,19 +52,6 @@ var SuperPagination = ({
 }) => {
   const showSizes = pageSize !== void 0 && pageSizeOptions && onPageSizeChange;
   return /* @__PURE__ */ jsxs(Root, { "aria-label": labels.navigation, className, children: [
-    showSizes && /* @__PURE__ */ jsxs(SizeGroup, { children: [
-      /* @__PURE__ */ jsx(SuperTypography, { as: "span", variant: "bodySmall", color: "textMuted", children: labels.pageSize }),
-      /* @__PURE__ */ jsx(
-        SuperDropdown,
-        {
-          ariaLabel: labels.pageSize,
-          size: "sm",
-          value: String(pageSize),
-          options: pageSizeOptions.map((n) => ({ value: String(n), label: String(n) })),
-          onChange: (v) => onPageSizeChange(Number(v))
-        }
-      )
-    ] }),
     /* @__PURE__ */ jsxs(Pager, { children: [
       /* @__PURE__ */ jsx(
         SuperButton,
@@ -82,6 +78,19 @@ var SuperPagination = ({
           title: labels.next,
           disabled: page >= pageCount,
           onClick: () => onPageChange(page + 1)
+        }
+      )
+    ] }),
+    showSizes && /* @__PURE__ */ jsxs(SizeGroup, { children: [
+      /* @__PURE__ */ jsx(SuperTypography, { as: "span", variant: "bodySmall", color: "textMuted", children: labels.pageSize }),
+      /* @__PURE__ */ jsx(
+        SuperDropdown,
+        {
+          ariaLabel: labels.pageSize,
+          size: "sm",
+          value: String(pageSize),
+          options: pageSizeOptions.map((n) => ({ value: String(n), label: String(n) })),
+          onChange: (v) => onPageSizeChange(Number(v))
         }
       )
     ] })
