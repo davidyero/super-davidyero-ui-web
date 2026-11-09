@@ -12,6 +12,8 @@ export interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   invalid?: boolean;
   /** Texto en monoespaciada (importes, códigos). */
   mono?: boolean;
+  /** Segmento fijo antes del valor (p. ej. `+57`). No forma parte del valor. */
+  prefix?: string;
   /** Si se pasa y hay valor, aparece una X para vaciar el campo. */
   onClear?: () => void;
 }

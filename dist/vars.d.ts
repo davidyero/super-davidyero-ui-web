@@ -20,6 +20,7 @@ declare const v: {
         readonly md: "var(--sd-radius-md)";
         readonly lg: "var(--sd-radius-lg)";
         readonly pill: "var(--sd-radius-pill)";
+        readonly button: "var(--sd-radius-button)";
     };
     readonly shadow: {
         readonly sm: "var(--sd-shadow-sm)";

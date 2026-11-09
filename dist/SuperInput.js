@@ -1,9 +1,9 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-HH3V5BHF.js';
-import { SuperIcon } from './chunk-SMPTWZST.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-LXJQ6VGF.js';
+import { SuperIcon } from './chunk-K5N3VAPV.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { space, focusVisible } from './chunk-MULP5OKD.js';
-import { v } from './chunk-524J7YGQ.js';
-import './chunk-5HHPKIMZ.js';
+import { space, focusVisible } from './chunk-D42FHLD7.js';
+import { v } from './chunk-VQ2WXUA7.js';
+import './chunk-X7SCOXRS.js';
 import { forwardRef, useId, useState } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -39,6 +39,21 @@ var Toggle = styled.button({
   "&:hover": { color: v.text },
   "&:focus-visible": focusVisible
 });
+var Prefix = styled.span({
+  display: "inline-flex",
+  alignItems: "center",
+  alignSelf: "stretch",
+  marginLeft: `-${space.md}`,
+  padding: `0 ${space.md}`,
+  borderRight: `1px solid ${v.borderStrong}`,
+  background: v.surfaceSunken,
+  borderRadius: `${v.radius.md} 0 0 ${v.radius.md}`,
+  color: v.textBody,
+  fontFamily: v.font.base,
+  fontSize: "15px",
+  fontWeight: 600,
+  whiteSpace: "nowrap"
+});
 var useSuperInput = ({ id, type, error, hint }) => {
   const autoId = useId();
   const inputId = id ?? autoId;
@@ -65,6 +80,7 @@ var SuperInput = forwardRef(function SuperInput2({
   invalid = false,
   mono = false,
   onClear,
+  prefix,
   id,
   type = "text",
   disabled,
@@ -78,6 +94,7 @@ var SuperInput = forwardRef(function SuperInput2({
   return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
     label ? /* @__PURE__ */ jsx(FieldLabel, { htmlFor: inputId, children: label }) : null,
     /* @__PURE__ */ jsxs(Box, { $invalid: Boolean(error) || invalid, $size: size, $disabled: Boolean(disabled), children: [
+      prefix ? /* @__PURE__ */ jsx(Prefix, { "aria-hidden": "true", children: prefix }) : null,
       leftIcon ? /* @__PURE__ */ jsx(SuperIcon, { name: leftIcon, size: 18 }) : null,
       /* @__PURE__ */ jsx(
         Input,

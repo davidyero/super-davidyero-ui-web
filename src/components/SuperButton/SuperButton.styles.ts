@@ -79,7 +79,7 @@ const base = ({ $variant, $size, $fullWidth, $iconOnly }: ButtonStyleProps) => {
       minWidth: $iconOnly ? s.height : undefined,
       width: $fullWidth ? '100%' : $iconOnly ? s.height : undefined,
       padding: $iconOnly ? 0 : `0 ${s.padX}`,
-      borderRadius: v.radius.md,
+      borderRadius: v.radius.button,
       fontFamily: v.font.base,
       fontSize: s.font,
       fontWeight: 600,

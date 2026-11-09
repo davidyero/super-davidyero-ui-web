@@ -12,6 +12,8 @@ export default defineConfig({
     ...components,
     theme: 'src/theme/SuperThemeProvider.tsx',
     tokens: 'src/theme/tokens.ts',
+    // Temas listos por producto: `@davidyero/ui-web/themes/pilates`.
+    'themes/pilates': 'src/theme/presets/pilates.ts',
     loader: 'src/stores/loaderStore.ts',
     toast: 'src/stores/toastStore.ts',
     // Para los estilos de la app: espaciado, breakpoints, escala y `v.primary` → var(--sd-primary).

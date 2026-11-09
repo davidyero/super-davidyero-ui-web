@@ -73,6 +73,8 @@ interface SuperRadiusTokens {
     md: string;
     lg: string;
     pill: string;
+    /** Radio de los botones. Opcional al definir tokens: si falta, es el de `md`. */
+    button: string;
 }
 interface SuperShadowTokens {
     sm: string;

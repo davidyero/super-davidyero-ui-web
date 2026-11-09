@@ -40,7 +40,13 @@ var fonts = {
   heading: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   mono: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
 };
-var radius = { sm: "6px", md: "10px", lg: "16px", pill: "999px" };
+var radius = {
+  sm: "6px",
+  md: "10px",
+  lg: "16px",
+  pill: "999px",
+  button: "10px"
+};
 var DEFAULT_TOKENS = {
   light: {
     background: "#f6f7f9",
@@ -134,7 +140,7 @@ var resolveTokens = (mode, input = {}) => {
     ...base,
     ...colors,
     fontFamily: { ...base.fontFamily, ...fontFamily },
-    radius: { ...base.radius, ...r },
+    radius: { ...base.radius, ...r, button: r?.button ?? r?.md ?? base.radius.button },
     shadow: { ...base.shadow, ...shadow }
   };
   return {

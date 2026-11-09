@@ -1,4 +1,4 @@
-import { COLOR_TOKEN_KEYS, DERIVED_COLOR_TOKEN_KEYS } from './chunk-5HHPKIMZ.js';
+import { COLOR_TOKEN_KEYS, DERIVED_COLOR_TOKEN_KEYS } from './chunk-X7SCOXRS.js';
 
 // src/theme/vars.ts
 var kebab = (key) => key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
@@ -25,7 +25,8 @@ var v = {
     sm: "var(--sd-radius-sm)",
     md: "var(--sd-radius-md)",
     lg: "var(--sd-radius-lg)",
-    pill: "var(--sd-radius-pill)"
+    pill: "var(--sd-radius-pill)",
+    button: "var(--sd-radius-button)"
   },
   shadow: {
     sm: "var(--sd-shadow-sm)",
@@ -49,6 +50,7 @@ var tokensToCssVars = (tokens) => {
   out["--sd-radius-md"] = tokens.radius.md;
   out["--sd-radius-lg"] = tokens.radius.lg;
   out["--sd-radius-pill"] = tokens.radius.pill;
+  out["--sd-radius-button"] = tokens.radius.button;
   out["--sd-shadow-sm"] = tokens.shadow.sm;
   out["--sd-shadow-md"] = tokens.shadow.md;
   out["--sd-shadow-lg"] = tokens.shadow.lg;
