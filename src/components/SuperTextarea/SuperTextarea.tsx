@@ -1,5 +1,5 @@
 import { useId, forwardRef, type ReactElement } from 'react';
-import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
+import { describedBy, FieldLabel, FieldMessage, FieldRoot } from '../../styles/field';
 import { Area, Box, Count, Footer } from './SuperTextarea.styles';
 import type { SuperTextareaProps } from './SuperTextarea.types';
 
@@ -28,7 +28,6 @@ export const SuperTextarea = forwardRef<HTMLTextAreaElement, SuperTextareaProps>
     const length = typeof value === 'string' ? value.length : 0;
     // `maxCount` informa sin cortar; `showCount` + `maxLength` usa el límite nativo.
     const countMax = maxCount ?? (showCount ? maxLength : undefined);
-    const describedBy = error ? `${areaId}-error` : hint ? `${areaId}-hint` : undefined;
 
     return (
       <FieldRoot $fullWidth={fullWidth} className={className}>
@@ -43,17 +42,11 @@ export const SuperTextarea = forwardRef<HTMLTextAreaElement, SuperTextareaProps>
             maxLength={maxLength}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
-            aria-describedby={describedBy}
+            aria-describedby={describedBy(areaId, error, hint, rest['aria-describedby'])}
           />
         </Box>
         <Footer>
-          {error ? (
-            <FieldError id={`${areaId}-error`} role="alert">
-              {error}
-            </FieldError>
-          ) : hint ? (
-            <FieldHint id={`${areaId}-hint`}>{hint}</FieldHint>
-          ) : null}
+          <FieldMessage id={areaId} error={error} hint={hint} />
           {countMax ? (
             <Count $over={maxCount ? length > maxCount : length >= countMax} aria-live="polite">
               {length}/{countMax}

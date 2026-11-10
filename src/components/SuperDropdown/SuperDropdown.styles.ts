@@ -52,7 +52,7 @@ export const Chevron = styled.span<{ $open: boolean }>(({ $open }) => ({
 /** Lista en un portal con posición fija: no la recorta ningún contenedor con scroll. */
 export const List = styled.ul<{ $up: boolean }>(({ $up }) => ({
   position: 'fixed',
-  zIndex: zIndex.dropdown,
+  zIndex: zIndex.popover,
   margin: 0,
   padding: space.xs,
   listStyle: 'none',

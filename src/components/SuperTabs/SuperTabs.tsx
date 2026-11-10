@@ -1,12 +1,5 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type ReactElement,
-} from 'react';
+import { useId, type ReactElement } from 'react';
+import { useSlidingIndicator } from '../../hooks/useSlidingIndicator';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { Count, Indicator, List, Tab } from './SuperTabs.styles';
 import type { SuperTabsProps } from './SuperTabs.types';
@@ -28,33 +21,14 @@ export const SuperTabs = <TId extends string = string>({
   const autoId = useId();
   const base = idBase ?? autoId;
   const { onKeyDown, register } = useSuperTabs(items, value, onChange);
-  const listRef = useRef<HTMLDivElement>(null);
-  const [box, setBox] = useState<{ x: number; width: number } | null>(null);
-  // La primera medida coloca el subrayado sin animar; las siguientes se deslizan.
-  const [animate, setAnimate] = useState(false);
-
-  const measure = useCallback((): void => {
-    const el = listRef.current?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
-    setBox(el ? { x: el.offsetLeft, width: el.offsetWidth } : null);
-  }, []);
-
-  useLayoutEffect(measure, [measure, value, items, size]);
-
-  useEffect(() => {
-    if (box && !animate) {
-      const frame = requestAnimationFrame(() => setAnimate(true));
-      return () => cancelAnimationFrame(frame);
-    }
-    return undefined;
-  }, [box, animate]);
-
-  useEffect(() => {
-    const list = listRef.current;
-    if (!list || typeof ResizeObserver === 'undefined') return undefined;
-    const observer = new ResizeObserver(measure);
-    observer.observe(list);
-    return () => observer.disconnect();
-  }, [measure]);
+  const {
+    containerRef: listRef,
+    box,
+    animate,
+  } = useSlidingIndicator<HTMLDivElement>(
+    (list) => list.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]'),
+    [value, items, size],
+  );
 
   return (
     <List

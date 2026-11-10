@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { focusVisible, media, space, zIndex } from '../../styles/scale';
+import { focusVisible, media, scrim, space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 export const Backdrop = styled.div({
@@ -8,7 +8,7 @@ export const Backdrop = styled.div({
   zIndex: zIndex.modal,
   display: 'flex',
   justifyContent: 'flex-end',
-  background: 'rgba(42, 33, 30, 0.38)',
+  background: scrim,
 });
 
 export const Panel = styled.div<{ $width: number }>(({ $width }) => ({

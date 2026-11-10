@@ -1,8 +1,8 @@
-import { useSuperModal } from './chunk-QZ5FGYI5.js';
+import { useSuperModal } from './chunk-YHLTNC4L.js';
 import { SuperIcon } from './chunk-34SSRPSU.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-IMFSKA2U.js';
-import { space, zIndex, focusVisible } from './chunk-D42FHLD7.js';
+import { SuperTypography } from './chunk-6OHDPNJ7.js';
+import { scrim, space, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId } from 'react';
@@ -18,7 +18,7 @@ var Backdrop = styled.div(({ $align }) => ({
   justifyContent: "center",
   alignItems: $align === "center" ? "center" : "flex-start",
   padding: $align === "center" ? space.lg : `10vh ${space.lg} ${space.lg}`,
-  background: "rgba(0, 0, 0, 0.45)",
+  background: scrim,
   overflowY: "auto"
 }));
 var Dialog = styled.div(({ $width, $padded }) => ({

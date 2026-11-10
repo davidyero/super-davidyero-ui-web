@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import { createPortal } from 'react-dom';
-import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
+import { describedBy, FieldLabel, FieldMessage, FieldRoot } from '../../styles/field';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import {
   Box,
@@ -44,7 +44,6 @@ export const SuperDropdown = <TValue extends string = string>({
     id,
   });
   const labelId = `${d.baseId}-label`;
-  const describedBy = error ? `${d.baseId}-error` : hint ? `${d.baseId}-hint` : undefined;
 
   return (
     <FieldRoot $fullWidth={fullWidth} className={className}>
@@ -66,7 +65,7 @@ export const SuperDropdown = <TValue extends string = string>({
           aria-labelledby={label ? labelId : undefined}
           aria-label={label ? undefined : ariaLabel}
           aria-invalid={error ? true : undefined}
-          aria-describedby={describedBy}
+          aria-describedby={describedBy(d.baseId, error, hint)}
           disabled={disabled}
           onClick={d.toggle}
           onKeyDown={d.onKeyDown}
@@ -130,13 +129,7 @@ export const SuperDropdown = <TValue extends string = string>({
             document.body,
           )
         : null}
-      {error ? (
-        <FieldError id={`${d.baseId}-error`} role="alert">
-          {error}
-        </FieldError>
-      ) : hint ? (
-        <FieldHint id={`${d.baseId}-hint`}>{hint}</FieldHint>
-      ) : null}
+      <FieldMessage id={d.baseId} error={error} hint={hint} />
     </FieldRoot>
   );
 };

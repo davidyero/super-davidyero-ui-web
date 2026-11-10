@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { focusVisible, space, zIndex } from '../../styles/scale';
+import { focusVisible, scrim, space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 export const Backdrop = styled.div<{ $align: 'center' | 'top' }>(({ $align }) => ({
@@ -10,7 +10,7 @@ export const Backdrop = styled.div<{ $align: 'center' | 'top' }>(({ $align }) =>
   justifyContent: 'center',
   alignItems: $align === 'center' ? 'center' : 'flex-start',
   padding: $align === 'center' ? space.lg : `10vh ${space.lg} ${space.lg}`,
-  background: 'rgba(0, 0, 0, 0.45)',
+  background: scrim,
   overflowY: 'auto',
 }));
 

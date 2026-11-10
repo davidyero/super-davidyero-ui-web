@@ -38,11 +38,20 @@ var media = {
   lg: `@media (min-width: ${breakpoints.lg}px)`,
   xl: `@media (min-width: ${breakpoints.xl}px)`
 };
-var zIndex = { dropdown: 800, modal: 1e3, toast: 1200, overlay: 1400 };
+var zIndex = {
+  dropdown: 800,
+  modal: 1e3,
+  popover: 1100,
+  tooltip: 1150,
+  toast: 1200,
+  overlay: 1400
+};
+var scrim = "rgba(0, 0, 0, 0.45)";
+var slide = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
 var transition = "150ms ease";
 var focusVisible = {
   outline: "none",
   boxShadow: `0 0 0 3px ${v.focusRing}`
 };
 
-export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, scrim, slide, space, textScale, transition, zIndex };

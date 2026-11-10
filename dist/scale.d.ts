@@ -126,12 +126,23 @@ declare const media: {
     readonly lg: "@media (min-width: 1200px)";
     readonly xl: "@media (min-width: 1536px)";
 };
+/**
+ * Capas, de abajo arriba. `dropdown` para menús en el flujo de la página; `popover` para lo
+ * que va en un portal sobre todo (la lista de SuperDropdown), así se abre también dentro
+ * de un SuperModal o SuperDrawer; `tooltip` por encima de esa lista y bajo los toasts.
+ */
 declare const zIndex: {
     readonly dropdown: 800;
     readonly modal: 1000;
+    readonly popover: 1100;
+    readonly tooltip: 1150;
     readonly toast: 1200;
     readonly overlay: 1400;
 };
+/** Velo neutro bajo SuperModal y SuperDrawer: el mismo en todos los temas. */
+declare const scrim = "rgba(0, 0, 0, 0.45)";
+/** Deslizamiento de los indicadores (SuperTabs, SuperSegmented). */
+declare const slide = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
 declare const transition = "150ms ease";
 /** Anillo de foco visible, el mismo en todos los controles. */
 declare const focusVisible: {
@@ -139,5 +150,5 @@ declare const focusVisible: {
     readonly boxShadow: `0 0 0 3px ${string}`;
 };
 
-export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, space, textScale, transition, zIndex };
+export { MIN_FONT_SIZE, breakpoints, fluidText, focusVisible, fontWeight, media, scrim, slide, space, textScale, transition, zIndex };
 export type { Breakpoint, FontWeight, TextVariant };

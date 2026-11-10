@@ -1,13 +1,13 @@
+import { useSlidingIndicator } from './chunk-VQU5XOBI.js';
 import { SuperIcon } from './chunk-34SSRPSU.js';
 import './chunk-3YBGSPOJ.js';
-import { space, focusVisible, transition } from './chunk-D42FHLD7.js';
+import { space, slide, focusVisible, transition } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
-import { useId, useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import { useId, useRef } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
-var SLIDE = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
 var List = styled.div({
   position: "relative",
   display: "flex",
@@ -34,7 +34,7 @@ var Indicator = styled.span(({ $animate }) => ({
   borderRadius: "2px",
   background: v.accent,
   pointerEvents: "none",
-  transition: $animate ? `transform ${SLIDE}, width ${SLIDE}` : "none",
+  transition: $animate ? `transform ${slide}, width ${slide}` : "none",
   "@media (prefers-reduced-motion: reduce)": { transition: "none" }
 }));
 var Tab = styled.button(
@@ -104,28 +104,14 @@ var SuperTabs = ({
   const autoId = useId();
   const base = idBase ?? autoId;
   const { onKeyDown, register } = useSuperTabs(items, value, onChange);
-  const listRef = useRef(null);
-  const [box, setBox] = useState(null);
-  const [animate, setAnimate] = useState(false);
-  const measure = useCallback(() => {
-    const el = listRef.current?.querySelector('[role="tab"][aria-selected="true"]');
-    setBox(el ? { x: el.offsetLeft, width: el.offsetWidth } : null);
-  }, []);
-  useLayoutEffect(measure, [measure, value, items, size]);
-  useEffect(() => {
-    if (box && !animate) {
-      const frame = requestAnimationFrame(() => setAnimate(true));
-      return () => cancelAnimationFrame(frame);
-    }
-    return void 0;
-  }, [box, animate]);
-  useEffect(() => {
-    const list = listRef.current;
-    if (!list || typeof ResizeObserver === "undefined") return void 0;
-    const observer = new ResizeObserver(measure);
-    observer.observe(list);
-    return () => observer.disconnect();
-  }, [measure]);
+  const {
+    containerRef: listRef,
+    box,
+    animate
+  } = useSlidingIndicator(
+    (list) => list.querySelector('[role="tab"][aria-selected="true"]'),
+    [value, items, size]
+  );
   return /* @__PURE__ */ jsxs(
     List,
     {

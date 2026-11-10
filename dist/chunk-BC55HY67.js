@@ -1,6 +1,6 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-LXJQ6VGF.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, describedBy, FieldMessage } from './chunk-SG6MIYR5.js';
 import { SuperIcon } from './chunk-34SSRPSU.js';
-import { space, transition, zIndex } from './chunk-D42FHLD7.js';
+import { space, transition, zIndex } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
@@ -49,7 +49,7 @@ var Chevron = styled.span(({ $open }) => ({
 }));
 var List = styled.ul(({ $up }) => ({
   position: "fixed",
-  zIndex: zIndex.dropdown,
+  zIndex: zIndex.popover,
   margin: 0,
   padding: space.xs,
   listStyle: "none",
@@ -267,7 +267,6 @@ var SuperDropdown = ({
     id
   });
   const labelId = `${d.baseId}-label`;
-  const describedBy = error ? `${d.baseId}-error` : hint ? `${d.baseId}-hint` : void 0;
   return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
     label ? /* @__PURE__ */ jsx(FieldLabel, { id: labelId, htmlFor: d.baseId, children: label }) : null,
     /* @__PURE__ */ jsxs(Box, { $invalid: Boolean(error), $size: size, $disabled: disabled, children: [
@@ -285,7 +284,7 @@ var SuperDropdown = ({
           "aria-labelledby": label ? labelId : void 0,
           "aria-label": label ? void 0 : ariaLabel,
           "aria-invalid": error ? true : void 0,
-          "aria-describedby": describedBy,
+          "aria-describedby": describedBy(d.baseId, error, hint),
           disabled,
           onClick: d.toggle,
           onKeyDown: d.onKeyDown,
@@ -344,7 +343,7 @@ var SuperDropdown = ({
       ),
       document.body
     ) : null,
-    error ? /* @__PURE__ */ jsx(FieldError, { id: `${d.baseId}-error`, role: "alert", children: error }) : hint ? /* @__PURE__ */ jsx(FieldHint, { id: `${d.baseId}-hint`, children: hint }) : null
+    /* @__PURE__ */ jsx(FieldMessage, { id: d.baseId, error, hint })
   ] });
 };
 

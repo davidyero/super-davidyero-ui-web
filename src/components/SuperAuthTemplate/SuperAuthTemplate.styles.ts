@@ -227,6 +227,8 @@ export const Card = styled.div<{ $motion: CardMotion }>(({ $motion }) => ({
       ? `${rise} 520ms 80ms ease both`
       : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
   pointerEvents: $motion.startsWith('exit') ? 'none' : undefined,
+  // La saliente va después en el DOM (ids repetidos): la entrante se pinta encima igual.
+  zIndex: $motion.startsWith('exit') ? 0 : 1,
   [reduced]: { animation: 'none' },
 }));
 
