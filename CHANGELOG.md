@@ -1,5 +1,15 @@
 # Changelog — @davidyero/ui-web
 
+## 0.17.0 — 2026-11-10
+
+- Iconos de los roles de equipo en `SuperIcon`, mismo trazo que los de plan: `role-owner`
+  (corona), `role-admin` (escudo con check), `role-editor` (lápiz), `role-viewer` (ojo),
+  `role-reception` (campana), `role-staff` (carnet), `role-member` (persona) y
+  `role-moderator` (mazo). `role-thanos` y `role-superthanos` son alias de los guanteletes
+  de plan.
+- `SuperBadge` acepta `role` (`SuperRole`): pone el icono y el tono del rol. `ROLE_BADGE`
+  exporta ese mapa. Si llegan `plan` y `role`, gana `plan`.
+
 ## 0.16.0 — 2026-11-10
 
 - Iconos de los 5 planes del ecosistema en `SuperIcon`, en SVG propio: `plan-free` (brote),

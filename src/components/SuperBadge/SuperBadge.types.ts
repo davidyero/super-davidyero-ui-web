@@ -4,6 +4,18 @@ export type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger'
 export type BadgeSize = 'sm' | 'md';
 /** Los 5 planes del ecosistema, iguales en todas las apps. */
 export type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
+/** Roles de equipo del ecosistema; thanos y superthanos son los de plataforma. */
+export type SuperRole =
+  | 'superthanos'
+  | 'thanos'
+  | 'owner'
+  | 'admin'
+  | 'editor'
+  | 'viewer'
+  | 'reception'
+  | 'staff'
+  | 'member'
+  | 'moderator';
 
 export interface SuperBadgeProps {
   tone?: BadgeTone;
@@ -12,6 +24,11 @@ export interface SuperBadgeProps {
    * `icon`/`tone`). El texto lo da la app, traducido.
    */
   plan?: SuperPlan;
+  /**
+   * Insignia de rol: pone el icono y el tono del rol (se pueden sobrescribir con
+   * `icon`/`tone`). Si llegan `plan` y `role`, gana `plan`. El texto lo da la app, traducido.
+   */
+  role?: SuperRole;
   size?: BadgeSize;
   /** Nombre de icono a la izquierda. */
   icon?: string;

@@ -1,4 +1,4 @@
-import { SuperIcon } from './chunk-L2VSLKPS.js';
+import { SuperIcon } from './chunk-6UHSNYBQ.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { space, focusVisible } from './chunk-GSUBWCY7.js';

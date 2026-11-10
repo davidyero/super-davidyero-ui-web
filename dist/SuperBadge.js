@@ -1,4 +1,4 @@
-import { SuperIcon } from './chunk-L2VSLKPS.js';
+import { SuperIcon } from './chunk-6UHSNYBQ.js';
 import './chunk-3YBGSPOJ.js';
 import { space } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
@@ -60,11 +60,25 @@ var PLAN_BADGE = {
   thanos: { icon: "plan-thanos", tone: "primary" },
   superthanos: { icon: "plan-superthanos", tone: "warning" }
 };
+var ROLE_BADGE = {
+  superthanos: { icon: "role-superthanos", tone: "warning" },
+  thanos: { icon: "role-thanos", tone: "primary" },
+  owner: { icon: "role-owner", tone: "primary" },
+  admin: { icon: "role-admin", tone: "info" },
+  editor: { icon: "role-editor", tone: "success" },
+  viewer: { icon: "role-viewer", tone: "neutral" },
+  reception: { icon: "role-reception", tone: "success" },
+  staff: { icon: "role-staff", tone: "info" },
+  member: { icon: "role-member", tone: "neutral" },
+  moderator: { icon: "role-moderator", tone: "warning" }
+};
+var preset = (plan, role) => plan ? PLAN_BADGE[plan] : role ? ROLE_BADGE[role] : void 0;
 var SuperBadge = ({
   plan,
-  tone = plan ? PLAN_BADGE[plan].tone : "neutral",
+  role,
+  tone = preset(plan, role)?.tone ?? "neutral",
   size = "md",
-  icon = plan ? PLAN_BADGE[plan].icon : void 0,
+  icon = preset(plan, role)?.icon,
   dot = false,
   mono = false,
   wrap = false,
@@ -79,4 +93,4 @@ var SuperBadge = ({
   onRemove ? /* @__PURE__ */ jsx(Remove, { type: "button", "aria-label": removeLabel, onClick: onRemove, children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 14 }) }) : null
 ] });
 
-export { PLAN_BADGE, SuperBadge };
+export { PLAN_BADGE, ROLE_BADGE, SuperBadge };

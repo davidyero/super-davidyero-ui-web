@@ -60,12 +60,64 @@ var superthanos = (uid) => /* @__PURE__ */ jsxs(Fragment, { children: [
   gems(["#E5484D", "#3E7BFA", "#30A46C"]),
   sparkle("#FFC53D")
 ] });
+var roleOwner = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M4 17.5 3 7.5l5 4 4-6.5 4 6.5 5-4-1 10Z" }),
+  /* @__PURE__ */ jsx("path", { d: "M4.5 20.5h15" })
+] });
+var roleAdmin = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6Z" }),
+  /* @__PURE__ */ jsx("path", { d: "m8.8 12 2.2 2.2 4.2-4.4" })
+] });
+var roleEditor = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M15.5 4.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" }),
+  /* @__PURE__ */ jsx("path", { d: "m13.5 6.5 3 3" }),
+  /* @__PURE__ */ jsx("path", { d: "M12 20h8" })
+] });
+var roleViewer = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" }),
+  /* @__PURE__ */ jsx("circle", { cx: "12", cy: "12", r: "3" })
+] });
+var roleReception = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M4 17h16" }),
+  /* @__PURE__ */ jsx("path", { d: "M5.5 17a6.5 6.5 0 0 1 13 0" }),
+  /* @__PURE__ */ jsx("path", { d: "M12 10.5V8.5" }),
+  /* @__PURE__ */ jsx("path", { d: "M10.5 8.5h3" }),
+  /* @__PURE__ */ jsx("path", { d: "M3 20h18" })
+] });
+var roleStaff = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("rect", { x: "5", y: "6", width: "14", height: "15", rx: "2" }),
+  /* @__PURE__ */ jsx("path", { d: "M9.5 3h5v4.5h-5Z" }),
+  /* @__PURE__ */ jsx("circle", { cx: "12", cy: "12.5", r: "2" }),
+  /* @__PURE__ */ jsx("path", { d: "M8.5 18c.6-1.5 1.9-2.3 3.5-2.3s2.9.8 3.5 2.3" })
+] });
+var roleMember = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("circle", { cx: "12", cy: "8", r: "3.8" }),
+  /* @__PURE__ */ jsx("path", { d: "M4.5 20.5c.9-3.6 3.9-5.7 7.5-5.7s6.6 2.1 7.5 5.7" })
+] });
+var roleModerator = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "m13.5 4.5 6 6" }),
+  /* @__PURE__ */ jsx("path", { d: "m11 7 6 6" }),
+  /* @__PURE__ */ jsx("path", { d: "m10.2 7.8 5 5-2.4 2.4-5-5Z" }),
+  /* @__PURE__ */ jsx("path", { d: "m10.1 12.9-6.6 6.6" }),
+  /* @__PURE__ */ jsx("path", { d: "M13 20.5h8" })
+] });
 var CUSTOM_ICONS = {
   "plan-free": free,
   "plan-lite": lite,
   "plan-pro": pro,
   "plan-thanos": thanos,
   "plan-superthanos": superthanos,
+  // Roles de equipo; thanos y superthanos son los mismos guanteletes de los planes.
+  "role-owner": roleOwner,
+  "role-admin": roleAdmin,
+  "role-editor": roleEditor,
+  "role-viewer": roleViewer,
+  "role-reception": roleReception,
+  "role-staff": roleStaff,
+  "role-member": roleMember,
+  "role-moderator": roleModerator,
+  "role-thanos": thanos,
+  "role-superthanos": superthanos,
   // Alias de la 0.13.0.
   thanos,
   superthanos
