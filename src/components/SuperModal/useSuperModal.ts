@@ -39,8 +39,21 @@ export const useSuperModal = (
     stack.push(token);
 
     (focusables()[0] ?? dialog)?.focus();
+    // Bloquea el scroll sin que el contenido salte ni quede una franja sin velo:
+    // con `scrollbar-gutter: stable` el hueco de la barra seguiría reservado y la
+    // capa fija no lo cubriría. Se quita el hueco y se compensa con padding.
+    const html = document.documentElement;
+    const gutter = window.innerWidth - html.clientWidth;
     const previousOverflow = document.body.style.overflow;
+    const previousPadding = document.body.style.paddingRight;
+    const previousGutter = html.style.scrollbarGutter;
+    const previousBodyGutter = document.body.style.scrollbarGutter;
     document.body.style.overflow = 'hidden';
+    if (gutter > 0) {
+      html.style.scrollbarGutter = 'auto';
+      document.body.style.scrollbarGutter = 'auto';
+      document.body.style.paddingRight = `${gutter}px`;
+    }
 
     const onKeyDown = (event: KeyboardEvent): void => {
       if (!isTop(token) || event.defaultPrevented) return;
@@ -72,6 +85,9 @@ export const useSuperModal = (
       document.removeEventListener('keydown', onKeyDown);
       stack.splice(stack.indexOf(token), 1);
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPadding;
+      html.style.scrollbarGutter = previousGutter;
+      document.body.style.scrollbarGutter = previousBodyGutter;
       previouslyFocused?.focus?.();
     };
   }, [open]);

@@ -1,5 +1,11 @@
 # Changelog — @davidyero/ui-web
 
+## 0.15.1 — 2026-11-10
+
+- `SuperModal` y `SuperDrawer`: al bloquear el scroll quitan el hueco de `scrollbar-gutter:
+  stable` (en `html` y `body`) y lo compensan con `padding-right`. Con barras clásicas ya no queda
+  una franja sin velo a la derecha ni salta el contenido.
+
 ## 0.15.0 — 2026-11-10
 
 - `SuperDropdown` dentro de `SuperModal` o `SuperDrawer`: la lista (en portal) usa la capa nueva
