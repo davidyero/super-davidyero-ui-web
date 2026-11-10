@@ -1,12 +1,20 @@
-import { useId, type ReactElement } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactElement,
+} from 'react';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
-import { Count, List, Tab } from './SuperTabs.styles';
+import { Count, Indicator, List, Tab } from './SuperTabs.styles';
 import type { SuperTabsProps } from './SuperTabs.types';
 import { useSuperTabs } from './useSuperTabs';
 
 /**
- * Pestañas controladas por `value`. Sin router a propósito: para navegar,
- * llama a tu `navigate` desde `onChange`.
+ * Pestañas controladas por `value`, con un subrayado que se desliza a la activa.
+ * Sin router a propósito: para navegar, llama a tu `navigate` desde `onChange`.
  */
 export const SuperTabs = <TId extends string = string>({
   items,
@@ -20,9 +28,49 @@ export const SuperTabs = <TId extends string = string>({
   const autoId = useId();
   const base = idBase ?? autoId;
   const { onKeyDown, register } = useSuperTabs(items, value, onChange);
+  const listRef = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState<{ x: number; width: number } | null>(null);
+  // La primera medida coloca el subrayado sin animar; las siguientes se deslizan.
+  const [animate, setAnimate] = useState(false);
+
+  const measure = useCallback((): void => {
+    const el = listRef.current?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+    setBox(el ? { x: el.offsetLeft, width: el.offsetWidth } : null);
+  }, []);
+
+  useLayoutEffect(measure, [measure, value, items, size]);
+
+  useEffect(() => {
+    if (box && !animate) {
+      const frame = requestAnimationFrame(() => setAnimate(true));
+      return () => cancelAnimationFrame(frame);
+    }
+    return undefined;
+  }, [box, animate]);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [measure]);
 
   return (
-    <List role="tablist" aria-label={ariaLabel} onKeyDown={onKeyDown} className={className}>
+    <List
+      ref={listRef}
+      role="tablist"
+      aria-label={ariaLabel}
+      onKeyDown={onKeyDown}
+      className={className}
+    >
+      {box ? (
+        <Indicator
+          aria-hidden
+          $animate={animate}
+          style={{ width: box.width, transform: `translateX(${box.x}px)` }}
+        />
+      ) : null}
       {items.map((item) => {
         const active = item.id === value;
         return (

@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.14.0 — 2026-11-10
+
+- `SuperTabs`: el subrayado de la pestaña activa se desliza a la nueva al cambiar (260 ms, sin
+  animación con `prefers-reduced-motion`). Mide 2px, el doble de la línea base, y la tapa.
+
 ## 0.13.0 — 2026-11-09
 
 - `SuperIcon` con iconos propios en SVG (no Iconify): `thanos` (guantelete de armadura) y

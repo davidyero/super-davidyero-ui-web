@@ -21,8 +21,8 @@ interface SuperTabsProps<TId extends string = string> {
 }
 
 /**
- * Pestañas controladas por `value`. Sin router a propósito: para navegar,
- * llama a tu `navigate` desde `onChange`.
+ * Pestañas controladas por `value`, con un subrayado que se desliza a la activa.
+ * Sin router a propósito: para navegar, llama a tu `navigate` desde `onChange`.
  */
 declare const SuperTabs: <TId extends string = string>({ items, value, onChange, ariaLabel, idBase, size, className, }: SuperTabsProps<TId>) => ReactElement;
 
