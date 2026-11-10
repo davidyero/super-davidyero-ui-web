@@ -1,4 +1,4 @@
-import { transition, space, zIndex } from './chunk-D42FHLD7.js';
+import { transition, space, zIndex } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId, isValidElement, cloneElement } from 'react';
@@ -18,7 +18,7 @@ var Bubble = styled.span(({ $placement }) => ({
   left: "50%",
   transform: "translateX(-50%)",
   ...$placement === "top" ? { bottom: `calc(100% + ${space.xs})` } : { top: `calc(100% + ${space.xs})` },
-  zIndex: zIndex.dropdown,
+  zIndex: zIndex.tooltip,
   padding: `${space.xxs} ${space.sm}`,
   borderRadius: v.radius.sm,
   background: v.surfaceElevated,

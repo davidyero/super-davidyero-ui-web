@@ -1,8 +1,8 @@
-import { useSuperModal } from './chunk-QZ5FGYI5.js';
+import { useSuperModal } from './chunk-YHLTNC4L.js';
 import { SuperIcon } from './chunk-34SSRPSU.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-IMFSKA2U.js';
-import { zIndex, media, space, focusVisible } from './chunk-D42FHLD7.js';
+import { SuperTypography } from './chunk-6OHDPNJ7.js';
+import { scrim, zIndex, media, space, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId } from 'react';
@@ -16,7 +16,7 @@ var Backdrop = styled.div({
   zIndex: zIndex.modal,
   display: "flex",
   justifyContent: "flex-end",
-  background: "rgba(42, 33, 30, 0.38)"
+  background: scrim
 });
 var Panel = styled.div(({ $width }) => ({
   display: "flex",

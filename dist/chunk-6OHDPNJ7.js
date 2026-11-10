@@ -1,4 +1,4 @@
-import { textScale, fontWeight } from './chunk-D42FHLD7.js';
+import { textScale, fontWeight } from './chunk-GSUBWCY7.js';
 import { v, textVar } from './chunk-VQ2WXUA7.js';
 import styled from '@emotion/styled';
 import { jsx } from '@emotion/react/jsx-runtime';

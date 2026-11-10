@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react';
 
 // src/components/SuperModal/useSuperModal.ts
 var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+var stack = [];
+var isTop = (token) => stack[stack.length - 1] === token;
 var useSuperModal = (open, onClose) => {
   const dialogRef = useRef(null);
   const onCloseRef = useRef(onClose);
@@ -13,11 +15,15 @@ var useSuperModal = (open, onClose) => {
     const previouslyFocused = document.activeElement;
     const dialog = dialogRef.current;
     const focusables = () => dialog ? Array.from(dialog.querySelectorAll(FOCUSABLE)) : [];
+    const token = /* @__PURE__ */ Symbol("sd-modal");
+    stack.push(token);
     (focusables()[0] ?? dialog)?.focus();
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKeyDown = (event) => {
+      if (!isTop(token) || event.defaultPrevented) return;
       if (event.key === "Escape") {
+        event.preventDefault();
         event.stopPropagation();
         onCloseRef.current();
         return;
@@ -38,9 +44,10 @@ var useSuperModal = (open, onClose) => {
         first?.focus();
       }
     };
-    document.addEventListener("keydown", onKeyDown, true);
+    document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener("keydown", onKeyDown, true);
+      document.removeEventListener("keydown", onKeyDown);
+      stack.splice(stack.indexOf(token), 1);
       document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus?.();
     };

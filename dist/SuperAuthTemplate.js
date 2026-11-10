@@ -1,7 +1,7 @@
 import { SuperIcon } from './chunk-34SSRPSU.js';
 import './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-IMFSKA2U.js';
-import { space, media, fluidText } from './chunk-D42FHLD7.js';
+import { SuperTypography } from './chunk-6OHDPNJ7.js';
+import { space, media, fluidText } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useState } from 'react';
@@ -200,6 +200,8 @@ var Card = styled.div(({ $motion }) => ({
   boxShadow: v.shadow.lg,
   animation: $motion === "rise" ? `${rise} 520ms 80ms ease both` : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
   pointerEvents: $motion.startsWith("exit") ? "none" : void 0,
+  // La saliente va después en el DOM (ids repetidos): la entrante se pinta encima igual.
+  zIndex: $motion.startsWith("exit") ? 0 : 1,
   [reduced]: { animation: "none" }
 }));
 var Foot = styled.footer({
@@ -208,6 +210,9 @@ var Foot = styled.footer({
   justifyContent: "center",
   [media.lg]: { padding: `0 ${space.xl} ${space.xl}` }
 });
+var makeInert = (node) => {
+  node?.setAttribute("inert", "");
+};
 var prefersReducedMotion = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var SuperAuthTemplate = ({
   brand,
@@ -261,9 +266,11 @@ var SuperAuthTemplate = ({
       ] })
     ] }),
     /* @__PURE__ */ jsxs(FormArea, { children: [
+      /* @__PURE__ */ jsx(Card, { $motion: enter, children }, current.key ?? "screen"),
       leaving ? /* @__PURE__ */ jsx(
         Card,
         {
+          ref: makeInert,
           $motion: `exit-${screenDirection}`,
           "aria-hidden": true,
           onAnimationEnd: (event) => {
@@ -272,8 +279,7 @@ var SuperAuthTemplate = ({
           children: leaving.node
         },
         leaving.key ?? "leaving"
-      ) : null,
-      /* @__PURE__ */ jsx(Card, { $motion: enter, children }, current.key ?? "screen")
+      ) : null
     ] }),
     footer ? /* @__PURE__ */ jsx(Foot, { children: footer }) : null
   ] });

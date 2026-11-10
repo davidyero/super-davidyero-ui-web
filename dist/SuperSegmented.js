@@ -1,11 +1,11 @@
-import { space, focusVisible, transition } from './chunk-D42FHLD7.js';
+import { useSlidingIndicator } from './chunk-VQU5XOBI.js';
+import { space, slide, focusVisible, transition } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
-import { useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
-var SLIDE = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
 var reduceMotion = "@media (prefers-reduced-motion: reduce)";
 var iconSide = (size) => size === "sm" ? "36px" : "44px";
 var Track = styled.div(
@@ -32,7 +32,7 @@ var Thumb = styled.span(
     background: $variant === "icon" ? v.surface : v.text,
     boxShadow: $variant === "icon" ? v.shadow.sm : "none",
     pointerEvents: "none",
-    transition: $animate ? `transform ${SLIDE}, width ${SLIDE}` : "none",
+    transition: $animate ? `transform ${slide}, width ${slide}` : "none",
     [reduceMotion]: { transition: "none" }
   })
 );
@@ -67,7 +67,7 @@ var Option = styled.button(({ $active, $size, $fullWidth, $variant }) => ({
       opacity: $active ? 1 : 0.55,
       filter: $active ? "none" : "saturate(0.4)",
       transform: $active ? "scale(1)" : "scale(0.86)",
-      transition: `opacity ${SLIDE}, filter ${SLIDE}, transform ${SLIDE}`
+      transition: `opacity ${slide}, filter ${slide}, transform ${slide}`
     },
     "&:hover:not(:disabled) > svg": { opacity: 1, filter: "none" },
     [reduceMotion]: { "& > svg": { transition: "none" } }
@@ -84,33 +84,15 @@ var SuperSegmented = ({
   className
 }) => {
   const refs = useRef(/* @__PURE__ */ new Map());
-  const trackRef = useRef(null);
-  const [box, setBox] = useState(null);
-  const [animate, setAnimate] = useState(false);
   const enabled = options.filter((option) => !option.disabled);
-  const measure = useCallback(() => {
-    const el = refs.current.get(value);
-    if (!el) {
-      setBox(null);
-      return;
-    }
-    setBox({ x: el.offsetLeft, y: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight });
-  }, [value]);
-  useLayoutEffect(measure, [measure, options, size, fullWidth]);
-  useEffect(() => {
-    if (box && !animate) {
-      const frame = requestAnimationFrame(() => setAnimate(true));
-      return () => cancelAnimationFrame(frame);
-    }
-    return void 0;
-  }, [box, animate]);
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || typeof ResizeObserver === "undefined") return void 0;
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-    return () => observer.disconnect();
-  }, [measure]);
+  const {
+    containerRef: trackRef,
+    box,
+    animate
+  } = useSlidingIndicator(
+    () => refs.current.get(value),
+    [value, options, size, fullWidth]
+  );
   const onKeyDown = (event) => {
     const index = enabled.findIndex((option) => option.value === value);
     const keys = {

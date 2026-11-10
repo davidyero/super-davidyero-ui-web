@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import { focusVisible, space, transition } from '../../styles/scale';
+import { focusVisible, slide, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
-
-const SLIDE = '260ms cubic-bezier(0.22, 1, 0.36, 1)';
 
 // La línea base (1px) va dentro de la lista como pseudo-elemento, y el indicador
 // (2px) por encima: así la tapa y ambos se desplazan con el scroll horizontal.
@@ -34,7 +32,7 @@ export const Indicator = styled.span<{ $animate: boolean }>(({ $animate }) => ({
   borderRadius: '2px',
   background: v.accent,
   pointerEvents: 'none',
-  transition: $animate ? `transform ${SLIDE}, width ${SLIDE}` : 'none',
+  transition: $animate ? `transform ${slide}, width ${slide}` : 'none',
   '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 }));
 

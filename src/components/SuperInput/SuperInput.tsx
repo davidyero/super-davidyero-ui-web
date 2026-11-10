@@ -1,5 +1,5 @@
 import { forwardRef, type ReactElement } from 'react';
-import { FieldError, FieldHint, FieldLabel, FieldRoot } from '../../styles/field';
+import { FieldLabel, FieldMessage, FieldRoot } from '../../styles/field';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { Box, Input, Prefix, Toggle } from './SuperInput.styles';
@@ -33,7 +33,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
 ): ReactElement {
   const labels = useSuperLabels();
   const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy } = useSuperInput(
-    { id, type, error, hint },
+    { id, type, error, hint, ariaDescribedBy: rest['aria-describedby'] },
   );
 
   return (
@@ -76,13 +76,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
           <SuperIcon name={rightIcon} size={18} />
         ) : null}
       </Box>
-      {error ? (
-        <FieldError id={`${inputId}-error`} role="alert">
-          {error}
-        </FieldError>
-      ) : hint ? (
-        <FieldHint id={`${inputId}-hint`}>{hint}</FieldHint>
-      ) : null}
+      <FieldMessage id={inputId} error={error} hint={hint} />
     </FieldRoot>
   );
 });

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import type { ReactElement } from 'react';
 import { focusVisible, space, transition } from './scale';
 import { v } from '../theme/vars';
 
@@ -34,6 +35,44 @@ export const FieldError = styled.p({
   lineHeight: 1.4,
   color: v.dangerText,
 });
+
+/** Ids del mensaje bajo el campo: el error manda sobre la ayuda. */
+export const fieldErrorId = (id: string): string => `${id}-error`;
+export const fieldHintId = (id: string): string => `${id}-hint`;
+
+/**
+ * `aria-describedby` del control: el error (o, si no hay, la ayuda) más los ids que añada
+ * quien lo usa (p. ej. el `aria-describedby` que llega por props). `undefined` si no hay nada.
+ */
+export const describedBy = (
+  id: string,
+  error: string | undefined,
+  hint: string | undefined,
+  ...extra: ReadonlyArray<string | undefined>
+): string | undefined => {
+  const own = error ? fieldErrorId(id) : hint ? fieldHintId(id) : undefined;
+  return [own, ...extra].filter(Boolean).join(' ') || undefined;
+};
+
+/** Error (anunciado) o ayuda bajo el campo, con los ids que enlaza `describedBy`. */
+export const FieldMessage = ({
+  id,
+  error,
+  hint,
+}: {
+  id: string;
+  error?: string;
+  hint?: string;
+}): ReactElement | null => {
+  if (error)
+    return (
+      <FieldError id={fieldErrorId(id)} role="alert">
+        {error}
+      </FieldError>
+    );
+  if (hint) return <FieldHint id={fieldHintId(id)}>{hint}</FieldHint>;
+  return null;
+};
 
 /** Caja de control con borde, foco y estado de error. */
 export const controlBox = (invalid: boolean) =>

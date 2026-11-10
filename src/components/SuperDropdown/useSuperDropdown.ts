@@ -169,6 +169,8 @@ export const useSuperDropdown = <TValue extends string>({
         choose(active);
         break;
       case 'Escape':
+        // preventDefault avisa a SuperModal/SuperDrawer de que este Escape ya se usó:
+        // cierra solo la lista, no el diálogo que la contiene.
         event.preventDefault();
         close();
         break;

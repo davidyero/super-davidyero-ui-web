@@ -1,4 +1,4 @@
-import { space, transition } from './chunk-D42FHLD7.js';
+import { space, transition } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import styled from '@emotion/styled';

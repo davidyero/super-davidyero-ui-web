@@ -1,21 +1,7 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type ReactElement,
-} from 'react';
+import { useRef, type KeyboardEvent, type ReactElement } from 'react';
+import { useSlidingIndicator } from '../../hooks/useSlidingIndicator';
 import { Option, Thumb, Track } from './SuperSegmented.styles';
 import type { SuperSegmentedProps } from './SuperSegmented.types';
-
-interface ThumbBox {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
 
 /**
  * Selector segmentado en píldora para 2–4 opciones excluyentes. El fondo de la
@@ -33,38 +19,15 @@ export const SuperSegmented = <TValue extends string = string>({
   className,
 }: SuperSegmentedProps<TValue>): ReactElement => {
   const refs = useRef(new Map<TValue, HTMLButtonElement>());
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [box, setBox] = useState<ThumbBox | null>(null);
-  // La primera medida coloca el fondo sin animar; las siguientes se deslizan.
-  const [animate, setAnimate] = useState(false);
   const enabled = options.filter((option) => !option.disabled);
-
-  const measure = useCallback((): void => {
-    const el = refs.current.get(value);
-    if (!el) {
-      setBox(null);
-      return;
-    }
-    setBox({ x: el.offsetLeft, y: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight });
-  }, [value]);
-
-  useLayoutEffect(measure, [measure, options, size, fullWidth]);
-
-  useEffect(() => {
-    if (box && !animate) {
-      const frame = requestAnimationFrame(() => setAnimate(true));
-      return () => cancelAnimationFrame(frame);
-    }
-    return undefined;
-  }, [box, animate]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || typeof ResizeObserver === 'undefined') return undefined;
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-    return () => observer.disconnect();
-  }, [measure]);
+  const {
+    containerRef: trackRef,
+    box,
+    animate,
+  } = useSlidingIndicator<HTMLDivElement>(
+    () => refs.current.get(value),
+    [value, options, size, fullWidth],
+  );
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
     const index = enabled.findIndex((option) => option.value === value);

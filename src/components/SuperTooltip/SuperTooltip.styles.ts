@@ -18,7 +18,7 @@ export const Bubble = styled.span<{ $placement: 'top' | 'bottom' }>(({ $placemen
   ...($placement === 'top'
     ? { bottom: `calc(100% + ${space.xs})` }
     : { top: `calc(100% + ${space.xs})` }),
-  zIndex: zIndex.dropdown,
+  zIndex: zIndex.tooltip,
   padding: `${space.xxs} ${space.sm}`,
   borderRadius: v.radius.sm,
   background: v.surfaceElevated,

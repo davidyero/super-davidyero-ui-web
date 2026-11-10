@@ -1,5 +1,5 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-LXJQ6VGF.js';
-import { space } from './chunk-D42FHLD7.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, describedBy, FieldMessage } from './chunk-SG6MIYR5.js';
+import { space } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { forwardRef, useId } from 'react';
@@ -50,7 +50,6 @@ var SuperTextarea = forwardRef(
     const areaId = id ?? autoId;
     const length = typeof value === "string" ? value.length : 0;
     const countMax = maxCount ?? (showCount ? maxLength : void 0);
-    const describedBy = error ? `${areaId}-error` : hint ? `${areaId}-hint` : void 0;
     return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
       label ? /* @__PURE__ */ jsx(FieldLabel, { htmlFor: areaId, children: label }) : null,
       /* @__PURE__ */ jsx(Box, { $invalid: Boolean(error), $disabled: Boolean(disabled), children: /* @__PURE__ */ jsx(
@@ -64,11 +63,11 @@ var SuperTextarea = forwardRef(
           maxLength,
           disabled,
           "aria-invalid": error ? true : void 0,
-          "aria-describedby": describedBy
+          "aria-describedby": describedBy(areaId, error, hint, rest["aria-describedby"])
         }
       ) }),
       /* @__PURE__ */ jsxs(Footer, { children: [
-        error ? /* @__PURE__ */ jsx(FieldError, { id: `${areaId}-error`, role: "alert", children: error }) : hint ? /* @__PURE__ */ jsx(FieldHint, { id: `${areaId}-hint`, children: hint }) : null,
+        /* @__PURE__ */ jsx(FieldMessage, { id: areaId, error, hint }),
         countMax ? /* @__PURE__ */ jsxs(Count, { $over: maxCount ? length > maxCount : length >= countMax, "aria-live": "polite", children: [
           length,
           "/",

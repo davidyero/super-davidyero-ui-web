@@ -1,7 +1,7 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, FieldError, FieldHint } from './chunk-LXJQ6VGF.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, FieldMessage, describedBy } from './chunk-SG6MIYR5.js';
 import { SuperIcon } from './chunk-34SSRPSU.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { space, focusVisible } from './chunk-D42FHLD7.js';
+import { space, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { forwardRef, useId, useState } from 'react';
@@ -54,19 +54,19 @@ var Prefix = styled.span({
   fontWeight: 600,
   whiteSpace: "nowrap"
 });
-var useSuperInput = ({ id, type, error, hint }) => {
+var useSuperInput = ({ id, type, error, hint, ariaDescribedBy }) => {
   const autoId = useId();
   const inputId = id ?? autoId;
   const [revealed, setRevealed] = useState(false);
   const isPassword = type === "password";
-  const describedBy = [error ? `${inputId}-error` : null, !error && hint ? `${inputId}-hint` : null].filter(Boolean).join(" ") || void 0;
+  const describedBy2 = describedBy(inputId, error, hint, ariaDescribedBy);
   return {
     inputId,
     isPassword,
     revealed,
     toggleReveal: () => setRevealed((r) => !r),
     effectiveType: isPassword && revealed ? "text" : type,
-    describedBy
+    describedBy: describedBy2
   };
 };
 var SuperInput = forwardRef(function SuperInput2({
@@ -88,8 +88,8 @@ var SuperInput = forwardRef(function SuperInput2({
   ...rest
 }, ref) {
   const labels = useSuperLabels();
-  const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy } = useSuperInput(
-    { id, type, error, hint }
+  const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy: describedBy2 } = useSuperInput(
+    { id, type, error, hint, ariaDescribedBy: rest["aria-describedby"] }
   );
   return /* @__PURE__ */ jsxs(FieldRoot, { $fullWidth: fullWidth, className, children: [
     label ? /* @__PURE__ */ jsx(FieldLabel, { htmlFor: inputId, children: label }) : null,
@@ -106,7 +106,7 @@ var SuperInput = forwardRef(function SuperInput2({
           disabled,
           $mono: mono,
           "aria-invalid": error || invalid ? true : void 0,
-          "aria-describedby": describedBy
+          "aria-describedby": describedBy2
         }
       ),
       isPassword ? /* @__PURE__ */ jsx(
@@ -131,7 +131,7 @@ var SuperInput = forwardRef(function SuperInput2({
         }
       ) : rightIcon ? /* @__PURE__ */ jsx(SuperIcon, { name: rightIcon, size: 18 }) : null
     ] }),
-    error ? /* @__PURE__ */ jsx(FieldError, { id: `${inputId}-error`, role: "alert", children: error }) : hint ? /* @__PURE__ */ jsx(FieldHint, { id: `${inputId}-hint`, children: hint }) : null
+    /* @__PURE__ */ jsx(FieldMessage, { id: inputId, error, hint })
   ] });
 });
 

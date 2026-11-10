@@ -1,6 +1,7 @@
-import { space, focusVisible, transition } from './chunk-D42FHLD7.js';
+import { space, focusVisible, transition } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import styled from '@emotion/styled';
+import { jsx } from '@emotion/react/jsx-runtime';
 
 var FieldRoot = styled.div(({ $fullWidth }) => ({
   // Bloque: en un formulario el campo ocupa su fila (con `fullWidth`, el 100%).
@@ -30,6 +31,22 @@ var FieldError = styled.p({
   lineHeight: 1.4,
   color: v.dangerText
 });
+var fieldErrorId = (id) => `${id}-error`;
+var fieldHintId = (id) => `${id}-hint`;
+var describedBy = (id, error, hint, ...extra) => {
+  const own = error ? fieldErrorId(id) : hint ? fieldHintId(id) : void 0;
+  return [own, ...extra].filter(Boolean).join(" ") || void 0;
+};
+var FieldMessage = ({
+  id,
+  error,
+  hint
+}) => {
+  if (error)
+    return /* @__PURE__ */ jsx(FieldError, { id: fieldErrorId(id), role: "alert", children: error });
+  if (hint) return /* @__PURE__ */ jsx(FieldHint, { id: fieldHintId(id), children: hint });
+  return null;
+};
 var controlBox = (invalid) => ({
   display: "flex",
   alignItems: "center",
@@ -59,4 +76,4 @@ var controlText = {
   "&:disabled": { cursor: "not-allowed" }
 };
 
-export { FieldError, FieldHint, FieldLabel, FieldRoot, controlBox, controlText };
+export { FieldLabel, FieldMessage, FieldRoot, controlBox, controlText, describedBy };

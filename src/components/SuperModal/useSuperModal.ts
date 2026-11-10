@@ -4,8 +4,19 @@ const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
+ * Pila de diálogos abiertos (SuperModal y SuperDrawer). Solo el de arriba atiende
+ * Escape y Tab: con dos apilados, Escape cierra el último que se abrió.
+ */
+const stack: symbol[] = [];
+const isTop = (token: symbol): boolean => stack[stack.length - 1] === token;
+
+/**
  * Escape cierra, Tab no sale del diálogo, el foco entra al abrir y vuelve al
  * elemento que lo abrió al cerrar, y el fondo no hace scroll.
+ *
+ * El teclado se escucha en `document` en fase de burbuja: lo que hay dentro del diálogo
+ * lo recibe antes. Un control que use Escape para sí (la lista abierta de SuperDropdown)
+ * llama a `preventDefault()` y el diálogo no se cierra.
  */
 export const useSuperModal = (
   open: boolean,
@@ -24,12 +35,17 @@ export const useSuperModal = (
     const focusables = (): HTMLElement[] =>
       dialog ? Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE)) : [];
 
+    const token = Symbol('sd-modal');
+    stack.push(token);
+
     (focusables()[0] ?? dialog)?.focus();
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const onKeyDown = (event: KeyboardEvent): void => {
+      if (!isTop(token) || event.defaultPrevented) return;
       if (event.key === 'Escape') {
+        event.preventDefault();
         event.stopPropagation();
         onCloseRef.current();
         return;
@@ -51,9 +67,10 @@ export const useSuperModal = (
       }
     };
 
-    document.addEventListener('keydown', onKeyDown, true);
+    document.addEventListener('keydown', onKeyDown);
     return () => {
-      document.removeEventListener('keydown', onKeyDown, true);
+      document.removeEventListener('keydown', onKeyDown);
+      stack.splice(stack.indexOf(token), 1);
       document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus?.();
     };

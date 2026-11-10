@@ -26,6 +26,14 @@ interface Screen {
   node: ReactNode;
 }
 
+/**
+ * `inert` por el DOM y no como prop: React 18 no la conoce (la descarta con un aviso) y en
+ * React 19 es booleana. Así funciona igual en las dos versiones que admite la librería.
+ */
+const makeInert = (node: HTMLElement | null): void => {
+  node?.setAttribute('inert', '');
+};
+
 const prefersReducedMotion = (): boolean =>
   typeof window !== 'undefined' &&
   typeof window.matchMedia === 'function' &&
@@ -111,9 +119,15 @@ export const SuperAuthTemplate = ({
       </Hero>
 
       <FormArea>
+        {/* La tarjeta activa va primero en el DOM: si las dos pantallas repiten ids (p. ej.
+            id="email"), `getElementById` y los `<label htmlFor>` dan con la activa. */}
+        <Card key={current.key ?? 'screen'} $motion={enter}>
+          {children}
+        </Card>
         {leaving ? (
           <Card
             key={leaving.key ?? 'leaving'}
+            ref={makeInert}
             $motion={`exit-${screenDirection}`}
             aria-hidden
             onAnimationEnd={(event) => {
@@ -123,9 +137,6 @@ export const SuperAuthTemplate = ({
             {leaving.node}
           </Card>
         ) : null}
-        <Card key={current.key ?? 'screen'} $motion={enter}>
-          {children}
-        </Card>
       </FormArea>
 
       {footer ? <Foot>{footer}</Foot> : null}

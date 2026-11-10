@@ -1,5 +1,23 @@
 # Changelog — @davidyero/ui-web
 
+## 0.15.0 — 2026-11-10
+
+- `SuperDropdown` dentro de `SuperModal` o `SuperDrawer`: la lista (en portal) usa la capa nueva
+  `zIndex.popover` (1100, entre modal y toast) y ya no queda debajo del diálogo. `SuperTooltip`
+  tiene su propia capa `zIndex.tooltip` (1150).
+- Escape con la lista de un `SuperDropdown` abierta cierra solo la lista, no el diálogo. Con
+  varios `SuperModal`/`SuperDrawer` apilados, Escape y la trampa de Tab solo actúan en el de
+  arriba. El diálogo escucha el teclado en fase de burbuja y respeta `preventDefault()`.
+- `SuperModal` y `SuperDrawer` comparten el mismo velo neutro (`scrim` en `scale`); el drawer ya
+  no usa la tinta del tema Pilates.
+- `SuperTabs` y `SuperSegmented` comparten el hook del indicador deslizante y la curva `slide`
+  de `scale`. Mismo aspecto que en 0.14.0.
+- `SuperAuthTemplate`: la tarjeta saliente es `inert` (sus campos no se enfocan) y va después
+  de la activa en el DOM, así los ids repetidos entre pantallas apuntan a la activa.
+- `SuperInput`, `SuperTextarea` y `SuperDropdown` usan `FieldMessage` y `describedBy`
+  (en `styles/field`). `SuperInput` y `SuperTextarea` suman el `aria-describedby` que reciben
+  por props en vez de pisarlo.
+
 ## 0.14.0 — 2026-11-10
 
 - `SuperTabs`: el subrayado de la pestaña activa se desliza a la nueva al cambiar (260 ms, sin

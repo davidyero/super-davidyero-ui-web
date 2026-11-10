@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import { focusVisible, space, transition } from '../../styles/scale';
+import { focusVisible, slide, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 type Variant = 'default' | 'icon';
 type Size = 'sm' | 'md';
 
-const SLIDE = '260ms cubic-bezier(0.22, 1, 0.36, 1)';
 const reduceMotion = '@media (prefers-reduced-motion: reduce)';
 
 const iconSide = (size: Size): string => (size === 'sm' ? '36px' : '44px');
@@ -36,7 +35,7 @@ export const Thumb = styled.span<{ $variant: Variant; $animate: boolean }>(
     background: $variant === 'icon' ? v.surface : v.text,
     boxShadow: $variant === 'icon' ? v.shadow.sm : 'none',
     pointerEvents: 'none',
-    transition: $animate ? `transform ${SLIDE}, width ${SLIDE}` : 'none',
+    transition: $animate ? `transform ${slide}, width ${slide}` : 'none',
     [reduceMotion]: { transition: 'none' },
   }),
 );
@@ -77,7 +76,7 @@ export const Option = styled.button<{
       opacity: $active ? 1 : 0.55,
       filter: $active ? 'none' : 'saturate(0.4)',
       transform: $active ? 'scale(1)' : 'scale(0.86)',
-      transition: `opacity ${SLIDE}, filter ${SLIDE}, transform ${SLIDE}`,
+      transition: `opacity ${slide}, filter ${slide}, transform ${slide}`,
     },
     '&:hover:not(:disabled) > svg': { opacity: 1, filter: 'none' },
     [reduceMotion]: { '& > svg': { transition: 'none' } },

@@ -57,7 +57,25 @@ export const media = {
   xl: `@media (min-width: ${breakpoints.xl}px)`,
 } as const;
 
-export const zIndex = { dropdown: 800, modal: 1000, toast: 1200, overlay: 1400 } as const;
+/**
+ * Capas, de abajo arriba. `dropdown` para menús en el flujo de la página; `popover` para lo
+ * que va en un portal sobre todo (la lista de SuperDropdown), así se abre también dentro
+ * de un SuperModal o SuperDrawer; `tooltip` por encima de esa lista y bajo los toasts.
+ */
+export const zIndex = {
+  dropdown: 800,
+  modal: 1000,
+  popover: 1100,
+  tooltip: 1150,
+  toast: 1200,
+  overlay: 1400,
+} as const;
+
+/** Velo neutro bajo SuperModal y SuperDrawer: el mismo en todos los temas. */
+export const scrim = 'rgba(0, 0, 0, 0.45)';
+
+/** Deslizamiento de los indicadores (SuperTabs, SuperSegmented). */
+export const slide = '260ms cubic-bezier(0.22, 1, 0.36, 1)';
 
 export const transition = '150ms ease';
 
