@@ -18,8 +18,18 @@ var useSuperModal = (open, onClose) => {
     const token = /* @__PURE__ */ Symbol("sd-modal");
     stack.push(token);
     (focusables()[0] ?? dialog)?.focus();
+    const html = document.documentElement;
+    const gutter = window.innerWidth - html.clientWidth;
     const previousOverflow = document.body.style.overflow;
+    const previousPadding = document.body.style.paddingRight;
+    const previousGutter = html.style.scrollbarGutter;
+    const previousBodyGutter = document.body.style.scrollbarGutter;
     document.body.style.overflow = "hidden";
+    if (gutter > 0) {
+      html.style.scrollbarGutter = "auto";
+      document.body.style.scrollbarGutter = "auto";
+      document.body.style.paddingRight = `${gutter}px`;
+    }
     const onKeyDown = (event) => {
       if (!isTop(token) || event.defaultPrevented) return;
       if (event.key === "Escape") {
@@ -49,6 +59,9 @@ var useSuperModal = (open, onClose) => {
       document.removeEventListener("keydown", onKeyDown);
       stack.splice(stack.indexOf(token), 1);
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPadding;
+      html.style.scrollbarGutter = previousGutter;
+      document.body.style.scrollbarGutter = previousBodyGutter;
       previouslyFocused?.focus?.();
     };
   }, [open]);
