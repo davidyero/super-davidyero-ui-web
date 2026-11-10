@@ -4,6 +4,8 @@ type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'inf
 type BadgeSize = 'sm' | 'md';
 /** Los 5 planes del ecosistema, iguales en todas las apps. */
 type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
+/** Roles de equipo del ecosistema; thanos y superthanos son los de plataforma. */
+type SuperRole = 'superthanos' | 'thanos' | 'owner' | 'admin' | 'editor' | 'viewer' | 'reception' | 'staff' | 'member' | 'moderator';
 interface SuperBadgeProps {
     tone?: BadgeTone;
     /**
@@ -11,6 +13,11 @@ interface SuperBadgeProps {
      * `icon`/`tone`). El texto lo da la app, traducido.
      */
     plan?: SuperPlan;
+    /**
+     * Insignia de rol: pone el icono y el tono del rol (se pueden sobrescribir con
+     * `icon`/`tone`). Si llegan `plan` y `role`, gana `plan`. El texto lo da la app, traducido.
+     */
+    role?: SuperRole;
     size?: BadgeSize;
     /** Nombre de icono a la izquierda. */
     icon?: string;
@@ -32,8 +39,13 @@ declare const PLAN_BADGE: Readonly<Record<SuperPlan, {
     icon: string;
     tone: BadgeTone;
 }>>;
+/** Icono y tono de cada rol de equipo. */
+declare const ROLE_BADGE: Readonly<Record<SuperRole, {
+    icon: string;
+    tone: BadgeTone;
+}>>;
 /** Etiqueta/pill. El tono va por `tone`; el texto nunca depende solo del color. */
-declare const SuperBadge: ({ plan, tone, size, icon, dot, mono, wrap, onRemove, removeLabel, className, children, }: SuperBadgeProps) => ReactElement;
+declare const SuperBadge: ({ plan, role, tone, size, icon, dot, mono, wrap, onRemove, removeLabel, className, children, }: SuperBadgeProps) => ReactElement;
 
-export { PLAN_BADGE, SuperBadge };
-export type { BadgeSize, BadgeTone, SuperBadgeProps, SuperPlan };
+export { PLAN_BADGE, ROLE_BADGE, SuperBadge };
+export type { BadgeSize, BadgeTone, SuperBadgeProps, SuperPlan, SuperRole };

@@ -89,13 +89,90 @@ const superthanos: CustomIcon = (uid) => (
   </>
 );
 
-/** Planes del ecosistema: free · lite · pro · thanos · superthanos. */
+// Roles de equipo: corona, escudo, lápiz, ojo, campana, carnet, persona y mazo.
+const roleOwner: CustomIcon = () => (
+  <>
+    <path d="M4 17.5 3 7.5l5 4 4-6.5 4 6.5 5-4-1 10Z" />
+    <path d="M4.5 20.5h15" />
+  </>
+);
+
+const roleAdmin: CustomIcon = () => (
+  <>
+    <path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6Z" />
+    <path d="m8.8 12 2.2 2.2 4.2-4.4" />
+  </>
+);
+
+const roleEditor: CustomIcon = () => (
+  <>
+    <path d="M15.5 4.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+    <path d="m13.5 6.5 3 3" />
+    <path d="M12 20h8" />
+  </>
+);
+
+const roleViewer: CustomIcon = () => (
+  <>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </>
+);
+
+const roleReception: CustomIcon = () => (
+  <>
+    <path d="M4 17h16" />
+    <path d="M5.5 17a6.5 6.5 0 0 1 13 0" />
+    <path d="M12 10.5V8.5" />
+    <path d="M10.5 8.5h3" />
+    <path d="M3 20h18" />
+  </>
+);
+
+const roleStaff: CustomIcon = () => (
+  <>
+    <rect x="5" y="6" width="14" height="15" rx="2" />
+    <path d="M9.5 3h5v4.5h-5Z" />
+    <circle cx="12" cy="12.5" r="2" />
+    <path d="M8.5 18c.6-1.5 1.9-2.3 3.5-2.3s2.9.8 3.5 2.3" />
+  </>
+);
+
+const roleMember: CustomIcon = () => (
+  <>
+    <circle cx="12" cy="8" r="3.8" />
+    <path d="M4.5 20.5c.9-3.6 3.9-5.7 7.5-5.7s6.6 2.1 7.5 5.7" />
+  </>
+);
+
+const roleModerator: CustomIcon = () => (
+  <>
+    <path d="m13.5 4.5 6 6" />
+    <path d="m11 7 6 6" />
+    <path d="m10.2 7.8 5 5-2.4 2.4-5-5Z" />
+    <path d="m10.1 12.9-6.6 6.6" />
+    <path d="M13 20.5h8" />
+  </>
+);
+
+/** Planes (free · lite · pro · thanos · superthanos) y roles de equipo del ecosistema. */
 export const CUSTOM_ICONS: Readonly<Record<string, CustomIcon>> = {
   'plan-free': free,
   'plan-lite': lite,
   'plan-pro': pro,
   'plan-thanos': thanos,
   'plan-superthanos': superthanos,
+  // Roles de equipo; thanos y superthanos son los mismos guanteletes de los planes.
+  'role-owner': roleOwner,
+  'role-admin': roleAdmin,
+  'role-editor': roleEditor,
+  'role-viewer': roleViewer,
+  'role-reception': roleReception,
+  'role-staff': roleStaff,
+  'role-member': roleMember,
+  'role-moderator': roleModerator,
+  'role-thanos': thanos,
+  'role-superthanos': superthanos,
   // Alias de la 0.13.0.
   thanos,
   superthanos,

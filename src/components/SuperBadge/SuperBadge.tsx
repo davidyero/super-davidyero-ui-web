@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { BadgeRoot, Dot, Label, Remove } from './SuperBadge.styles';
-import type { BadgeTone, SuperBadgeProps, SuperPlan } from './SuperBadge.types';
+import type { BadgeTone, SuperBadgeProps, SuperPlan, SuperRole } from './SuperBadge.types';
 
 /** Icono y tono de cada plan: de más neutro (free) a más marcado (superthanos). */
 export const PLAN_BADGE: Readonly<Record<SuperPlan, { icon: string; tone: BadgeTone }>> = {
@@ -12,12 +12,30 @@ export const PLAN_BADGE: Readonly<Record<SuperPlan, { icon: string; tone: BadgeT
   superthanos: { icon: 'plan-superthanos', tone: 'warning' },
 };
 
+/** Icono y tono de cada rol de equipo. */
+export const ROLE_BADGE: Readonly<Record<SuperRole, { icon: string; tone: BadgeTone }>> = {
+  superthanos: { icon: 'role-superthanos', tone: 'warning' },
+  thanos: { icon: 'role-thanos', tone: 'primary' },
+  owner: { icon: 'role-owner', tone: 'primary' },
+  admin: { icon: 'role-admin', tone: 'info' },
+  editor: { icon: 'role-editor', tone: 'success' },
+  viewer: { icon: 'role-viewer', tone: 'neutral' },
+  reception: { icon: 'role-reception', tone: 'success' },
+  staff: { icon: 'role-staff', tone: 'info' },
+  member: { icon: 'role-member', tone: 'neutral' },
+  moderator: { icon: 'role-moderator', tone: 'warning' },
+};
+
+const preset = (plan?: SuperPlan, role?: SuperRole) =>
+  plan ? PLAN_BADGE[plan] : role ? ROLE_BADGE[role] : undefined;
+
 /** Etiqueta/pill. El tono va por `tone`; el texto nunca depende solo del color. */
 export const SuperBadge = ({
   plan,
-  tone = plan ? PLAN_BADGE[plan].tone : 'neutral',
+  role,
+  tone = preset(plan, role)?.tone ?? 'neutral',
   size = 'md',
-  icon = plan ? PLAN_BADGE[plan].icon : undefined,
+  icon = preset(plan, role)?.icon,
   dot = false,
   mono = false,
   wrap = false,
@@ -38,4 +56,10 @@ export const SuperBadge = ({
   </BadgeRoot>
 );
 
-export type { SuperBadgeProps, BadgeTone, BadgeSize, SuperPlan } from './SuperBadge.types';
+export type {
+  SuperBadgeProps,
+  BadgeTone,
+  BadgeSize,
+  SuperPlan,
+  SuperRole,
+} from './SuperBadge.types';

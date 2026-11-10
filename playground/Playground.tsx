@@ -206,6 +206,33 @@ export const Playground = (): ReactElement => {
                   ),
                 )}
               </Row>
+              <Row>
+                {(['free', 'lite', 'pro', 'thanos', 'superthanos'] as const).map((plan) => (
+                  <SuperBadge key={plan} plan={plan}>
+                    {plan}
+                  </SuperBadge>
+                ))}
+              </Row>
+              <Row>
+                {(
+                  [
+                    'superthanos',
+                    'thanos',
+                    'owner',
+                    'admin',
+                    'editor',
+                    'viewer',
+                    'reception',
+                    'staff',
+                    'member',
+                    'moderator',
+                  ] as const
+                ).map((role) => (
+                  <SuperBadge key={role} role={role}>
+                    {role}
+                  </SuperBadge>
+                ))}
+              </Row>
               <SuperAlert tone="success" title="Guardado">
                 Los cambios ya están en producción.
               </SuperAlert>
