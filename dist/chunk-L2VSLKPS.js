@@ -1,6 +1,7 @@
 import { useSuperTheme } from './chunk-3YBGSPOJ.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { Icon } from '@iconify/react';
+import { useId } from 'react';
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
 import styled from '@emotion/styled';
 
@@ -12,23 +13,62 @@ var GAUNTLET = /* @__PURE__ */ jsxs(Fragment, { children: [
   /* @__PURE__ */ jsx("path", { d: "M8.7 14.2 6.9 12a1.2 1.2 0 0 0-1.9 1.5l2.6 3.6" }),
   /* @__PURE__ */ jsx("path", { d: "M7.6 17.1c.6.9 1.6 1.4 2.7 1.4h5.4c1.4 0 2.6-1.2 2.6-2.6v-2.4" }),
   /* @__PURE__ */ jsx("path", { d: "M8.7 12.4h9.6" }),
-  /* @__PURE__ */ jsx("path", { d: "M8.7 8.6h9.6" }),
   /* @__PURE__ */ jsx("path", { d: "M9.7 18.5l-.4 3h8.4l-.4-3" })
 ] });
-var SPARKLE = /* @__PURE__ */ jsx(
+var gems = (fills) => /* @__PURE__ */ jsx(Fragment, { children: [10.9, 13.5, 16.1].map((x, i) => /* @__PURE__ */ jsx(
+  "path",
+  {
+    d: `M${x} 13.9 ${x + 1.15} 15.45 ${x} 17 ${x - 1.15} 15.45Z`,
+    fill: fills[i],
+    stroke: "none"
+  },
+  x
+)) });
+var sparkle = (fill) => /* @__PURE__ */ jsx(
   "path",
   {
     d: "M4.5 1.2 5.4 3.6 7.8 4.5 5.4 5.4 4.5 7.8 3.6 5.4 1.2 4.5 3.6 3.6Z",
-    fill: "currentColor",
-    strokeWidth: 1
+    fill,
+    stroke: "none"
   }
 );
+var free = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M12 21v-8" }),
+  /* @__PURE__ */ jsx("path", { d: "M12 13c0-3.5-2.6-6-6.5-6 0 3.6 2.6 6 6.5 6Z" }),
+  /* @__PURE__ */ jsx("path", { d: "M12 11c0-3.2 2.3-5.5 6-5.5 0 3.2-2.4 5.5-6 5.5Z" }),
+  /* @__PURE__ */ jsx("path", { d: "M8 21h8" })
+] });
+var lite = () => /* @__PURE__ */ jsx("path", { d: "M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z" });
+var pro = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M8 4h8v5a4 4 0 0 1-8 0V4Z" }),
+  /* @__PURE__ */ jsx("path", { d: "M8 5.5H5.5v1.2A3 3 0 0 0 8.4 9.8" }),
+  /* @__PURE__ */ jsx("path", { d: "M16 5.5h2.5v1.2a3 3 0 0 1-2.9 3.1" }),
+  /* @__PURE__ */ jsx("path", { d: "M12 13v4" }),
+  /* @__PURE__ */ jsx("path", { d: "M8.5 20.5h7l-.8-3.5H9.3Z" })
+] });
+var thanos = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  GAUNTLET,
+  gems(["currentColor", "currentColor", "currentColor"])
+] });
+var superthanos = (uid) => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", { id: uid, x1: "0", y1: "0", x2: "1", y2: "1", children: [
+    /* @__PURE__ */ jsx("stop", { offset: "0", stopColor: "#FFE08A" }),
+    /* @__PURE__ */ jsx("stop", { offset: ".5", stopColor: "#E5A823" }),
+    /* @__PURE__ */ jsx("stop", { offset: "1", stopColor: "#A86B0C" })
+  ] }) }),
+  /* @__PURE__ */ jsx("g", { stroke: `url(#${uid})`, children: GAUNTLET }),
+  gems(["#E5484D", "#3E7BFA", "#30A46C"]),
+  sparkle("#FFC53D")
+] });
 var CUSTOM_ICONS = {
-  thanos: GAUNTLET,
-  superthanos: /* @__PURE__ */ jsxs(Fragment, { children: [
-    GAUNTLET,
-    SPARKLE
-  ] })
+  "plan-free": free,
+  "plan-lite": lite,
+  "plan-pro": pro,
+  "plan-thanos": thanos,
+  "plan-superthanos": superthanos,
+  // Alias de la 0.13.0.
+  thanos,
+  superthanos
 };
 var iconColor = (color) => color === "inherit" ? "currentColor" : v[color];
 var IconWrap = styled.span(
@@ -53,7 +93,8 @@ var SuperIcon = ({
   className
 }) => {
   const { icons } = useSuperTheme();
-  const custom = CUSTOM_ICONS[name];
+  const uid = `sd-icon-${useId().replace(/:/g, "")}`;
+  const custom = CUSTOM_ICONS[name]?.(uid);
   const id = name.includes(":") ? name : icons[name];
   return /* @__PURE__ */ jsx(
     IconWrap,

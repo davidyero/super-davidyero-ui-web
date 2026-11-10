@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import type { ReactElement } from 'react';
+import { useId, type ReactElement } from 'react';
 import { useSuperTheme } from '../../theme/SuperThemeContext';
 import { CUSTOM_ICONS } from './SuperIcon.custom';
 import { IconWrap } from './SuperIcon.styles';
@@ -15,7 +15,8 @@ export const SuperIcon = ({
   className,
 }: SuperIconProps): ReactElement => {
   const { icons } = useSuperTheme();
-  const custom = CUSTOM_ICONS[name];
+  const uid = `sd-icon-${useId().replace(/:/g, '')}`;
+  const custom = CUSTOM_ICONS[name]?.(uid);
   const id = name.includes(':') ? name : icons[name];
 
   return (

@@ -1,5 +1,14 @@
 # Changelog — @davidyero/ui-web
 
+## 0.16.0 — 2026-11-10
+
+- Iconos de los 5 planes del ecosistema en `SuperIcon`, en SVG propio: `plan-free` (brote),
+  `plan-lite` (corazón), `plan-pro` (copa), `plan-thanos` (guantelete con gemas) y
+  `plan-superthanos` (el guantelete dorado con gemas de color y destello; el único con color
+  fijo). `thanos` y `superthanos` siguen como alias.
+- `SuperBadge` acepta `plan` (`SuperPlan`): pone el icono y el tono del plan. `PLAN_BADGE`
+  exporta ese mapa para quien lo necesite fuera de una insignia.
+
 ## 0.15.1 — 2026-11-10
 
 - `SuperModal` y `SuperDrawer`: al bloquear el scroll quitan el hueco de `scrollbar-gutter:

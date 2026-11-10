@@ -2,9 +2,16 @@ import type { ReactNode } from 'react';
 
 export type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
 export type BadgeSize = 'sm' | 'md';
+/** Los 5 planes del ecosistema, iguales en todas las apps. */
+export type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
 
 export interface SuperBadgeProps {
   tone?: BadgeTone;
+  /**
+   * Insignia de plan: pone el icono y el tono del plan (se pueden sobrescribir con
+   * `icon`/`tone`). El texto lo da la app, traducido.
+   */
+  plan?: SuperPlan;
   size?: BadgeSize;
   /** Nombre de icono a la izquierda. */
   icon?: string;
