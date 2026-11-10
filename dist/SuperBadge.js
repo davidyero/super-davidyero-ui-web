@@ -1,4 +1,4 @@
-import { SuperIcon } from './chunk-34SSRPSU.js';
+import { SuperIcon } from './chunk-L2VSLKPS.js';
 import './chunk-3YBGSPOJ.js';
 import { space } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
@@ -53,10 +53,18 @@ var Remove = styled.button({
   cursor: "pointer",
   "&:focus-visible": { outline: `2px solid ${v.focusRing}`, outlineOffset: "1px" }
 });
+var PLAN_BADGE = {
+  free: { icon: "plan-free", tone: "neutral" },
+  lite: { icon: "plan-lite", tone: "success" },
+  pro: { icon: "plan-pro", tone: "info" },
+  thanos: { icon: "plan-thanos", tone: "primary" },
+  superthanos: { icon: "plan-superthanos", tone: "warning" }
+};
 var SuperBadge = ({
-  tone = "neutral",
+  plan,
+  tone = plan ? PLAN_BADGE[plan].tone : "neutral",
   size = "md",
-  icon,
+  icon = plan ? PLAN_BADGE[plan].icon : void 0,
   dot = false,
   mono = false,
   wrap = false,
@@ -71,4 +79,4 @@ var SuperBadge = ({
   onRemove ? /* @__PURE__ */ jsx(Remove, { type: "button", "aria-label": removeLabel, onClick: onRemove, children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 14 }) }) : null
 ] });
 
-export { SuperBadge };
+export { PLAN_BADGE, SuperBadge };

@@ -1,13 +1,23 @@
 import type { ReactElement } from 'react';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { BadgeRoot, Dot, Label, Remove } from './SuperBadge.styles';
-import type { SuperBadgeProps } from './SuperBadge.types';
+import type { BadgeTone, SuperBadgeProps, SuperPlan } from './SuperBadge.types';
+
+/** Icono y tono de cada plan: de más neutro (free) a más marcado (superthanos). */
+export const PLAN_BADGE: Readonly<Record<SuperPlan, { icon: string; tone: BadgeTone }>> = {
+  free: { icon: 'plan-free', tone: 'neutral' },
+  lite: { icon: 'plan-lite', tone: 'success' },
+  pro: { icon: 'plan-pro', tone: 'info' },
+  thanos: { icon: 'plan-thanos', tone: 'primary' },
+  superthanos: { icon: 'plan-superthanos', tone: 'warning' },
+};
 
 /** Etiqueta/pill. El tono va por `tone`; el texto nunca depende solo del color. */
 export const SuperBadge = ({
-  tone = 'neutral',
+  plan,
+  tone = plan ? PLAN_BADGE[plan].tone : 'neutral',
   size = 'md',
-  icon,
+  icon = plan ? PLAN_BADGE[plan].icon : undefined,
   dot = false,
   mono = false,
   wrap = false,
@@ -28,4 +38,4 @@ export const SuperBadge = ({
   </BadgeRoot>
 );
 
-export type { SuperBadgeProps, BadgeTone, BadgeSize } from './SuperBadge.types';
+export type { SuperBadgeProps, BadgeTone, BadgeSize, SuperPlan } from './SuperBadge.types';
