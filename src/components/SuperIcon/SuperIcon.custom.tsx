@@ -155,6 +155,17 @@ const roleModerator: CustomIcon = () => (
   </>
 );
 
+/** Rol TEST (cuentas de prueba internas y de tiendas): matraz con líquido y burbujas. */
+const roleTest: CustomIcon = () => (
+  <>
+    <path d="M9 3h6" />
+    <path d="M10.3 3v5.4L5 17.9A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-3.1l-5.3-9.5V3" />
+    <path d="M8.4 14.5h7.2" />
+    <circle cx="10.6" cy="17.7" r=".8" />
+    <circle cx="13.7" cy="16.8" r=".5" />
+  </>
+);
+
 /** Planes (free · lite · pro · thanos · superthanos) y roles de equipo del ecosistema. */
 export const CUSTOM_ICONS: Readonly<Record<string, CustomIcon>> = {
   'plan-free': free,
@@ -173,6 +184,7 @@ export const CUSTOM_ICONS: Readonly<Record<string, CustomIcon>> = {
   'role-moderator': roleModerator,
   'role-thanos': thanos,
   'role-superthanos': superthanos,
+  'role-test': roleTest,
   // Alias de la 0.13.0.
   thanos,
   superthanos,

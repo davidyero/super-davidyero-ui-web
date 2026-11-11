@@ -1,5 +1,5 @@
 import { controlBox, controlText, FieldRoot, FieldLabel, FieldMessage, describedBy } from './chunk-SG6MIYR5.js';
-import { SuperIcon } from './chunk-6UHSNYBQ.js';
+import { SuperIcon } from './chunk-HNXNT6BT.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
 import { space, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';

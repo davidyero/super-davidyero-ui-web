@@ -4,7 +4,10 @@ export type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger'
 export type BadgeSize = 'sm' | 'md';
 /** Los 5 planes del ecosistema, iguales en todas las apps. */
 export type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
-/** Roles de equipo del ecosistema; thanos y superthanos son los de plataforma. */
+/**
+ * Roles de equipo del ecosistema; thanos y superthanos son los de plataforma y test el de
+ * las cuentas de prueba (lo decide el servidor: `testRole: 'TEST'`).
+ */
 export type SuperRole =
   | 'superthanos'
   | 'thanos'
@@ -15,7 +18,8 @@ export type SuperRole =
   | 'reception'
   | 'staff'
   | 'member'
-  | 'moderator';
+  | 'moderator'
+  | 'test';
 
 export interface SuperBadgeProps {
   tone?: BadgeTone;

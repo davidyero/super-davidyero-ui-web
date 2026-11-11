@@ -1,4 +1,4 @@
-import { SuperIcon } from './chunk-6UHSNYBQ.js';
+import { SuperIcon } from './chunk-HNXNT6BT.js';
 import './chunk-3YBGSPOJ.js';
 import { space } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
@@ -70,7 +70,8 @@ var ROLE_BADGE = {
   reception: { icon: "role-reception", tone: "success" },
   staff: { icon: "role-staff", tone: "info" },
   member: { icon: "role-member", tone: "neutral" },
-  moderator: { icon: "role-moderator", tone: "warning" }
+  moderator: { icon: "role-moderator", tone: "warning" },
+  test: { icon: "role-test", tone: "info" }
 };
 var preset = (plan, role) => plan ? PLAN_BADGE[plan] : role ? ROLE_BADGE[role] : void 0;
 var SuperBadge = ({

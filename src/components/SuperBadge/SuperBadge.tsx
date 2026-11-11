@@ -24,6 +24,7 @@ export const ROLE_BADGE: Readonly<Record<SuperRole, { icon: string; tone: BadgeT
   staff: { icon: 'role-staff', tone: 'info' },
   member: { icon: 'role-member', tone: 'neutral' },
   moderator: { icon: 'role-moderator', tone: 'warning' },
+  test: { icon: 'role-test', tone: 'info' },
 };
 
 const preset = (plan?: SuperPlan, role?: SuperRole) =>

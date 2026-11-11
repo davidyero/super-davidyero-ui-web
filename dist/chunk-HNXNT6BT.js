@@ -101,6 +101,13 @@ var roleModerator = () => /* @__PURE__ */ jsxs(Fragment, { children: [
   /* @__PURE__ */ jsx("path", { d: "m10.1 12.9-6.6 6.6" }),
   /* @__PURE__ */ jsx("path", { d: "M13 20.5h8" })
 ] });
+var roleTest = () => /* @__PURE__ */ jsxs(Fragment, { children: [
+  /* @__PURE__ */ jsx("path", { d: "M9 3h6" }),
+  /* @__PURE__ */ jsx("path", { d: "M10.3 3v5.4L5 17.9A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-3.1l-5.3-9.5V3" }),
+  /* @__PURE__ */ jsx("path", { d: "M8.4 14.5h7.2" }),
+  /* @__PURE__ */ jsx("circle", { cx: "10.6", cy: "17.7", r: ".8" }),
+  /* @__PURE__ */ jsx("circle", { cx: "13.7", cy: "16.8", r: ".5" })
+] });
 var CUSTOM_ICONS = {
   "plan-free": free,
   "plan-lite": lite,
@@ -118,6 +125,7 @@ var CUSTOM_ICONS = {
   "role-moderator": roleModerator,
   "role-thanos": thanos,
   "role-superthanos": superthanos,
+  "role-test": roleTest,
   // Alias de la 0.13.0.
   thanos,
   superthanos
