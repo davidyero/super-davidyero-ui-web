@@ -23,6 +23,7 @@ const ROLE_ICONS = [
   'role-moderator',
   'role-thanos',
   'role-superthanos',
+  'role-test',
 ];
 
 describe('0.17.0', () => {
