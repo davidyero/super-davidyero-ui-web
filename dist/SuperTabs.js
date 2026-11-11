@@ -1,5 +1,5 @@
 import { useSlidingIndicator } from './chunk-VQU5XOBI.js';
-import { SuperIcon } from './chunk-6UHSNYBQ.js';
+import { SuperIcon } from './chunk-HNXNT6BT.js';
 import './chunk-3YBGSPOJ.js';
 import { space, slide, focusVisible, transition } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';

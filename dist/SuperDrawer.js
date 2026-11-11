@@ -1,5 +1,5 @@
 import { useSuperModal } from './chunk-IVWDWLQA.js';
-import { SuperIcon } from './chunk-6UHSNYBQ.js';
+import { SuperIcon } from './chunk-HNXNT6BT.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { scrim, zIndex, media, space, focusVisible } from './chunk-GSUBWCY7.js';

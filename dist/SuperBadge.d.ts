@@ -4,8 +4,11 @@ type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'inf
 type BadgeSize = 'sm' | 'md';
 /** Los 5 planes del ecosistema, iguales en todas las apps. */
 type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
-/** Roles de equipo del ecosistema; thanos y superthanos son los de plataforma. */
-type SuperRole = 'superthanos' | 'thanos' | 'owner' | 'admin' | 'editor' | 'viewer' | 'reception' | 'staff' | 'member' | 'moderator';
+/**
+ * Roles de equipo del ecosistema; thanos y superthanos son los de plataforma y test el de
+ * las cuentas de prueba (lo decide el servidor: `testRole: 'TEST'`).
+ */
+type SuperRole = 'superthanos' | 'thanos' | 'owner' | 'admin' | 'editor' | 'viewer' | 'reception' | 'staff' | 'member' | 'moderator' | 'test';
 interface SuperBadgeProps {
     tone?: BadgeTone;
     /**

@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.18.0 — 2026-11-10
+
+- Rol TEST de las cuentas de prueba (GretaBot y la de tiendas SuperTest): icono `role-test`
+  (matraz con líquido y burbujas, mismo trazo que los de rol) y `SuperBadge role="test"`
+  (tono `info`). El texto lo da la app desde su i18n; que una cuenta es TEST lo decide el
+  backend (`testRole: 'TEST'` o `GET /api/<slug>/test-user/account`), nunca el cliente.
+
 ## 0.17.0 — 2026-11-10
 
 - Iconos de los roles de equipo en `SuperIcon`, mismo trazo que los de plan: `role-owner`
