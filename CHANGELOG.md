@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.18.1 — 2026-11-11
+
+- Tests: el de 0.17 ya cuenta `role-test` entre los iconos de rol (fallaba desde 0.18.0) y
+  `v0.18.test.tsx` cubre el icono `role-test`, `ROLE_BADGE.test` y `SuperBadge role="test"`.
+
 ## 0.18.0 — 2026-11-10
 
 - Rol TEST de las cuentas de prueba (GretaBot y la de tiendas SuperTest): icono `role-test`
