@@ -23,6 +23,8 @@ const ROLE_ICONS = [
   'role-moderator',
   'role-thanos',
   'role-superthanos',
+  // 0.18.0: rol de las cuentas de prueba.
+  'role-test',
 ];
 
 describe('0.17.0', () => {
