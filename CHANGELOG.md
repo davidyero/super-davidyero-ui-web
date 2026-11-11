@@ -1,5 +1,19 @@
 # Changelog — @davidyero/ui-web
 
+## 0.20.0 — 2026-11-11
+
+- `SuperToast` por dentro usa **Ding** (`@yusufceng1z/ding-react` 0.0.4, MIT, fijada exacta):
+  física de muelle y un solo toast que se transforma en su sitio en vez de apilarse. La API
+  pública no cambia: las apps siguen llamando a `toast.success()/error()…` de
+  `@davidyero/ui-web/toast` y montan `<SuperToast />` una vez en la raíz.
+- Con título, el título es la línea principal y el mensaje la segunda (`description`). La
+  acción se ejecuta y cierra el toast; cerrar en el store cierra en Ding.
+- Tema (`mode`), posición y textos (`labels.dismiss`) salen de `SuperThemeProvider`; colores
+  desde los tokens (`surfaceElevated`, `text`, `success`, `danger`, `warning`, `info`) y la
+  tipografía de la app. Nuevo `labels.notifications` (opcional) para nombrar la región de
+  avisos en el idioma de la app.
+- Tests: los de toast comprueban el puente con Ding (jsdom no anima).
+
 ## 0.19.0 — 2026-11-11
 
 - `SuperLocaleThemeSwitch`: el selector **único** de idioma y tema del ecosistema (el de

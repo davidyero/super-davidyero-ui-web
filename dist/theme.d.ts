@@ -12,6 +12,8 @@ interface SuperLabels {
     close: string;
     loading: string;
     dismiss: string;
+    /** Nombre de la región de avisos (lectores de pantalla). Opcional: si falta, el de Ding en inglés. */
+    notifications?: string;
     /** Botón de vaciar un campo (`SuperInput` con `onClear`). Opcional: si falta, se usa `close`. */
     clear?: string;
 }

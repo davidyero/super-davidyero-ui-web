@@ -3,9 +3,6 @@ import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { SuperModal } from '../src/components/SuperModal/SuperModal';
 import { SuperTabs } from '../src/components/SuperTabs/SuperTabs';
-import { toast } from '../src/stores/toastStore';
-import { SuperToast } from '../src/components/SuperToast/SuperToast';
-import { act } from '@testing-library/react';
 import { renderWithTheme } from './renderWithTheme';
 
 describe('SuperModal', () => {
@@ -43,18 +40,5 @@ describe('SuperTabs', () => {
     renderWithTheme(<Harness />);
     fireEvent.keyDown(screen.getByRole('tablist'), { key: 'ArrowRight' });
     expect(screen.getByRole('tab', { name: 'Tres' })).toHaveAttribute('aria-selected', 'true');
-  });
-});
-
-describe('SuperToast', () => {
-  it('muestra el toast y lo descarta', () => {
-    renderWithTheme(<SuperToast />);
-    act(() => {
-      toast.error('No se pudo guardar');
-    });
-    expect(screen.getByRole('alert')).toHaveTextContent('No se pudo guardar');
-    fireEvent.click(screen.getByRole('button', { name: 'Descartar' }));
-    expect(screen.queryByRole('alert')).toBeNull();
-    toast.clear();
   });
 });

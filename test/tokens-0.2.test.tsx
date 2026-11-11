@@ -1,8 +1,6 @@
 import { act, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { SuperTextarea } from '../src/components/SuperTextarea/SuperTextarea';
-import { SuperToast } from '../src/components/SuperToast/SuperToast';
 import { SuperTypography } from '../src/components/SuperTypography/SuperTypography';
 import { toast } from '../src/stores/toastStore';
 import { defineTokens, resolveTokens } from '../src/theme/tokens';
@@ -64,26 +62,5 @@ describe('SuperTextarea maxCount', () => {
     );
     expect(screen.getByText('6/5')).toBeInTheDocument();
     expect(screen.getByLabelText('Nota')).not.toHaveAttribute('maxLength');
-  });
-});
-
-describe('toast con acción', () => {
-  it('pinta la acción, la ejecuta y cierra el toast', async () => {
-    const onClick = vi.fn();
-    renderWithTheme(<SuperToast />);
-    act(() => {
-      toast.success('Borrado', { action: { label: 'Deshacer', onClick }, durationMs: 0 });
-    });
-    await userEvent.click(screen.getByRole('button', { name: 'Deshacer' }));
-    expect(onClick).toHaveBeenCalledTimes(1);
-    expect(screen.queryByText('Borrado')).not.toBeInTheDocument();
-  });
-
-  it('acepta el título como segundo argumento (atajo de la 0.1)', () => {
-    renderWithTheme(<SuperToast />);
-    act(() => {
-      toast.info('Cuerpo', 'Título');
-    });
-    expect(screen.getByText('Título')).toBeInTheDocument();
   });
 });

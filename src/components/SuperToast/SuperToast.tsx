@@ -1,54 +1,76 @@
-import type { ReactElement } from 'react';
-import { toast, useToasts } from '../../stores/toastStore';
-import { useSuperLabels } from '../../theme/SuperThemeContext';
-import { SuperButton } from '../SuperButton/SuperButton';
-import { SuperIcon } from '../SuperIcon/SuperIcon';
-import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { Dismiss, IconSlot, Item, Texts, TOAST_TONE, Viewport } from './SuperToast.styles';
+import { Global } from '@emotion/react';
+import { Toaster, toast as ding } from '@yusufceng1z/ding-react';
+import { type ReactElement, useEffect } from 'react';
+import { type ToastItem, type ToastTone, toast } from '../../stores/toastStore';
+import { useSuperTheme } from '../../theme/SuperThemeContext';
+import { dingTheme } from './SuperToast.styles';
 import type { SuperToastProps } from './SuperToast.types';
 
+const DING_TYPE: Record<ToastTone, 'success' | 'error' | 'warning' | 'info'> = {
+  success: 'success',
+  danger: 'error',
+  warning: 'warning',
+  info: 'info',
+};
+
+/** Pasa un toast del store a Ding: con título, el mensaje va como segunda línea. */
+const forward = (item: ToastItem): string =>
+  ding[DING_TYPE[item.tone]](item.title ?? item.message, {
+    ...(item.title ? { description: item.message } : {}),
+    duration: item.durationMs,
+    ...(item.action
+      ? {
+          action: {
+            label: item.action.label,
+            onClick: () => {
+              item.action?.onClick();
+              toast.dismiss(item.id);
+            },
+          },
+        }
+      : {}),
+  });
+
 /**
- * Donde aparecen los toasts que lanza `toast.success()/error()…`. Se monta una
- * sola vez en la raíz; los errores de la app llegan aquí ya traducidos.
+ * Donde aparecen los toasts que lanza `toast.success()/error()…`. Se monta una sola
+ * vez en la raíz; los errores de la app llegan aquí ya traducidos.
+ *
+ * Por dentro usa Ding (física de muelle, un solo toast que se transforma en vez de
+ * apilarse). La API pública sigue siendo el store `@davidyero/ui-web/toast`: las apps
+ * no cambian nada. Tema, colores y textos salen de `SuperThemeProvider`.
  */
 export const SuperToast = ({ position = 'top-right' }: SuperToastProps): ReactElement => {
-  const items = useToasts();
-  const labels = useSuperLabels();
+  const { mode, labels } = useSuperTheme();
+
+  useEffect(() => {
+    // id del store → id de Ding, para cerrar en Ding lo que se cierra en el store.
+    const shown = new Map<string, string>();
+    const sync = (): void => {
+      const items = toast.getAll();
+      for (const item of items) if (!shown.has(item.id)) shown.set(item.id, forward(item));
+      const alive = new Set(items.map((i) => i.id));
+      for (const [id, dingId] of shown)
+        if (!alive.has(id)) {
+          ding.dismiss(dingId);
+          shown.delete(id);
+        }
+    };
+    sync();
+    return toast.subscribe(sync);
+  }, []);
+
   return (
-    <Viewport $position={position} aria-live="polite" aria-relevant="additions">
-      {items.map((item) => (
-        <Item key={item.id} $tone={item.tone} role={item.tone === 'danger' ? 'alert' : 'status'}>
-          <IconSlot $tone={item.tone}>
-            <SuperIcon name={TOAST_TONE[item.tone].icon} size={20} />
-          </IconSlot>
-          <Texts>
-            {item.title ? (
-              <SuperTypography variant="label" as="p">
-                {item.title}
-              </SuperTypography>
-            ) : null}
-            <SuperTypography variant="body" color="textBody" as="p">
-              {item.message}
-            </SuperTypography>
-            {item.action ? (
-              <SuperButton
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  item.action?.onClick();
-                  toast.dismiss(item.id);
-                }}
-              >
-                {item.action.label}
-              </SuperButton>
-            ) : null}
-          </Texts>
-          <Dismiss type="button" aria-label={labels.dismiss} onClick={() => toast.dismiss(item.id)}>
-            <SuperIcon name="close" size={18} />
-          </Dismiss>
-        </Item>
-      ))}
-    </Viewport>
+    <>
+      <Global styles={dingTheme} />
+      <Toaster
+        position={position}
+        theme={mode}
+        labels={{
+          dismiss: labels.dismiss,
+          ...(labels.notifications ? { region: labels.notifications } : {}),
+        }}
+      />
+    </>
   );
 };
 

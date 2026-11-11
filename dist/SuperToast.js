@@ -1,104 +1,73 @@
-import { useToasts, toast } from './chunk-Y3WTWHVJ.js';
-import { SuperButton } from './chunk-Q6XQASWG.js';
-import './chunk-3WYS5NIZ.js';
-import { SuperIcon } from './chunk-HNXNT6BT.js';
-import { useSuperLabels } from './chunk-3YBGSPOJ.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { space, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
+import { toast } from './chunk-Y3WTWHVJ.js';
+import { useSuperTheme } from './chunk-3YBGSPOJ.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
-import styled from '@emotion/styled';
-import { jsx, jsxs } from '@emotion/react/jsx-runtime';
+import { css, Global } from '@emotion/react';
+import { Toaster, toast as toast$1 } from '@yusufceng1z/ding-react';
+import { useEffect } from 'react';
+import { jsxs, Fragment, jsx } from '@emotion/react/jsx-runtime';
 
-var POS = {
-  "top-right": { top: space.lg, right: space.lg, alignItems: "flex-end" },
-  "top-center": { top: space.lg, left: "50%", transform: "translateX(-50%)", alignItems: "center" },
-  "bottom-right": { bottom: space.lg, right: space.lg, alignItems: "flex-end" },
-  "bottom-center": {
-    bottom: space.lg,
-    left: "50%",
-    transform: "translateX(-50%)",
-    alignItems: "center"
+var dingTheme = css({
+  ".tst-viewport.tst-viewport": {
+    "--tst-bg": v.surfaceElevated,
+    "--tst-fg": v.text,
+    "--tst-success": v.success,
+    "--tst-error": v.danger,
+    "--tst-warning": v.warning,
+    "--tst-info": v.info,
+    fontFamily: v.font.base
   }
-};
-var TOAST_TONE = {
-  success: { accent: v.success, icon: "success" },
-  danger: { accent: v.danger, icon: "danger" },
-  warning: { accent: v.warning, icon: "warning" },
-  info: { accent: v.info, icon: "info" }
-};
-var Viewport = styled.div(({ $position }) => ({
-  position: "fixed",
-  zIndex: zIndex.toast,
-  display: "flex",
-  flexDirection: "column",
-  gap: space.sm,
-  width: `min(380px, calc(100vw - ${space.xxl}))`,
-  pointerEvents: "none",
-  ...POS[$position]
-}));
-var Item = styled.div(({ $tone }) => ({
-  pointerEvents: "auto",
-  width: "100%",
-  boxSizing: "border-box",
-  display: "flex",
-  alignItems: "flex-start",
-  gap: space.md,
-  padding: `${space.md} ${space.lg}`,
-  borderRadius: v.radius.md,
-  borderLeft: `3px solid ${TOAST_TONE[$tone].accent}`,
-  background: v.surfaceElevated,
-  boxShadow: v.shadow.lg,
-  color: v.text
-}));
-var IconSlot = styled.span(({ $tone }) => ({
-  display: "inline-flex",
-  color: TOAST_TONE[$tone].accent
-}));
-var Texts = styled.div({
-  flex: 1,
-  minWidth: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: "2px",
-  // La acción del toast (p. ej. «Deshacer») no se estira a todo el ancho.
-  "& > button": { alignSelf: "flex-start", marginTop: "4px" }
 });
-var Dismiss = styled.button({
-  display: "inline-flex",
-  padding: space.xxs,
-  margin: `-${space.xxs}`,
-  border: "none",
-  borderRadius: v.radius.sm,
-  background: "transparent",
-  color: v.textMuted,
-  cursor: "pointer",
-  "&:hover": { color: v.text },
-  "&:focus-visible": focusVisible
+var DING_TYPE = {
+  success: "success",
+  danger: "error",
+  warning: "warning",
+  info: "info"
+};
+var forward = (item) => toast$1[DING_TYPE[item.tone]](item.title ?? item.message, {
+  ...item.title ? { description: item.message } : {},
+  duration: item.durationMs,
+  ...item.action ? {
+    action: {
+      label: item.action.label,
+      onClick: () => {
+        item.action?.onClick();
+        toast.dismiss(item.id);
+      }
+    }
+  } : {}
 });
 var SuperToast = ({ position = "top-right" }) => {
-  const items = useToasts();
-  const labels = useSuperLabels();
-  return /* @__PURE__ */ jsx(Viewport, { $position: position, "aria-live": "polite", "aria-relevant": "additions", children: items.map((item) => /* @__PURE__ */ jsxs(Item, { $tone: item.tone, role: item.tone === "danger" ? "alert" : "status", children: [
-    /* @__PURE__ */ jsx(IconSlot, { $tone: item.tone, children: /* @__PURE__ */ jsx(SuperIcon, { name: TOAST_TONE[item.tone].icon, size: 20 }) }),
-    /* @__PURE__ */ jsxs(Texts, { children: [
-      item.title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "label", as: "p", children: item.title }) : null,
-      /* @__PURE__ */ jsx(SuperTypography, { variant: "body", color: "textBody", as: "p", children: item.message }),
-      item.action ? /* @__PURE__ */ jsx(
-        SuperButton,
-        {
-          variant: "ghost",
-          size: "sm",
-          onClick: () => {
-            item.action?.onClick();
-            toast.dismiss(item.id);
-          },
-          children: item.action.label
+  const { mode, labels } = useSuperTheme();
+  useEffect(() => {
+    const shown = /* @__PURE__ */ new Map();
+    const sync = () => {
+      const items = toast.getAll();
+      for (const item of items) if (!shown.has(item.id)) shown.set(item.id, forward(item));
+      const alive = new Set(items.map((i) => i.id));
+      for (const [id, dingId] of shown)
+        if (!alive.has(id)) {
+          toast$1.dismiss(dingId);
+          shown.delete(id);
         }
-      ) : null
-    ] }),
-    /* @__PURE__ */ jsx(Dismiss, { type: "button", "aria-label": labels.dismiss, onClick: () => toast.dismiss(item.id), children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 18 }) })
-  ] }, item.id)) });
+    };
+    sync();
+    return toast.subscribe(sync);
+  }, []);
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(Global, { styles: dingTheme }),
+    /* @__PURE__ */ jsx(
+      Toaster,
+      {
+        position,
+        theme: mode,
+        labels: {
+          dismiss: labels.dismiss,
+          ...labels.notifications ? { region: labels.notifications } : {}
+        }
+      }
+    )
+  ] });
 };
 
 export { SuperToast };
