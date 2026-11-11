@@ -1,5 +1,19 @@
 # Changelog — @davidyero/ui-web
 
+## 0.19.0 — 2026-11-11
+
+- `SuperLocaleThemeSwitch`: el selector **único** de idioma y tema del ecosistema (el de
+  Gazella, igual en todas las apps). Dos botones redondos de 44 px y un clic: bandera del
+  idioma activo (Colombia = español, EE. UU. = inglés, con `SuperFlag`) y sol/luna (SVG
+  propio de Material Symbols rounded). Sin stores: props `locale`/`onLocaleChange`,
+  `mode`/`onModeChange`, `labels` (desde el i18n de la app), `variant` (`soft` por defecto o
+  `surface`), `align` y `showLabels`.
+- `SuperPrefToggle`: su botón base (`glyph`, `glyphKey`, `ariaLabel`, `label`, `variant`,
+  `tone` `sun`/`night`). El glifo gira y aparece al cambiar (300 ms; nada con
+  `prefers-reduced-motion`). Colores fijos de sol (#f28c18 / #ffa53a), noche (#2d3070) y
+  luna (#ffd36b) en `PREF_COLORS`; el fondo y la sombra salen de los tokens
+  (`surfaceSunken`, `surface`, `shadow.md`).
+
 ## 0.18.1 — 2026-11-11
 
 - Tests: el de 0.17 ya cuenta `role-test` entre los iconos de rol (fallaba desde 0.18.0) y

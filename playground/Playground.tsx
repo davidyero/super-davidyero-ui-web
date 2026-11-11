@@ -12,6 +12,7 @@ import { SuperCheckbox } from '../src/components/SuperCheckbox/SuperCheckbox';
 import { SuperDropdown } from '../src/components/SuperDropdown/SuperDropdown';
 import { SuperEmptyState } from '../src/components/SuperEmptyState/SuperEmptyState';
 import { SuperInput } from '../src/components/SuperInput/SuperInput';
+import { SuperLocaleThemeSwitch } from '../src/components/SuperLocaleThemeSwitch/SuperLocaleThemeSwitch';
 import { SuperLoader } from '../src/components/SuperLoader/SuperLoader';
 import { SuperLoaderOverlay } from '../src/components/SuperLoaderOverlay/SuperLoaderOverlay';
 import { SuperModal } from '../src/components/SuperModal/SuperModal';
@@ -63,6 +64,17 @@ const LABELS = {
   dismiss: 'Descartar',
 };
 
+const SWITCH_LABELS = {
+  es: 'Español',
+  en: 'English',
+  light: 'Claro',
+  dark: 'Oscuro',
+  switchToEs: 'Cambiar a Español',
+  switchToEn: 'Cambiar a English',
+  switchToLight: 'Cambiar a tema claro',
+  switchToDark: 'Cambiar a tema oscuro',
+};
+
 const Page = styled.div({
   minHeight: '100vh',
   background: v.background,
@@ -103,6 +115,7 @@ export const Playground = (): ReactElement => {
   const [check, setCheck] = useState(false);
   const [lang, setLang] = useState<'es' | 'en' | ''>('');
   const [text, setText] = useState('');
+  const [locale, setLocale] = useState<'es' | 'en'>('es');
 
   const fakeRequest = (): void => {
     void loaderStore.track(new Promise((r) => setTimeout(r, 1500)));
@@ -129,6 +142,37 @@ export const Playground = (): ReactElement => {
               ]}
             />
           </Row>
+
+          <Section title="Idioma y tema (SuperLocaleThemeSwitch)">
+            <Row>
+              <SuperLocaleThemeSwitch
+                align="start"
+                locale={locale}
+                onLocaleChange={setLocale}
+                mode={mode}
+                onModeChange={setMode}
+                labels={SWITCH_LABELS}
+              />
+              <SuperLocaleThemeSwitch
+                align="start"
+                variant="surface"
+                locale={locale}
+                onLocaleChange={setLocale}
+                mode={mode}
+                onModeChange={setMode}
+                labels={SWITCH_LABELS}
+              />
+              <SuperLocaleThemeSwitch
+                align="start"
+                showLabels
+                locale={locale}
+                onLocaleChange={setLocale}
+                mode={mode}
+                onModeChange={setMode}
+                labels={SWITCH_LABELS}
+              />
+            </Row>
+          </Section>
 
           <Section title="Tipografía">
             {(['h1', 'h2', 'h3', 'title', 'subtitle', 'body', 'caption', 'label'] as const).map(
