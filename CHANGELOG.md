@@ -1,5 +1,13 @@
 # Changelog — @davidyero/ui-web
 
+## 0.22.0 — 2026-11-12
+
+- Nuevo **`SuperGoogleButton`**: "Continuar con Google" con el botón oficial de Google
+  Identity Services (carga `accounts.google.com/gsi/client` una sola vez, modo popup). Entrega
+  el ID token por `onCredential` para `POST /auth/google`. Tema `outline` en claro y
+  `filled_black` en oscuro, según `SuperThemeProvider`. Sin `clientId` no se pinta. Sale del
+  `GoogleButton` de Gazella web para que todas las webs usen el mismo.
+
 ## 0.21.1 — 2026-11-12
 
 - README: la fila de `toast` ya no anuncia `durationMs` (se ignora desde 0.21.0) y dice la
