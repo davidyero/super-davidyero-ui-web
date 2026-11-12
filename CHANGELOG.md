@@ -1,5 +1,15 @@
 # Changelog — @davidyero/ui-web
 
+## 0.21.0 — 2026-11-11
+
+- Toasts con **duración fija en todo el ecosistema**: 5 s, y 7,5 s los de error
+  (`TOAST_DURATION_MS`, `TOAST_ERROR_DURATION_MS`). `durationMs` queda obsoleto y se ignora.
+- **Todos los toasts tienen botón ✕ para cerrarlos.** Ding solo lo pinta en los toasts sin
+  cierre automático, así que se le pasa `duration: 0` y el temporizador lo lleva el store.
+  Cerrar con la ✕ o arrastrándolo cierra también en el store.
+- Arreglo: al llegar un toast nuevo (Ding transforma el que había), el temporizador del
+  anterior ya no cierra antes de tiempo el nuevo.
+
 ## 0.20.0 — 2026-11-11
 
 - `SuperToast` por dentro usa **Ding** (`@yusufceng1z/ding-react` 0.0.4, MIT, fijada exacta):

@@ -1,7 +1,8 @@
 import { useSyncExternalStore } from 'react';
 
 // src/stores/toastStore.ts
-var DEFAULT_DURATION = 5e3;
+var TOAST_DURATION_MS = 5e3;
+var TOAST_ERROR_DURATION_MS = 7500;
 var items = [];
 var seq = 0;
 var listeners = /* @__PURE__ */ new Set();
@@ -22,10 +23,10 @@ var dismiss = (id) => {
   items = items.filter((t) => t.id !== id);
   emit();
 };
-var show = ({ tone = "info", message, title, durationMs, action }) => {
+var show = ({ tone = "info", message, title, action }) => {
   seq += 1;
   const id = `sd-toast-${seq}`;
-  const duration = durationMs ?? (tone === "danger" ? DEFAULT_DURATION * 1.5 : DEFAULT_DURATION);
+  const duration = tone === "danger" ? TOAST_ERROR_DURATION_MS : TOAST_DURATION_MS;
   const item = {
     id,
     tone,
@@ -35,11 +36,10 @@ var show = ({ tone = "info", message, title, durationMs, action }) => {
     ...action ? { action } : {}
   };
   items = [...items, item].slice(-4);
-  if (duration > 0)
-    timers.set(
-      id,
-      setTimeout(() => dismiss(id), duration)
-    );
+  timers.set(
+    id,
+    setTimeout(() => dismiss(id), duration)
+  );
   emit();
   return id;
 };
@@ -69,4 +69,4 @@ var useToasts = () => useSyncExternalStore(
   () => items
 );
 
-export { toast, useToasts };
+export { TOAST_DURATION_MS, TOAST_ERROR_DURATION_MS, toast, useToasts };
