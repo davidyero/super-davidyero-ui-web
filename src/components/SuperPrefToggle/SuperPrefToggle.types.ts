@@ -1,9 +1,3 @@
-/*
- * Componente ÚNICO del ecosistema para cambiar idioma y tema (web y mobile). No crear
- * alternativas: usar siempre este. SuperPrefToggle es la base de un botón;
- * SuperLocaleThemeSwitch es el par listo para usar. Versión móvil: `SuperLocaleThemeSwitch`
- * en cada app RN, misma API y medidas.
- */
 import type { ReactNode } from 'react';
 
 export type SuperPrefToggleVariant = 'surface' | 'soft';
