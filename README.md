@@ -227,6 +227,7 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperInput`                    | `label`, `error`, `hint`, `leftIcon`/`rightIcon`, `size`, `fullWidth`; `type="password"` trae el ojo                                                            |
 | `SuperTextarea`                 | `label`, `error`, `hint`, `showCount` + `maxLength`, `maxCount`, `mono`                                                                                         |
 | `SuperSwitch` / `SuperCheckbox` | `checked`, `onChange(checked)`, `label`, `hint`, `ariaLabel`                                                                                                    |
+| `SuperGoogleButton`             | `clientId` (Web), `onCredential(idToken)`, `locale`, `disabled`. Botón oficial de Google Identity Services; sigue el tema y no se pinta sin `clientId`          |
 | `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                                    |
 | `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                                                |
 | `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                                    |
