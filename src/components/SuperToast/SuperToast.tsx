@@ -13,11 +13,15 @@ const DING_TYPE: Record<ToastTone, 'success' | 'error' | 'warning' | 'info'> = {
   info: 'info',
 };
 
-/** Pasa un toast del store a Ding: con título, el mensaje va como segunda línea. */
+/**
+ * Pasa un toast del store a Ding: con título, el mensaje va como segunda línea.
+ * Ding solo pinta su botón de cerrar en los toasts sin cierre automático, así que le
+ * llega `duration: 0` y quien lo cierra a los 5 s (7,5 s los errores) es el store.
+ */
 const forward = (item: ToastItem): string =>
   ding[DING_TYPE[item.tone]](item.title ?? item.message, {
     ...(item.title ? { description: item.message } : {}),
-    duration: item.durationMs,
+    duration: 0,
     ...(item.action
       ? {
           action: {
@@ -43,20 +47,46 @@ export const SuperToast = ({ position = 'top-right' }: SuperToastProps): ReactEl
   const { mode, labels } = useSuperTheme();
 
   useEffect(() => {
-    // id del store → id de Ding, para cerrar en Ding lo que se cierra en el store.
-    const shown = new Map<string, string>();
+    // Toast del store que Ding tiene en pantalla, para cerrarlo en los dos lados.
+    let current: { id: string; dingId: string } | null = null;
+    const forwarded = new Set<string>();
     const sync = (): void => {
       const items = toast.getAll();
-      for (const item of items) if (!shown.has(item.id)) shown.set(item.id, forward(item));
-      const alive = new Set(items.map((i) => i.id));
-      for (const [id, dingId] of shown)
-        if (!alive.has(id)) {
-          ding.dismiss(dingId);
-          shown.delete(id);
+      for (const item of items)
+        if (!forwarded.has(item.id)) {
+          forwarded.add(item.id);
+          // Ding no apila: el nuevo se transforma en el que había. El anterior ya no se
+          // ve y su temporizador no debe cerrar el nuevo.
+          const prev = current;
+          current = { id: item.id, dingId: forward(item) };
+          if (prev) toast.dismiss(prev.id);
         }
+      const alive = new Set(items.map((i) => i.id));
+      for (const id of forwarded) if (!alive.has(id)) forwarded.delete(id);
+      if (current && !alive.has(current.id)) {
+        ding.dismiss(current.dingId);
+        current = null;
+      }
+    };
+    // Cerrado en Ding (botón ✕ o al arrastrarlo fuera) → se cierra también en el store.
+    // Ding tiene como mucho un toast activo (y al transformarse conserva su id interno,
+    // distinto del que devolvió), así que basta con ver si queda alguno abierto.
+    const syncBack = (): void => {
+      if (!current) return;
+      const open = ding.getState().toasts.some((t) => t.phase === 'enter' || t.phase === 'open');
+      if (!open) {
+        const { id } = current;
+        current = null;
+        toast.dismiss(id);
+      }
     };
     sync();
-    return toast.subscribe(sync);
+    const offStore = toast.subscribe(sync);
+    const offDing = ding.subscribe(syncBack);
+    return () => {
+      offStore();
+      offDing();
+    };
   }, []);
 
   return (

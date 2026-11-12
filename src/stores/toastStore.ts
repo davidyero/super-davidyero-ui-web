@@ -14,7 +14,7 @@ export interface ToastItem {
   /** Texto ya traducido por la app (nunca un error técnico crudo). */
   message: string;
   title?: string;
-  /** ms hasta cerrarse solo. 0 = no se cierra solo. */
+  /** ms hasta cerrarse solo: siempre 5000, o 7500 los de error. */
   durationMs: number;
   action?: ToastAction;
 }
@@ -23,6 +23,7 @@ export interface ShowToastInput {
   tone?: ToastTone;
   message: string;
   title?: string;
+  /** @deprecated Se ignora: la duración es fija en todo el ecosistema (5 s; errores 7,5 s). */
   durationMs?: number;
   action?: ToastAction;
 }
@@ -30,13 +31,16 @@ export interface ShowToastInput {
 /** Opciones de los atajos `toast.success()/error()…`. */
 export interface ToastOptions {
   title?: string;
+  /** @deprecated Se ignora: la duración es fija en todo el ecosistema (5 s; errores 7,5 s). */
   durationMs?: number;
   action?: ToastAction;
 }
 
 type Listener = () => void;
 
-const DEFAULT_DURATION = 5000;
+/** Duración fija de todos los toasts del ecosistema; los de error duran más. */
+export const TOAST_DURATION_MS = 5000;
+export const TOAST_ERROR_DURATION_MS = 7500;
 const MAX_VISIBLE = 4;
 
 let items: ReadonlyArray<ToastItem> = [];
@@ -63,10 +67,10 @@ const dismiss = (id: string): void => {
   emit();
 };
 
-const show = ({ tone = 'info', message, title, durationMs, action }: ShowToastInput): string => {
+const show = ({ tone = 'info', message, title, action }: ShowToastInput): string => {
   seq += 1;
   const id = `sd-toast-${seq}`;
-  const duration = durationMs ?? (tone === 'danger' ? DEFAULT_DURATION * 1.5 : DEFAULT_DURATION);
+  const duration = tone === 'danger' ? TOAST_ERROR_DURATION_MS : TOAST_DURATION_MS;
   const item: ToastItem = {
     id,
     tone,
@@ -76,11 +80,10 @@ const show = ({ tone = 'info', message, title, durationMs, action }: ShowToastIn
     ...(action ? { action } : {}),
   };
   items = [...items, item].slice(-MAX_VISIBLE);
-  if (duration > 0)
-    timers.set(
-      id,
-      setTimeout(() => dismiss(id), duration),
-    );
+  timers.set(
+    id,
+    setTimeout(() => dismiss(id), duration),
+  );
   emit();
   return id;
 };
