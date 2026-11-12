@@ -230,7 +230,7 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                                    |
 | `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                                                |
 | `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                                    |
-| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title \| { title, durationMs, action })`, `toast.dismiss(id)`                                                        |
+| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title \| { title, action })`, `toast.dismiss(id)`; duración fija 5 s (errores 7,5 s)                                 |
 | `SuperEmptyState`               | `icon`, `title`, `description`, `action`, `compact`                                                                                                             |
 | `SuperAlert`                    | `tone`, `title`, `dismissible`, `onDismiss`, `action`                                                                                                           |
 | `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                                            |

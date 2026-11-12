@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.21.1 — 2026-11-12
+
+- README: la fila de `toast` ya no anuncia `durationMs` (se ignora desde 0.21.0) y dice la
+  duración fija.
+- El comentario «Componente ÚNICO…» queda solo en `SuperLocaleThemeSwitch.tsx` y
+  `SuperPrefToggle.tsx`; se quitan las copias de sus `.styles`, `.types` y `.glyphs`.
+
 ## 0.21.0 — 2026-11-11
 
 - Toasts con **duración fija en todo el ecosistema**: 5 s, y 7,5 s los de error

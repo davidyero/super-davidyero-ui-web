@@ -1,8 +1,3 @@
-/*
- * Componente ÚNICO del ecosistema para cambiar idioma y tema (web y mobile). No crear
- * alternativas: usar siempre este. Versión móvil: `SuperLocaleThemeSwitch` en cada app RN,
- * misma API y medidas.
- */
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { space, transition } from '../../styles/scale';
