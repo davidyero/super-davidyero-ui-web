@@ -12,9 +12,12 @@ const MOON =
 export const ModeGlyph = ({
   mode,
   size,
+  color,
 }: {
   mode: 'light' | 'dark';
   size: number;
+  /** Color propio del glifo; si no, hereda el del botón. */
+  color?: string;
 }): ReactElement => (
   <svg
     width={size}
@@ -22,7 +25,7 @@ export const ModeGlyph = ({
     viewBox="0 0 24 24"
     aria-hidden
     focusable="false"
-    style={{ display: 'block', flexShrink: 0 }}
+    style={{ display: 'block', flexShrink: 0, color }}
   >
     <path fill="currentColor" d={mode === 'dark' ? MOON : SUN} />
   </svg>

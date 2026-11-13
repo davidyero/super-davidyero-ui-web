@@ -4,13 +4,75 @@
  * misma API y medidas (botón redondo de 44 px, glifo de 22 px, mismos colores de sol y noche).
  */
 import type { ReactElement } from 'react';
+import { useSuperTheme } from '../../theme/SuperThemeContext';
 import { SuperFlag } from '../SuperFlag/SuperFlag';
-import { PREF_GLYPH_SIZE, SuperPrefToggle } from '../SuperPrefToggle/SuperPrefToggle';
+import { PREF_COLORS, PREF_GLYPH_SIZE, SuperPrefToggle } from '../SuperPrefToggle/SuperPrefToggle';
+import { SuperSegmented } from '../SuperSegmented/SuperSegmented';
 import { ModeGlyph } from './SuperLocaleThemeSwitch.glyphs';
 import { Row } from './SuperLocaleThemeSwitch.styles';
-import type { SuperLocale, SuperLocaleThemeSwitchProps } from './SuperLocaleThemeSwitch.types';
+import type {
+  SuperColorMode,
+  SuperLocale,
+  SuperLocaleThemeSwitchProps,
+} from './SuperLocaleThemeSwitch.types';
 
 const FLAG = { es: 'co', en: 'us' } as const satisfies Record<SuperLocale, 'co' | 'us'>;
+/** Glifo de las píldoras: el de la app RN (bandera 22/28 px, sol y luna 20/24 px). */
+const SEGMENT_FLAG = { sm: 22, md: 28 } as const;
+const SEGMENT_MODE = { sm: 20, md: 24 } as const;
+
+type SegmentedProps = Pick<
+  SuperLocaleThemeSwitchProps,
+  'locale' | 'onLocaleChange' | 'mode' | 'onModeChange' | 'labels' | 'align' | 'className'
+> & { size: 'sm' | 'md' };
+
+/** Las dos píldoras: banderas y sol/luna con las dos opciones a la vista. */
+const Segmented = ({
+  locale,
+  onLocaleChange,
+  mode,
+  onModeChange,
+  labels,
+  align = 'end',
+  size,
+  className,
+}: SegmentedProps): ReactElement => {
+  const { mode: themeMode } = useSuperTheme();
+  return (
+    <Row $align={align} className={className}>
+      <SuperSegmented<SuperLocale>
+        variant="icon"
+        size={size}
+        ariaLabel={labels.language ?? `${labels.es} / ${labels.en}`}
+        value={locale}
+        onChange={(next) => next !== locale && onLocaleChange(next)}
+        options={(['es', 'en'] as const).map((l) => ({
+          value: l,
+          label: labels[l],
+          icon: <SuperFlag country={FLAG[l]} size={SEGMENT_FLAG[size]} />,
+        }))}
+      />
+      <SuperSegmented<SuperColorMode>
+        variant="icon"
+        size={size}
+        ariaLabel={labels.theme ?? `${labels.light} / ${labels.dark}`}
+        value={mode}
+        onChange={(next) => next !== mode && onModeChange(next)}
+        options={(['light', 'dark'] as const).map((m) => ({
+          value: m,
+          label: labels[m],
+          icon: (
+            <ModeGlyph
+              mode={m}
+              size={SEGMENT_MODE[size]}
+              color={m === 'light' ? PREF_COLORS.sun[themeMode] : PREF_COLORS.moon}
+            />
+          ),
+        }))}
+      />
+    </Row>
+  );
+};
 
 /**
  * Idioma y tema en dos botones de un clic (login, registro, barra superior, menú, Ajustes).
@@ -25,8 +87,24 @@ export const SuperLocaleThemeSwitch = ({
   variant = 'soft',
   align = 'end',
   showLabels = false,
+  look = 'toggle',
+  size = 'md',
   className,
 }: SuperLocaleThemeSwitchProps): ReactElement => {
+  if (look === 'segmented') {
+    return (
+      <Segmented
+        locale={locale}
+        onLocaleChange={onLocaleChange}
+        mode={mode}
+        onModeChange={onModeChange}
+        labels={labels}
+        align={align}
+        size={size}
+        className={className}
+      />
+    );
+  }
   const nextLocale: SuperLocale = locale === 'es' ? 'en' : 'es';
   const dark = mode === 'dark';
   return (

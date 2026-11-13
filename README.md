@@ -214,37 +214,37 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 
 ## Componentes
 
-| Componente                      | Props principales                                                                                                                                               |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SuperTypography`               | `variant` (display, h1–h6, title, subtitle, body, bodySmall, caption, label), `color`, `weight`, `align`, `truncate`, `as`                                      |
-| `SuperButton`                   | `variant` (primary, secondary, neutral, outline, ghost, danger), `size`, `loading`, `disabled`, `leftIcon`/`rightIcon`, `iconOnly`, `href`, `fullWidth`         |
-| `SuperIcon`                     | `name`, `size`, `color`, `spin`, `label`                                                                                                                        |
-| `SuperCard`                     | `variant` (default, sunken, elevated, outline), `padding`, `interactive`, `as`                                                                                  |
-| `SuperBadge`                    | `tone` (neutral, primary, success, warning, danger, info), `size`, `icon`, `dot`                                                                                |
-| `SuperSkeleton`                 | `variant` (text, block, circle), `width`, `height`, `lines`                                                                                                     |
-| `SuperLoader`                   | `size`, `layout` (inline/block/page), `color`, `decorative`                                                                                                     |
-| `SuperLoaderOverlay`            | `visible` (opcional; por defecto lo decide `loaderStore`), `delayMs`                                                                                            |
-| `SuperInput`                    | `label`, `error`, `hint`, `leftIcon`/`rightIcon`, `size`, `fullWidth`; `type="password"` trae el ojo                                                            |
-| `SuperTextarea`                 | `label`, `error`, `hint`, `showCount` + `maxLength`, `maxCount`, `mono`                                                                                         |
-| `SuperSwitch` / `SuperCheckbox` | `checked`, `onChange(checked)`, `label`, `hint`, `ariaLabel`                                                                                                    |
-| `SuperGoogleButton`             | `clientId` (Web), `onCredential(idToken)`, `locale`, `disabled`. Botón oficial de Google Identity Services; sigue el tema y no se pinta sin `clientId`          |
-| `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                                    |
-| `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                                                |
-| `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                                    |
-| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title \| { title, action })`, `toast.dismiss(id)`; duración fija 5 s (errores 7,5 s)                                 |
-| `SuperEmptyState`               | `icon`, `title`, `description`, `action`, `compact`                                                                                                             |
-| `SuperAlert`                    | `tone`, `title`, `dismissible`, `onDismiss`, `action`                                                                                                           |
-| `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                                            |
-| `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                                           |
-| `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                                   |
-| `SuperAuthTemplate`             | `brand`, `tagline`, `hint`, `highlights` (icon, label), `topActions`, `footer`, `children` (el formulario)                                                      |
-| `SuperPagination`               | `page`, `pageCount`, `onPageChange`, `summary`, `labels`; con `pageSize`, `pageSizeOptions` y `onPageSizeChange`, el selector                                   |
-| `SuperSegmented`                | `options` (value, label, disabled), `value`, `onChange`, `ariaLabel`, `size`, `fullWidth` (2–4 opciones; la activa en tinta)                                    |
-| `SuperDrawer`                   | `open`, `onClose`, `title`, `subtitle`, `eyebrow`, `footer` (pie fijo), `width` (en móvil, pantalla completa)                                                   |
-| `SuperStepper`                  | `value`, `onChange`, `min`, `max`, `step`, `formatValue`, `ariaLabel`, `decrementLabel`, `incrementLabel`                                                       |
-| `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                                   |
-| `SuperLocaleThemeSwitch`        | `locale`, `onLocaleChange(next)`, `mode`, `onModeChange(next)`, `labels`, `variant` (soft, surface), `align`, `showLabels`. **Único** selector de idioma y tema |
-| `SuperPrefToggle`               | `glyph`, `glyphKey`, `ariaLabel`, `label`, `variant`, `tone` (sun, night), `onClick`: botón base del anterior                                                   |
+| Componente                      | Props principales                                                                                                                                                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SuperTypography`               | `variant` (display, h1–h6, title, subtitle, body, bodySmall, caption, label), `color`, `weight`, `align`, `truncate`, `as`                                                                          |
+| `SuperButton`                   | `variant` (primary, secondary, neutral, outline, ghost, danger), `size`, `loading`, `disabled`, `leftIcon`/`rightIcon`, `iconOnly`, `href`, `fullWidth`                                             |
+| `SuperIcon`                     | `name`, `size`, `color`, `spin`, `label`                                                                                                                                                            |
+| `SuperCard`                     | `variant` (default, sunken, elevated, outline), `padding`, `interactive`, `as`                                                                                                                      |
+| `SuperBadge`                    | `tone` (neutral, primary, success, warning, danger, info), `size`, `icon`, `dot`                                                                                                                    |
+| `SuperSkeleton`                 | `variant` (text, block, circle), `width`, `height`, `lines`                                                                                                                                         |
+| `SuperLoader`                   | `size`, `layout` (inline/block/page), `color`, `decorative`                                                                                                                                         |
+| `SuperLoaderOverlay`            | `visible` (opcional; por defecto lo decide `loaderStore`), `delayMs`                                                                                                                                |
+| `SuperInput`                    | `label`, `error`, `hint`, `leftIcon`/`rightIcon`, `size`, `fullWidth`; `type="password"` trae el ojo                                                                                                |
+| `SuperTextarea`                 | `label`, `error`, `hint`, `showCount` + `maxLength`, `maxCount`, `mono`                                                                                                                             |
+| `SuperSwitch` / `SuperCheckbox` | `checked`, `onChange(checked)`, `label`, `hint`, `ariaLabel`                                                                                                                                        |
+| `SuperGoogleButton`             | `clientId` (Web), `onCredential(idToken)`, `locale`, `disabled`. Botón oficial de Google Identity Services; sigue el tema y no se pinta sin `clientId`                                              |
+| `SuperDropdown`                 | `value`, `onChange`, `options`, `label`, `placeholder`, `error`, `ariaLabel` (select nativo)                                                                                                        |
+| `SuperModal`                    | `open`, `onClose`, `title`, `footer`, `width`, `closeOnBackdrop`                                                                                                                                    |
+| `SuperTabs`                     | `items` (id, label, icon, count, disabled), `value`, `onChange`, `ariaLabel`                                                                                                                        |
+| `SuperToast` + `toast`          | `toast.success/error/warning/info(message, title \| { title, action })`, `toast.dismiss(id)`; duración fija 5 s (errores 7,5 s)                                                                     |
+| `SuperEmptyState`               | `icon`, `title`, `description`, `action`, `compact`                                                                                                                                                 |
+| `SuperAlert`                    | `tone`, `title`, `dismissible`, `onDismiss`, `action`                                                                                                                                               |
+| `SuperProgressBar`              | `value`, `max`, `tone`, `size`, `label`, `showValue`                                                                                                                                                |
+| `SuperAvatar`                   | `name`, `src`, `size`                                                                                                                                                                               |
+| `SuperBulletList`               | `items`, `ordered`, `spacing`                                                                                                                                                                       |
+| `SuperAuthTemplate`             | `brand`, `tagline`, `hint`, `highlights` (icon, label), `topActions`, `footer`, `children` (el formulario)                                                                                          |
+| `SuperPagination`               | `page`, `pageCount`, `onPageChange`, `summary`, `labels`; con `pageSize`, `pageSizeOptions` y `onPageSizeChange`, el selector                                                                       |
+| `SuperSegmented`                | `options` (value, label, disabled), `value`, `onChange`, `ariaLabel`, `size`, `fullWidth` (2–4 opciones; la activa en tinta)                                                                        |
+| `SuperDrawer`                   | `open`, `onClose`, `title`, `subtitle`, `eyebrow`, `footer` (pie fijo), `width` (en móvil, pantalla completa)                                                                                       |
+| `SuperStepper`                  | `value`, `onChange`, `min`, `max`, `step`, `formatValue`, `ariaLabel`, `decrementLabel`, `incrementLabel`                                                                                           |
+| `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                                                                       |
+| `SuperLocaleThemeSwitch`        | `locale`, `onLocaleChange(next)`, `mode`, `onModeChange(next)`, `labels`, `variant` (soft, surface), `align`, `showLabels`, `look` (toggle, segmented), `size`. **Único** selector de idioma y tema |
+| `SuperPrefToggle`               | `glyph`, `glyphKey`, `ariaLabel`, `label`, `variant`, `tone` (sun, night), `onClick`: botón base del anterior                                                                                       |
 
 ### Idioma y tema: siempre `SuperLocaleThemeSwitch`
 
@@ -271,6 +271,10 @@ salen de su i18n.
   }}
 />
 ```
+
+Con `look="segmented"` sale como dos píldoras con las dos opciones a la vista (banderas y
+sol/luna, la activa sobre un círculo de superficie), el aspecto de Agenda Pilates y de la app
+RN de Splitio; `size="sm"` (36 px) para cabeceras. Por defecto (`toggle`):
 
 Botón redondo de 44 px con glifo de 22 px. `soft` (por defecto) usa `surfaceSunken`;
 `surface` usa `surface` + `shadow.md`. Los colores del sol, la noche y la luna son fijos.
