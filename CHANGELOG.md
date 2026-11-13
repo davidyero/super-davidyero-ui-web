@@ -1,5 +1,13 @@
 # Changelog — @davidyero/ui-web
 
+## 0.23.0 — 2026-11-13
+
+- `SuperLocaleThemeSwitch` acepta **`look="segmented"`**: dos `SuperSegmented` de iconos con
+  las dos opciones a la vista (banderas de Colombia y EE. UU., sol naranja y luna amarilla),
+  igual que el selector de la app RN de Splitio y el de Agenda Pilates. `size` (`sm` 36 px
+  para cabeceras, `md` 44 px) y `labels.language` / `labels.theme` como nombre accesible de
+  cada píldora. Sin `look` no cambia nada (`toggle`, el de Gazella).
+
 ## 0.22.0 — 2026-11-12
 
 - Nuevo **`SuperGoogleButton`**: "Continuar con Google" con el botón oficial de Google

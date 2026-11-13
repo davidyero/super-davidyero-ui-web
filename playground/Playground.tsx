@@ -171,6 +171,25 @@ export const Playground = (): ReactElement => {
                 onModeChange={setMode}
                 labels={SWITCH_LABELS}
               />
+              <SuperLocaleThemeSwitch
+                align="start"
+                look="segmented"
+                locale={locale}
+                onLocaleChange={setLocale}
+                mode={mode}
+                onModeChange={setMode}
+                labels={SWITCH_LABELS}
+              />
+              <SuperLocaleThemeSwitch
+                align="start"
+                look="segmented"
+                size="sm"
+                locale={locale}
+                onLocaleChange={setLocale}
+                mode={mode}
+                onModeChange={setMode}
+                labels={SWITCH_LABELS}
+              />
             </Row>
           </Section>
 

@@ -17,6 +17,9 @@ export interface SuperLocaleThemeSwitchLabels {
   /** Accesible y `title` del botón de tema según a cuál cambia ("Cambiar a tema oscuro"). */
   switchToLight: string;
   switchToDark: string;
+  /** Nombre accesible de cada píldora en `look="segmented"` ("Idioma", "Tema"). */
+  language?: string;
+  theme?: string;
 }
 
 export interface SuperLocaleThemeSwitchProps {
@@ -33,7 +36,15 @@ export interface SuperLocaleThemeSwitchProps {
   variant?: SuperPrefToggleVariant;
   /** end = arriba a la derecha (login, registro); start = dentro de un bloque (menú). */
   align?: 'start' | 'end';
-  /** Muestra el nombre del idioma y del tema junto al glifo (Ajustes). */
+  /** Muestra el nombre del idioma y del tema junto al glifo (Ajustes). Solo en `toggle`. */
   showLabels?: boolean;
+  /**
+   * `toggle` (por defecto): un botón por preferencia, un clic cambia a la otra (Gazella).
+   * `segmented`: dos píldoras con las dos opciones a la vista, la activa sobre un círculo
+   * (Agenda Pilates y Splitio, igual que su app RN).
+   */
+  look?: 'toggle' | 'segmented';
+  /** Tamaño de las píldoras en `look="segmented"`: `sm` (36 px, cabeceras) o `md` (44 px). */
+  size?: 'sm' | 'md';
   className?: string;
 }
