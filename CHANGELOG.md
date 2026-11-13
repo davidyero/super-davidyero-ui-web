@@ -1,5 +1,15 @@
 # Changelog — @davidyero/ui-web
 
+## 0.23.1 — 2026-11-13
+
+- Tests de **`SuperGoogleButton`** (`test/SuperGoogleButton.test.tsx`), que entró sin ninguno:
+  sin `clientId` no se pinta ni carga el script; carga `gsi/client` una sola vez aunque haya
+  varios botones; inicializa en popup y pinta el botón; entrega el ID token por
+  `onCredential` (el último callback, ignorando respuestas sin `credential`); si el script
+  falla, el siguiente montaje reintenta la carga; desmontado antes de cargar no pinta; y
+  vuelve a pintar el botón, sin duplicarlo, al cambiar tema o idioma. El código publicado no
+  cambia.
+
 ## 0.23.0 — 2026-11-13
 
 - `SuperLocaleThemeSwitch` acepta **`look="segmented"`**: dos `SuperSegmented` de iconos con
