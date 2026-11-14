@@ -1,5 +1,13 @@
 # Changelog — @davidyero/ui-web
 
+## 0.24.0 — 2026-11-14
+
+- `SuperModal` acepta **`mobileSheet`**: por debajo de `md` (900 px, móvil y Fold) se abre
+  como bottom sheet, pegado abajo y a todo el ancho, con asa, esquinas de arriba
+  redondeadas, alto máximo del 90 % y respeto del área segura. Sube desde abajo en 220 ms,
+  sin animación con `prefers-reduced-motion`. En escritorio no cambia, y sin la prop
+  tampoco.
+
 ## 0.23.1 — 2026-11-13
 
 - Tests de **`SuperGoogleButton`** (`test/SuperGoogleButton.test.tsx`), que entró sin ninguno:

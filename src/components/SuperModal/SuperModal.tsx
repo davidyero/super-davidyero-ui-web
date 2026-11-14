@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { Backdrop, Body, Close, Dialog, Footer, Header } from './SuperModal.styles';
+import { Backdrop, Body, Close, Dialog, Footer, Grabber, Header } from './SuperModal.styles';
 import type { SuperModalProps } from './SuperModal.types';
 import { useSuperModal } from './useSuperModal';
 
@@ -18,6 +18,7 @@ export const SuperModal = ({
   width = 520,
   padded = true,
   closeOnBackdrop = true,
+  mobileSheet = false,
   children,
 }: SuperModalProps): ReactElement | null => {
   const labels = useSuperLabels();
@@ -29,6 +30,8 @@ export const SuperModal = ({
   return createPortal(
     <Backdrop
       $align={align}
+      $sheet={mobileSheet}
+      data-sd-modal-sheet={mobileSheet || undefined}
       onMouseDown={(event) => {
         if (closeOnBackdrop && event.target === event.currentTarget) onClose();
       }}
@@ -42,7 +45,9 @@ export const SuperModal = ({
         tabIndex={-1}
         $width={width}
         $padded={padded}
+        $sheet={mobileSheet}
       >
+        {mobileSheet ? <Grabber aria-hidden="true" /> : null}
         <Header>
           {title || subtitle ? (
             <div>

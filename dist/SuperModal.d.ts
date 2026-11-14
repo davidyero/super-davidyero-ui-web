@@ -14,11 +14,16 @@ interface SuperModalProps {
     padded?: boolean;
     /** Cerrar al pulsar fuera. Desactívalo en formularios largos. */
     closeOnBackdrop?: boolean;
+    /**
+     * En móvil y Fold (por debajo de `md`, 900 px) se abre como bottom sheet: pegado
+     * abajo, a todo el ancho, con asa y subiendo desde abajo. En escritorio no cambia.
+     */
+    mobileSheet?: boolean;
     children: ReactNode;
 }
 
 /** Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar. */
-declare const SuperModal: ({ open, onClose, title, subtitle, footer, align, width, padded, closeOnBackdrop, children, }: SuperModalProps) => ReactElement | null;
+declare const SuperModal: ({ open, onClose, title, subtitle, footer, align, width, padded, closeOnBackdrop, mobileSheet, children, }: SuperModalProps) => ReactElement | null;
 
 export { SuperModal };
 export type { SuperModalProps };

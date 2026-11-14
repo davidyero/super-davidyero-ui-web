@@ -2,39 +2,77 @@ import { useSuperModal } from './chunk-IVWDWLQA.js';
 import { SuperIcon } from './chunk-HNXNT6BT.js';
 import { useSuperLabels } from './chunk-3YBGSPOJ.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { scrim, space, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
+import { breakpoints, space, scrim, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId } from 'react';
 import { createPortal } from 'react-dom';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
 
-var Backdrop = styled.div(({ $align }) => ({
-  position: "fixed",
-  inset: 0,
-  zIndex: zIndex.modal,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: $align === "center" ? "center" : "flex-start",
-  padding: $align === "center" ? space.lg : `10vh ${space.lg} ${space.lg}`,
-  background: scrim,
-  overflowY: "auto"
-}));
-var Dialog = styled.div(({ $width, $padded }) => ({
-  width: "100%",
-  maxWidth: `${$width}px`,
-  maxHeight: "100%",
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: v.radius.lg,
-  background: v.surfaceElevated,
-  border: `1px solid ${v.border}`,
-  boxShadow: v.shadow.lg,
-  color: v.textBody,
-  outline: "none",
-  "& > [data-sd-modal-body]": { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 }
-}));
+var belowMd = `@media (max-width: ${breakpoints.md - 1}px)`;
+var reduced = "@media (prefers-reduced-motion: reduce)";
+var slideUp = keyframes({
+  "0%": { transform: "translateY(100%)" },
+  "100%": { transform: "translateY(0)" }
+});
+var Backdrop = styled.div(
+  ({ $align, $sheet }) => ({
+    position: "fixed",
+    inset: 0,
+    zIndex: zIndex.modal,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: $align === "center" ? "center" : "flex-start",
+    padding: $align === "center" ? space.lg : `10vh ${space.lg} ${space.lg}`,
+    background: scrim,
+    overflowY: "auto",
+    ...$sheet ? { [belowMd]: { alignItems: "flex-end", padding: `${space.xl} 0 0` } } : {}
+  })
+);
+var Dialog = styled.div(
+  ({ $width, $padded, $sheet }) => ({
+    width: "100%",
+    maxWidth: `${$width}px`,
+    maxHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: v.radius.lg,
+    background: v.surfaceElevated,
+    border: `1px solid ${v.border}`,
+    boxShadow: v.shadow.lg,
+    color: v.textBody,
+    outline: "none",
+    "& > [data-sd-modal-body]": { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 },
+    ...$sheet ? {
+      [belowMd]: {
+        maxWidth: "none",
+        maxHeight: "90dvh",
+        borderRadius: `${v.radius.lg} ${v.radius.lg} 0 0`,
+        borderBottom: "none",
+        paddingBottom: "env(safe-area-inset-bottom)",
+        animation: `${slideUp} 220ms ease-out`,
+        "& > [data-sd-modal-body]": {
+          padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
+        },
+        [reduced]: { animation: "none" }
+      }
+    } : {}
+  })
+);
+var Grabber = styled.div({
+  display: "none",
+  [belowMd]: {
+    display: "block",
+    flexShrink: 0,
+    width: "40px",
+    height: "4px",
+    margin: `${space.sm} auto 0`,
+    borderRadius: v.radius.pill,
+    background: v.border
+  }
+});
 var Header = styled.div({
   display: "flex",
   alignItems: "center",
@@ -73,6 +111,7 @@ var SuperModal = ({
   width = 520,
   padded = true,
   closeOnBackdrop = true,
+  mobileSheet = false,
   children
 }) => {
   const labels = useSuperLabels();
@@ -84,6 +123,8 @@ var SuperModal = ({
       Backdrop,
       {
         $align: align,
+        $sheet: mobileSheet,
+        "data-sd-modal-sheet": mobileSheet || void 0,
         onMouseDown: (event) => {
           if (closeOnBackdrop && event.target === event.currentTarget) onClose();
         },
@@ -98,7 +139,9 @@ var SuperModal = ({
             tabIndex: -1,
             $width: width,
             $padded: padded,
+            $sheet: mobileSheet,
             children: [
+              mobileSheet ? /* @__PURE__ */ jsx(Grabber, { "aria-hidden": "true" }) : null,
               /* @__PURE__ */ jsxs(Header, { children: [
                 title || subtitle ? /* @__PURE__ */ jsxs("div", { children: [
                   title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "h3", as: "h2", id: titleId, children: title }) : null,
