@@ -50,6 +50,7 @@ export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boo
             borderBottom: 'none',
             paddingBottom: 'env(safe-area-inset-bottom)',
             animation: `${slideUp} 220ms ease-out`,
+            '& > [data-sd-modal-header]': { padding: `${space.md} ${space.lg}` },
             '& > [data-sd-modal-body]': {
               padding: $padded ? `0 ${space.lg} ${space.lg}` : 0,
             },

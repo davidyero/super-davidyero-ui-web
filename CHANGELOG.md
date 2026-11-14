@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.24.1 — 2026-11-14
+
+- `SuperModal` con `mobileSheet`: en móvil la cabecera usa el mismo margen lateral que el
+  cuerpo, así el título queda alineado con el contenido.
+
 ## 0.24.0 — 2026-11-14
 
 - `SuperModal` acepta **`mobileSheet`**: por debajo de `md` (900 px, móvil y Fold) se abre

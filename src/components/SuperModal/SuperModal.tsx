@@ -48,7 +48,7 @@ export const SuperModal = ({
         $sheet={mobileSheet}
       >
         {mobileSheet ? <Grabber aria-hidden="true" /> : null}
-        <Header>
+        <Header data-sd-modal-header>
           {title || subtitle ? (
             <div>
               {title ? (

@@ -53,6 +53,7 @@ var Dialog = styled.div(
         borderBottom: "none",
         paddingBottom: "env(safe-area-inset-bottom)",
         animation: `${slideUp} 220ms ease-out`,
+        "& > [data-sd-modal-header]": { padding: `${space.md} ${space.lg}` },
         "& > [data-sd-modal-body]": {
           padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
         },
@@ -142,7 +143,7 @@ var SuperModal = ({
             $sheet: mobileSheet,
             children: [
               mobileSheet ? /* @__PURE__ */ jsx(Grabber, { "aria-hidden": "true" }) : null,
-              /* @__PURE__ */ jsxs(Header, { children: [
+              /* @__PURE__ */ jsxs(Header, { "data-sd-modal-header": true, children: [
                 title || subtitle ? /* @__PURE__ */ jsxs("div", { children: [
                   title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "h3", as: "h2", id: titleId, children: title }) : null,
                   subtitle ? /* @__PURE__ */ jsx(SuperTypography, { variant: "bodySmall", color: "textMuted", children: subtitle }) : null
