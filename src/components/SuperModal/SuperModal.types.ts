@@ -14,5 +14,10 @@ export interface SuperModalProps {
   padded?: boolean;
   /** Cerrar al pulsar fuera. Desactívalo en formularios largos. */
   closeOnBackdrop?: boolean;
+  /**
+   * En móvil y Fold (por debajo de `md`, 900 px) se abre como bottom sheet: pegado
+   * abajo, a todo el ancho, con asa y subiendo desde abajo. En escritorio no cambia.
+   */
+  mobileSheet?: boolean;
   children: ReactNode;
 }
