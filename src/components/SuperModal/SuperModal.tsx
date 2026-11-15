@@ -31,7 +31,6 @@ export const SuperModal = ({
     <Backdrop
       $align={align}
       $sheet={mobileSheet}
-      data-sd-modal-sheet={mobileSheet || undefined}
       onMouseDown={(event) => {
         if (closeOnBackdrop && event.target === event.currentTarget) onClose();
       }}
@@ -68,7 +67,7 @@ export const SuperModal = ({
           </Close>
         </Header>
         <Body data-sd-modal-body>{children}</Body>
-        {footer ? <Footer>{footer}</Footer> : null}
+        {footer ? <Footer data-sd-modal-footer>{footer}</Footer> : null}
       </Dialog>
     </Backdrop>,
     document.body,

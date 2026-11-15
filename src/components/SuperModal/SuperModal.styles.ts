@@ -54,6 +54,8 @@ export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boo
             '& > [data-sd-modal-body]': {
               padding: $padded ? `0 ${space.lg} ${space.lg}` : 0,
             },
+            // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
+            '& > [data-sd-modal-footer]': { padding: `${space.md} ${space.lg} ${space.lg}` },
             [reduced]: { animation: 'none' },
           },
         }

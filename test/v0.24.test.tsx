@@ -4,15 +4,14 @@ import { SuperModal } from '../src/components/SuperModal/SuperModal';
 import { renderWithTheme } from './renderWithTheme';
 
 describe('0.24 · SuperModal mobileSheet', () => {
-  it('con mobileSheet marca el fondo y pinta el asa oculta para lectores', () => {
+  it('con mobileSheet pinta el asa oculta para lectores', () => {
     renderWithTheme(
       <SuperModal open onClose={() => undefined} title="Detalle" mobileSheet>
         <p>Contenido</p>
       </SuperModal>,
     );
     const dialog = screen.getByRole('dialog', { name: 'Detalle' });
-    expect(dialog.parentElement).toHaveAttribute('data-sd-modal-sheet', 'true');
-    expect(dialog.querySelector('[aria-hidden="true"]')).not.toBeNull();
+    expect(dialog.firstElementChild).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('sin mobileSheet sigue siendo el modal de siempre', () => {
@@ -22,6 +21,22 @@ describe('0.24 · SuperModal mobileSheet', () => {
       </SuperModal>,
     );
     const dialog = screen.getByRole('dialog', { name: 'Detalle' });
-    expect(dialog.parentElement).not.toHaveAttribute('data-sd-modal-sheet');
+    expect(dialog.firstElementChild).toHaveAttribute('data-sd-modal-header');
+  });
+
+  it('el footer lleva su marca para alinearse con el sheet en móvil', () => {
+    renderWithTheme(
+      <SuperModal
+        open
+        onClose={() => undefined}
+        title="Detalle"
+        mobileSheet
+        footer={<button type="button">OK</button>}
+      >
+        <p>Contenido</p>
+      </SuperModal>,
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Detalle' });
+    expect(dialog.querySelector('[data-sd-modal-footer]')).not.toBeNull();
   });
 });

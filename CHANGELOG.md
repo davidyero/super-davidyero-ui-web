@@ -1,5 +1,11 @@
 # Changelog — @davidyero/ui-web
 
+## 0.24.2 — 2026-11-15
+
+- `SuperModal` con `mobileSheet`: en móvil el footer también usa el margen lateral del sheet,
+  así los botones quedan alineados con la cabecera y el cuerpo.
+- Fuera `data-sd-modal-sheet` del fondo: solo lo leía un test. El test comprueba ahora el asa.
+
 ## 0.24.1 — 2026-11-14
 
 - `SuperModal` con `mobileSheet`: en móvil la cabecera usa el mismo margen lateral que el
