@@ -1,6 +1,6 @@
 import { useSuperModal } from './chunk-IVWDWLQA.js';
-import { SuperIcon } from './chunk-HNXNT6BT.js';
-import { useSuperLabels } from './chunk-3YBGSPOJ.js';
+import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { useSuperLabels } from './chunk-2OYI3VCV.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { breakpoints, space, scrim, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
@@ -57,6 +57,8 @@ var Dialog = styled.div(
         "& > [data-sd-modal-body]": {
           padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
         },
+        // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
+        "& > [data-sd-modal-footer]": { padding: `${space.md} ${space.lg} ${space.lg}` },
         [reduced]: { animation: "none" }
       }
     } : {}
@@ -125,7 +127,6 @@ var SuperModal = ({
       {
         $align: align,
         $sheet: mobileSheet,
-        "data-sd-modal-sheet": mobileSheet || void 0,
         onMouseDown: (event) => {
           if (closeOnBackdrop && event.target === event.currentTarget) onClose();
         },
@@ -151,7 +152,7 @@ var SuperModal = ({
                 /* @__PURE__ */ jsx(Close, { type: "button", "aria-label": labels.close, onClick: onClose, children: /* @__PURE__ */ jsx(SuperIcon, { name: "close", size: 20 }) })
               ] }),
               /* @__PURE__ */ jsx(Body, { "data-sd-modal-body": true, children }),
-              footer ? /* @__PURE__ */ jsx(Footer, { children: footer }) : null
+              footer ? /* @__PURE__ */ jsx(Footer, { "data-sd-modal-footer": true, children: footer }) : null
             ]
           }
         )

@@ -1,5 +1,23 @@
 # Changelog — @davidyero/ui-web
 
+## 0.25.0 — 2026-11-15
+
+Bloques de dashboard (los pide super-apps-info):
+
+- **`SuperStatCard`**: KPI con etiqueta, cifra, icono y delta (`trend: 'up' | 'down' |
+  'neutral'` → verde, rojo o neutro, con flecha). `size: 'sm' | 'md'` y `loading` con el
+  esqueleto de la misma forma.
+- **`SuperBarChart`**: barras horizontales con los colores del tema (`tone`), sin librería
+  de gráficas. Nombre y valor arriba, barra debajo: cabe igual en móvil que en escritorio.
+  Tooltip al pasar el ratón o enfocar (la app formatea la cuota), transición del ancho
+  (sin ella con `prefers-reduced-motion`) y `loading`.
+- **`SuperListItem`**: fila con `leading` (avatar), título, subtítulo truncado (con
+  tooltip opcional), `meta` (badges) y `trailing`. Clicable con `onClick`.
+- **`SuperSidebar`**: navegación lateral completa o `collapsed` (solo iconos, con el nombre
+  en tooltip). Entradas con `href` navegan con el `LinkComponent` del provider.
+- `SuperTooltip` acepta `placement="right"`. `SuperCard` deja pasar `aria-busy`.
+- Iconos por defecto nuevos: `trendUp` y `trendDown`.
+
 ## 0.24.2 — 2026-11-15
 
 - `SuperModal` con `mobileSheet`: en móvil el footer también usa el margen lateral del sheet,

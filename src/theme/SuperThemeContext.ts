@@ -37,6 +37,8 @@ export const DEFAULT_ICONS = {
   warning: 'solar:danger-triangle-broken',
   danger: 'solar:close-circle-broken',
   empty: 'solar:box-minimalistic-broken',
+  trendUp: 'solar:arrow-right-up-broken',
+  trendDown: 'solar:arrow-right-down-broken',
 } as const satisfies Record<string, string>;
 
 /**

@@ -23,4 +23,4 @@ export const SuperTooltip = ({
   );
 };
 
-export type { SuperTooltipProps } from './SuperTooltip.types';
+export type { SuperTooltipProps, TooltipPlacement } from './SuperTooltip.types';

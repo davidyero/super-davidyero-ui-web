@@ -31,6 +31,8 @@ declare const DEFAULT_ICONS: {
     readonly warning: "solar:danger-triangle-broken";
     readonly danger: "solar:close-circle-broken";
     readonly empty: "solar:box-minimalistic-broken";
+    readonly trendUp: "solar:arrow-right-up-broken";
+    readonly trendDown: "solar:arrow-right-down-broken";
 };
 /**
  * Enlace interno de la app (p. ej. un wrapper de `Link` de React Router que

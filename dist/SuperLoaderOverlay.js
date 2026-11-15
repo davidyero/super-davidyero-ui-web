@@ -1,6 +1,6 @@
 import { useLoaderActive } from './chunk-7PBTLBLQ.js';
-import { SuperLoader } from './chunk-3WYS5NIZ.js';
-import { useSuperLabels } from './chunk-3YBGSPOJ.js';
+import { SuperLoader } from './chunk-5QH3G7FH.js';
+import { useSuperLabels } from './chunk-2OYI3VCV.js';
 import { zIndex } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';

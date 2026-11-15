@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { space, transition, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
+import type { TooltipPlacement } from './SuperTooltip.types';
 
 export const Wrap = styled.span({
   position: 'relative',
@@ -11,13 +12,15 @@ export const Wrap = styled.span({
   },
 });
 
-export const Bubble = styled.span<{ $placement: 'top' | 'bottom' }>(({ $placement }) => ({
+const PLACEMENT: Record<TooltipPlacement, Record<string, string>> = {
+  top: { left: '50%', transform: 'translateX(-50%)', bottom: `calc(100% + ${space.xs})` },
+  bottom: { left: '50%', transform: 'translateX(-50%)', top: `calc(100% + ${space.xs})` },
+  right: { top: '50%', transform: 'translateY(-50%)', left: `calc(100% + ${space.sm})` },
+};
+
+export const Bubble = styled.span<{ $placement: TooltipPlacement }>(({ $placement }) => ({
   position: 'absolute',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  ...($placement === 'top'
-    ? { bottom: `calc(100% + ${space.xs})` }
-    : { top: `calc(100% + ${space.xs})` }),
+  ...PLACEMENT[$placement],
   zIndex: zIndex.tooltip,
   padding: `${space.xxs} ${space.sm}`,
   borderRadius: v.radius.sm,

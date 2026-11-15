@@ -5,7 +5,12 @@ export type CardPadding = 'none' | 'sm' | 'md' | 'lg';
 
 export interface SuperCardProps extends Pick<
   AriaAttributes,
-  'aria-label' | 'aria-labelledby' | 'aria-expanded' | 'aria-controls' | 'aria-pressed'
+  | 'aria-label'
+  | 'aria-labelledby'
+  | 'aria-expanded'
+  | 'aria-controls'
+  | 'aria-pressed'
+  | 'aria-busy'
 > {
   variant?: CardVariant;
   /** Cabecera opcional: título (etiqueta de sección), subtítulo y una acción a la derecha. */

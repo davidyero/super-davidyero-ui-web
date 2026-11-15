@@ -1,5 +1,5 @@
-import { DEFAULT_ICONS, SuperThemeContext } from './chunk-3YBGSPOJ.js';
-export { DEFAULT_ICONS, useSuperLabels, useSuperTheme } from './chunk-3YBGSPOJ.js';
+import { DEFAULT_ICONS, SuperThemeContext } from './chunk-2OYI3VCV.js';
+export { DEFAULT_ICONS, useSuperLabels, useSuperTheme } from './chunk-2OYI3VCV.js';
 import { tokensToCssVars } from './chunk-VQ2WXUA7.js';
 import { resolveTokens } from './chunk-X7SCOXRS.js';
 export { DEFAULT_TOKENS, defineTokens, resolveTokens } from './chunk-X7SCOXRS.js';
