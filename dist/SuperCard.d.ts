@@ -2,7 +2,7 @@ import { AriaAttributes, ReactNode, ElementType, MouseEventHandler, ReactElement
 
 type CardVariant = 'default' | 'sunken' | 'elevated' | 'outline';
 type CardPadding = 'none' | 'sm' | 'md' | 'lg';
-interface SuperCardProps extends Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-expanded' | 'aria-controls' | 'aria-pressed'> {
+interface SuperCardProps extends Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-expanded' | 'aria-controls' | 'aria-pressed' | 'aria-busy'> {
     variant?: CardVariant;
     /** Cabecera opcional: título (etiqueta de sección), subtítulo y una acción a la derecha. */
     title?: ReactNode;

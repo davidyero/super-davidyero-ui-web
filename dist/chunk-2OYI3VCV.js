@@ -13,7 +13,9 @@ var DEFAULT_ICONS = {
   success: "solar:check-circle-broken",
   warning: "solar:danger-triangle-broken",
   danger: "solar:close-circle-broken",
-  empty: "solar:box-minimalistic-broken"
+  empty: "solar:box-minimalistic-broken",
+  trendUp: "solar:arrow-right-up-broken",
+  trendDown: "solar:arrow-right-down-broken"
 };
 var SuperThemeContext = createContext(null);
 var useSuperTheme = () => {
