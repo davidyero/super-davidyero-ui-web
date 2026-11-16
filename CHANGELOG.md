@@ -1,5 +1,14 @@
 # Changelog — @davidyero/ui-web
 
+## 0.27.0 — 2026-11-16
+
+- Nuevo **`SuperChip`** (lo pide Splitio para el filtro por pagador, que lo tenía en local):
+  con `selected` es un interruptor (`aria-pressed`) y, marcado, va en `primarySoft` con
+  `primarySoftText`, en claro y en oscuro; solo con `onClick`, un botón; sin ninguno, una
+  etiqueta. `leading` (avatar o icono, recorta el relleno de ese lado), `size` (`sm` 32 px
+  por defecto, `md` 40 px) y `disabled`.
+- **`SuperChipGroup`**: la fila de chips (salta de línea) con `role="group"` y `ariaLabel`.
+
 ## 0.26.1 — 2026-11-16
 
 - `npm run build` da 6 GB de heap a Node: la generación de tipos (DTS) de tsup se quedaba sin
