@@ -246,7 +246,7 @@ para que la app no parpadee sola. Para bloquear la pantalla a mano en una acció
 | `SuperSegmented`                | `options` (value, label, disabled), `value`, `onChange`, `ariaLabel`, `size`, `fullWidth` (2–4 opciones; la activa en tinta)                                                                        |
 | `SuperDrawer`                   | `open`, `onClose`, `title`, `subtitle`, `eyebrow`, `footer` (pie fijo), `width` (en móvil, pantalla completa)                                                                                       |
 | `SuperStepper`                  | `value`, `onChange`, `min`, `max`, `step`, `formatValue`, `ariaLabel`, `decrementLabel`, `incrementLabel`                                                                                           |
-| `SuperTooltip`                  | `label`, `placement`, un único hijo enfocable                                                                                                                                                       |
+| `SuperTooltip`                  | `label`, `placement`, `block` (todo el ancho), un único hijo enfocable                                                                                                                              |
 | `SuperLocaleThemeSwitch`        | `locale`, `onLocaleChange(next)`, `mode`, `onModeChange(next)`, `labels`, `variant` (soft, surface), `align`, `showLabels`, `look` (toggle, segmented), `size`. **Único** selector de idioma y tema |
 | `SuperPrefToggle`               | `glyph`, `glyphKey`, `ariaLabel`, `label`, `variant`, `tone` (sun, night), `onClick`: botón base del anterior                                                                                       |
 

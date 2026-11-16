@@ -5,7 +5,7 @@ import { SuperCard } from '../SuperCard/SuperCard';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperSkeleton } from '../SuperSkeleton/SuperSkeleton';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { DeltaRow, IconCircle, Top, Value } from './SuperStatCard.styles';
+import { DeltaRow, IconCircle, Top, VALUE_SKELETON_HEIGHT, Value } from './SuperStatCard.styles';
 import type { StatTrend, SuperStatCardProps } from './SuperStatCard.types';
 
 const TREND_TONE: Record<StatTrend, BadgeTone> = {
@@ -49,7 +49,7 @@ export const SuperStatCard = ({
     </Top>
     <Value $size={size}>
       {loading ? (
-        <SuperSkeleton variant="block" width="50%" height={size === 'md' ? '38px' : '29px'} />
+        <SuperSkeleton variant="block" width="50%" height={VALUE_SKELETON_HEIGHT[size]} />
       ) : (
         <SuperTypography variant={size === 'md' ? 'display' : 'h1'} color="text" truncate>
           {value}

@@ -1,5 +1,5 @@
 import { SuperSkeleton } from './chunk-ZJKOTCBT.js';
-import { SuperTooltip } from './chunk-5ELJYDBL.js';
+import { SuperTooltip } from './chunk-TU2LGXLM.js';
 import { SuperIcon } from './chunk-DGDXZTZH.js';
 import './chunk-2OYI3VCV.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
@@ -49,7 +49,6 @@ var Name = styled.span({
   minWidth: 0,
   color: v.textBody
 });
-var BarTooltip = styled(SuperTooltip)({ display: "flex", width: "100%" });
 var Track = styled.span({
   display: "block",
   position: "relative",
@@ -88,7 +87,7 @@ var SuperBarChart = ({
         /* @__PURE__ */ jsx(SuperSkeleton, { variant: "text", width: "40%" }),
         /* @__PURE__ */ jsx(SuperSkeleton, { variant: "text", width: "12%" })
       ] }),
-      /* @__PURE__ */ jsx(SuperSkeleton, { variant: "block", height: "10px", width: SKELETON_WIDTHS[i % 6] })
+      /* @__PURE__ */ jsx(SuperSkeleton, { variant: "block", height: BAR_HEIGHT, width: SKELETON_WIDTHS[i % 6] })
     ] }, i)) });
   }
   const max = Math.max(0, ...items.map((item) => item.value));
@@ -105,7 +104,7 @@ var SuperBarChart = ({
         ] }),
         /* @__PURE__ */ jsx(SuperTypography, { variant: "bodySmall", color: "text", weight: "semibold", mono: true, children: formatValue(item.value) })
       ] }),
-      /* @__PURE__ */ jsx(BarTooltip, { label: hint, children: /* @__PURE__ */ jsx(Track, { tabIndex: 0, role: "img", "aria-label": `${item.label}: ${hint}`, children: /* @__PURE__ */ jsx(Fill, { $tone: tone, $pct: pct, "data-sd-bar-fill": true }) }) })
+      /* @__PURE__ */ jsx(SuperTooltip, { label: hint, block: true, children: /* @__PURE__ */ jsx(Track, { tabIndex: 0, role: "img", "aria-label": `${item.label}: ${hint}`, children: /* @__PURE__ */ jsx(Fill, { $tone: tone, $pct: pct, "data-sd-bar-fill": true }) }) })
     ] }, item.id);
   }) });
 };

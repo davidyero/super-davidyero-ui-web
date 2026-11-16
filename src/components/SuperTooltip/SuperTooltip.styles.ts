@@ -3,14 +3,15 @@ import { space, transition, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 import type { TooltipPlacement } from './SuperTooltip.types';
 
-export const Wrap = styled.span({
+export const Wrap = styled.span<{ $block: boolean }>(({ $block }) => ({
   position: 'relative',
-  display: 'inline-flex',
+  display: $block ? 'flex' : 'inline-flex',
+  ...($block ? { width: '100%', minWidth: 0 } : {}),
   '&:hover > [role="tooltip"], &:focus-within > [role="tooltip"]': {
     opacity: 1,
     visibility: 'visible',
   },
-});
+}));
 
 const PLACEMENT: Record<TooltipPlacement, Record<string, string>> = {
   top: { left: '50%', transform: 'translateX(-50%)', bottom: `calc(100% + ${space.xs})` },

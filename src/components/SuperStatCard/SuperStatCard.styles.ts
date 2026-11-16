@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { space } from '../../styles/scale';
+import { space, textScale } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 export const Top = styled.div({
@@ -21,6 +21,15 @@ export const IconCircle = styled.span({
   background: v.primarySoft,
   color: v.primarySoftText,
 });
+
+const lineBox = ({ fontSize, lineHeight }: { fontSize: string; lineHeight: number }): string =>
+  `calc(${fontSize} * ${lineHeight})`;
+
+/** Alto del esqueleto de la cifra: una línea de `display` (md) o de `h1` (sm). */
+export const VALUE_SKELETON_HEIGHT = {
+  md: lineBox(textScale.display),
+  sm: lineBox(textScale.h1),
+} as const;
 
 export const Value = styled.div<{ $size: 'sm' | 'md' }>(({ $size }) => ({
   marginTop: $size === 'md' ? space.md : space.sm,

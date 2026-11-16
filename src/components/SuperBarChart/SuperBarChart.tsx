@@ -2,7 +2,8 @@ import type { ReactElement } from 'react';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperSkeleton } from '../SuperSkeleton/SuperSkeleton';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
-import { BarTooltip, Fill, List, Name, Row, RowHead, Track } from './SuperBarChart.styles';
+import { SuperTooltip } from '../SuperTooltip/SuperTooltip';
+import { BAR_HEIGHT, Fill, List, Name, Row, RowHead, Track } from './SuperBarChart.styles';
 import type { SuperBarChartProps } from './SuperBarChart.types';
 
 const SKELETON_WIDTHS = ['92%', '74%', '58%', '41%', '27%', '18%'];
@@ -32,7 +33,7 @@ export const SuperBarChart = ({
               <SuperSkeleton variant="text" width="40%" />
               <SuperSkeleton variant="text" width="12%" />
             </RowHead>
-            <SuperSkeleton variant="block" height="10px" width={SKELETON_WIDTHS[i % 6]} />
+            <SuperSkeleton variant="block" height={BAR_HEIGHT} width={SKELETON_WIDTHS[i % 6]} />
           </Row>
         ))}
       </List>
@@ -61,11 +62,11 @@ export const SuperBarChart = ({
                 {formatValue(item.value)}
               </SuperTypography>
             </RowHead>
-            <BarTooltip label={hint}>
+            <SuperTooltip label={hint} block>
               <Track tabIndex={0} role="img" aria-label={`${item.label}: ${hint}`}>
                 <Fill $tone={tone} $pct={pct} data-sd-bar-fill />
               </Track>
-            </BarTooltip>
+            </SuperTooltip>
           </Row>
         );
       })}

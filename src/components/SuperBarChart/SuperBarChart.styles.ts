@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
-import { SuperTooltip } from '../SuperTooltip/SuperTooltip';
 import type { BarChartTone } from './SuperBarChart.types';
 
 const FILL: Record<BarChartTone, string> = {
@@ -12,7 +11,7 @@ const FILL: Record<BarChartTone, string> = {
 };
 
 /** Alto de la barra: visible en móvil sin parecer un botón. */
-const BAR_HEIGHT = '10px';
+export const BAR_HEIGHT = '10px';
 
 export const List = styled.div<{ $maxHeight?: string }>(({ $maxHeight }) => ({
   display: 'flex',
@@ -50,8 +49,6 @@ export const Name = styled.span({
   minWidth: 0,
   color: v.textBody,
 });
-
-export const BarTooltip = styled(SuperTooltip)({ display: 'flex', width: '100%' });
 
 export const Track = styled.span({
   display: 'block',

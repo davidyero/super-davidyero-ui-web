@@ -1,4 +1,4 @@
-import { SuperTooltip } from './chunk-5ELJYDBL.js';
+import { SuperTooltip } from './chunk-TU2LGXLM.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { focusVisible, transition, space } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
@@ -59,7 +59,6 @@ var Trailing = styled.span({
   flexShrink: 0,
   gap: space.xs
 });
-var FullWidthTooltip = styled(SuperTooltip)({ display: "flex", minWidth: 0, maxWidth: "100%" });
 var SuperListItem = ({
   title,
   subtitle,
@@ -87,7 +86,7 @@ var SuperListItem = ({
         leading ? /* @__PURE__ */ jsx(Leading, { children: leading }) : null,
         /* @__PURE__ */ jsxs(Content, { children: [
           /* @__PURE__ */ jsx(SuperTypography, { variant: "bodySmall", color: "text", weight: "semibold", truncate: true, as: "span", children: title }),
-          subtitle && subtitleTooltip ? /* @__PURE__ */ jsx(FullWidthTooltip, { label: subtitle, children: /* @__PURE__ */ jsx(SubtitleFocus, { tabIndex: 0, children: subtitleText }) }) : subtitleText,
+          subtitle && subtitleTooltip ? /* @__PURE__ */ jsx(SuperTooltip, { label: subtitle, block: true, children: /* @__PURE__ */ jsx(SubtitleFocus, { tabIndex: onClick ? void 0 : 0, children: subtitleText }) }) : subtitleText,
           meta ? /* @__PURE__ */ jsx(Meta, { children: meta }) : null
         ] }),
         trailing ? /* @__PURE__ */ jsx(Trailing, { children: trailing }) : null
