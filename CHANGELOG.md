@@ -1,5 +1,10 @@
 # Changelog — @davidyero/ui-web
 
+## 0.26.1 — 2026-11-16
+
+- `npm run build` da 6 GB de heap a Node: la generación de tipos (DTS) de tsup se quedaba sin
+  memoria y tumbaba el CI desde la 0.21.0. El código publicado no cambia.
+
 ## 0.26.0 — 2026-11-16
 
 Auditoría nocturna:

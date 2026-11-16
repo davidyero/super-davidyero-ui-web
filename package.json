@@ -1,6 +1,6 @@
 {
   "name": "@davidyero/ui-web",
-  "version": "0.26.0",
+  "version": "0.26.1",
   "description": "Design system web del ecosistema super-davidyero: componentes Super* con temas por variables CSS.",
   "type": "module",
   "license": "MIT",
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "dev": "vite --config playground/vite.config.ts",
-    "build": "tsup",
+    "build": "NODE_OPTIONS=--max-old-space-size=6144 tsup",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
