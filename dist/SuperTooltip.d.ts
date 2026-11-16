@@ -9,11 +9,16 @@ interface SuperTooltipProps {
         'aria-describedby'?: string;
     }>;
     placement?: TooltipPlacement;
+    /**
+     * Ocupa todo el ancho de su contenedor (filas de lista, barras, entradas de una barra
+     * lateral) y deja que el texto de dentro se corte con "…".
+     */
+    block?: boolean;
     className?: string;
 }
 
 /** Ayuda breve al pasar el ratón o enfocar. Nunca guarda información esencial. */
-declare const SuperTooltip: ({ label, children, placement, className, }: SuperTooltipProps) => ReactElement;
+declare const SuperTooltip: ({ label, children, placement, block, className, }: SuperTooltipProps) => ReactElement;
 
 export { SuperTooltip };
 export type { SuperTooltipProps, TooltipPlacement };

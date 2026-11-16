@@ -9,9 +9,12 @@ export interface SuperListItemProps {
   subtitleTooltip?: boolean;
   /** A la izquierda, centrado: avatar o icono. */
   leading?: ReactNode;
-  /** Tercera línea: chips, badges o texto corto (app, plan, fecha). */
+  /**
+   * Tercera línea: chips, badges o texto corto (app, plan, fecha). Con `onClick`, sin
+   * controles (botones, enlaces): la fila ya es un `<button>`.
+   */
   meta?: ReactNode;
-  /** A la derecha: valor, fecha o acción. */
+  /** A la derecha: valor, fecha o acción (acción solo si la fila no lleva `onClick`). */
   trailing?: ReactNode;
   /** Fondo al pasar el ratón (filas de datos que se recorren con la vista). */
   hoverable?: boolean;

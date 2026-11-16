@@ -4,25 +4,15 @@ type BadgeTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'inf
 type BadgeSize = 'sm' | 'md';
 /** Los 5 planes del ecosistema, iguales en todas las apps. */
 type SuperPlan = 'free' | 'lite' | 'pro' | 'thanos' | 'superthanos';
-/**
- * Roles de equipo del ecosistema; thanos y superthanos son los de plataforma y test el de
- * las cuentas de prueba (lo decide el servidor: `testRole: 'TEST'`).
- */
+/** `test`: cuentas de prueba (lo decide el servidor con `testRole: 'TEST'`). */
 type SuperRole = 'superthanos' | 'thanos' | 'owner' | 'admin' | 'editor' | 'viewer' | 'reception' | 'staff' | 'member' | 'moderator' | 'test';
 interface SuperBadgeProps {
     tone?: BadgeTone;
-    /**
-     * Insignia de plan: pone el icono y el tono del plan (se pueden sobrescribir con
-     * `icon`/`tone`). El texto lo da la app, traducido.
-     */
+    /** Pone el icono y el tono del plan (`icon`/`tone` los sobrescriben). Gana a `role`. */
     plan?: SuperPlan;
-    /**
-     * Insignia de rol: pone el icono y el tono del rol (se pueden sobrescribir con
-     * `icon`/`tone`). Si llegan `plan` y `role`, gana `plan`. El texto lo da la app, traducido.
-     */
+    /** Pone el icono y el tono del rol (`icon`/`tone` los sobrescriben). */
     role?: SuperRole;
     size?: BadgeSize;
-    /** Nombre de icono a la izquierda. */
     icon?: string;
     /** Punto de estado a la izquierda (el texto sigue siendo obligatorio: nunca solo color). */
     dot?: boolean;

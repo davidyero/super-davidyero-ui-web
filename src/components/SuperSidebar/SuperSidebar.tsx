@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import type { ReactElement } from 'react';
 import { useSuperTheme } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
@@ -14,8 +13,6 @@ import {
   NavList,
 } from './SuperSidebar.styles';
 import type { SuperSidebarItem, SuperSidebarProps } from './SuperSidebar.types';
-
-const BlockTooltip = styled(SuperTooltip)({ display: 'flex', width: '100%' });
 
 /**
  * Navegación lateral. Completa en escritorio y solo iconos con `collapsed` (con el nombre
@@ -70,9 +67,9 @@ export const SuperSidebar = <TId extends string = string>({
     return (
       <ItemWrap key={item.id}>
         {collapsed ? (
-          <BlockTooltip label={item.label} placement="right">
+          <SuperTooltip label={item.label} placement="right" block>
             {entry}
-          </BlockTooltip>
+          </SuperTooltip>
         ) : (
           entry
         )}
@@ -83,7 +80,7 @@ export const SuperSidebar = <TId extends string = string>({
   return (
     <Aside $collapsed={collapsed} className={className}>
       {header ? <Header $collapsed={collapsed}>{header}</Header> : null}
-      <NavList as="nav" aria-label={ariaLabel}>
+      <NavList as="nav" aria-label={ariaLabel} $collapsed={collapsed}>
         {items.map(renderEntry)}
       </NavList>
       {footer ? <Footer $collapsed={collapsed}>{footer}</Footer> : null}

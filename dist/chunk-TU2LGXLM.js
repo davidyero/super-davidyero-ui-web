@@ -4,14 +4,15 @@ import { useId, isValidElement, cloneElement } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
-var Wrap = styled.span({
+var Wrap = styled.span(({ $block }) => ({
   position: "relative",
-  display: "inline-flex",
+  display: $block ? "flex" : "inline-flex",
+  ...$block ? { width: "100%", minWidth: 0 } : {},
   '&:hover > [role="tooltip"], &:focus-within > [role="tooltip"]': {
     opacity: 1,
     visibility: "visible"
   }
-});
+}));
 var PLACEMENT = {
   top: { left: "50%", transform: "translateX(-50%)", bottom: `calc(100% + ${space.xs})` },
   bottom: { left: "50%", transform: "translateX(-50%)", top: `calc(100% + ${space.xs})` },
@@ -40,11 +41,12 @@ var SuperTooltip = ({
   label,
   children,
   placement = "top",
+  block = false,
   className
 }) => {
   const id = useId();
   const trigger = isValidElement(children) ? cloneElement(children, { "aria-describedby": id }) : children;
-  return /* @__PURE__ */ jsxs(Wrap, { className, children: [
+  return /* @__PURE__ */ jsxs(Wrap, { $block: block, className, children: [
     trigger,
     /* @__PURE__ */ jsx(Bubble, { role: "tooltip", id, $placement: placement, children: label })
   ] });

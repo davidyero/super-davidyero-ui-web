@@ -1,4 +1,4 @@
-import { SuperTooltip } from './chunk-5ELJYDBL.js';
+import { SuperTooltip } from './chunk-TU2LGXLM.js';
 import { SuperIcon } from './chunk-DGDXZTZH.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
 import { SuperTypography } from './chunk-6OHDPNJ7.js';
@@ -29,14 +29,14 @@ var Header = styled.div(({ $collapsed }) => ({
   minHeight: "36px",
   minWidth: 0
 }));
-var NavList = styled.div({
+var NavList = styled.div(({ $collapsed }) => ({
   display: "flex",
   flexDirection: "column",
   gap: space.xxs,
   flex: 1,
   minHeight: 0,
-  overflowY: "auto"
-});
+  overflowY: $collapsed ? "visible" : "auto"
+}));
 var ItemWrap = styled.div({ display: "flex", width: "100%" });
 var entryStyles = ({ $active, $collapsed }) => ({
   display: "flex",
@@ -74,7 +74,6 @@ var Footer = styled.div(({ $collapsed }) => ({
   gap: space.sm,
   minWidth: 0
 }));
-var BlockTooltip = styled(SuperTooltip)({ display: "flex", width: "100%" });
 var SuperSidebar = ({
   items,
   activeId,
@@ -110,11 +109,11 @@ var SuperSidebar = ({
       onClick: () => onSelect?.(item.id)
     };
     const entry = item.href ? /* @__PURE__ */ jsx(EntryLink, { ...common, as: LinkComponent, href: item.href, children: content }) : /* @__PURE__ */ jsx(EntryButton, { ...common, type: "button", children: content });
-    return /* @__PURE__ */ jsx(ItemWrap, { children: collapsed ? /* @__PURE__ */ jsx(BlockTooltip, { label: item.label, placement: "right", children: entry }) : entry }, item.id);
+    return /* @__PURE__ */ jsx(ItemWrap, { children: collapsed ? /* @__PURE__ */ jsx(SuperTooltip, { label: item.label, placement: "right", block: true, children: entry }) : entry }, item.id);
   };
   return /* @__PURE__ */ jsxs(Aside, { $collapsed: collapsed, className, children: [
     header ? /* @__PURE__ */ jsx(Header, { $collapsed: collapsed, children: header }) : null,
-    /* @__PURE__ */ jsx(NavList, { as: "nav", "aria-label": ariaLabel, children: items.map(renderEntry) }),
+    /* @__PURE__ */ jsx(NavList, { as: "nav", "aria-label": ariaLabel, $collapsed: collapsed, children: items.map(renderEntry) }),
     footer ? /* @__PURE__ */ jsx(Footer, { $collapsed: collapsed, children: footer }) : null
   ] });
 };

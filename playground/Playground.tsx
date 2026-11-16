@@ -289,6 +289,7 @@ export const Playground = (): ReactElement => {
                     'staff',
                     'member',
                     'moderator',
+                    'test',
                   ] as const
                 ).map((role) => (
                   <SuperBadge key={role} role={role}>

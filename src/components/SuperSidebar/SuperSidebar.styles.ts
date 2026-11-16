@@ -28,14 +28,18 @@ export const Header = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({
   minWidth: 0,
 }));
 
-export const NavList = styled.div({
+/*
+ * Plegada no hace scroll: un overflow distinto de visible recorta en los dos ejes, y el
+ * tooltip con el nombre de cada entrada sale por la derecha de los 64 px de la barra.
+ */
+export const NavList = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: space.xxs,
   flex: 1,
   minHeight: 0,
-  overflowY: 'auto',
-});
+  overflowY: $collapsed ? 'visible' : 'auto',
+}));
 
 export const ItemWrap = styled.div({ display: 'flex', width: '100%' });
 

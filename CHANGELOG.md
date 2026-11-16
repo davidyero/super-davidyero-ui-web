@@ -1,5 +1,24 @@
 # Changelog — @davidyero/ui-web
 
+## 0.26.0 — 2026-11-16
+
+Auditoría nocturna:
+
+- **`SuperTooltip` acepta `block`**: ocupa todo el ancho y deja cortar el texto de dentro.
+  Sustituye a los tres `styled(SuperTooltip)` que hacían lo mismo en `SuperSidebar`,
+  `SuperBarChart` y `SuperListItem`.
+- **`SuperSidebar` plegada**: el nombre de cada entrada ya no queda recortado. La lista no
+  hace scroll cuando está plegada (el `overflow` recortaba el tooltip, que sale por la
+  derecha de los 64 px); completa, sigue con scroll.
+- **`SuperListItem` clicable con `subtitleTooltip`**: el subtítulo ya no es enfocable dentro
+  del `<button>` (HTML inválido); el nombre del botón ya lleva el subtítulo entero. Sin
+  `onClick` sigue enfocable. Documentado que `meta` y `trailing` no llevan controles si la
+  fila es clicable.
+- Esqueletos sin medidas sueltas: `SuperBarChart` usa `BAR_HEIGHT` y `SuperStatCard` saca
+  el alto de la línea de `display`/`h1`.
+- Comentarios de tipos de `SuperBadge` y `SuperLocaleThemeSwitch` más cortos. El playground
+  enseña el badge `role="test"`.
+
 ## 0.25.0 — 2026-11-15
 
 Bloques de dashboard (los pide super-apps-info):

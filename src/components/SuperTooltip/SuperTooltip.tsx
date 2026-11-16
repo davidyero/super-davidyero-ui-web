@@ -7,6 +7,7 @@ export const SuperTooltip = ({
   label,
   children,
   placement = 'top',
+  block = false,
   className,
 }: SuperTooltipProps): ReactElement => {
   const id = useId();
@@ -14,7 +15,7 @@ export const SuperTooltip = ({
     ? cloneElement(children, { 'aria-describedby': id })
     : children;
   return (
-    <Wrap className={className}>
+    <Wrap $block={block} className={className}>
       {trigger}
       <Bubble role="tooltip" id={id} $placement={placement}>
         {label}
