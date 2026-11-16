@@ -8,6 +8,7 @@ import { SuperBadge } from '../src/components/SuperBadge/SuperBadge';
 import { SuperBulletList } from '../src/components/SuperBulletList/SuperBulletList';
 import { SuperButton } from '../src/components/SuperButton/SuperButton';
 import { SuperCard } from '../src/components/SuperCard/SuperCard';
+import { SuperChip, SuperChipGroup } from '../src/components/SuperChip/SuperChip';
 import { SuperCheckbox } from '../src/components/SuperCheckbox/SuperCheckbox';
 import { SuperDropdown } from '../src/components/SuperDropdown/SuperDropdown';
 import { SuperEmptyState } from '../src/components/SuperEmptyState/SuperEmptyState';
@@ -116,6 +117,7 @@ export const Playground = (): ReactElement => {
   const [lang, setLang] = useState<'es' | 'en' | ''>('');
   const [text, setText] = useState('');
   const [locale, setLocale] = useState<'es' | 'en'>('es');
+  const [chips, setChips] = useState<string[]>(['ana']);
 
   const fakeRequest = (): void => {
     void loaderStore.track(new Promise((r) => setTimeout(r, 1500)));
@@ -297,6 +299,29 @@ export const Playground = (): ReactElement => {
                   </SuperBadge>
                 ))}
               </Row>
+              <SuperChipGroup ariaLabel="Filtrar por pagador">
+                <SuperChip selected={chips.length === 0} onClick={() => setChips([])}>
+                  Todos
+                </SuperChip>
+                {['ana', 'luis', 'marta'].map((id) => (
+                  <SuperChip
+                    key={id}
+                    selected={chips.includes(id)}
+                    onClick={() =>
+                      setChips((cur) =>
+                        cur.includes(id) ? cur.filter((c) => c !== id) : [...cur, id],
+                      )
+                    }
+                    leading={<SuperAvatar name={id} size={24} />}
+                  >
+                    {id}
+                  </SuperChip>
+                ))}
+                <SuperChip size="md">Etiqueta</SuperChip>
+                <SuperChip selected={false} disabled>
+                  Deshabilitado
+                </SuperChip>
+              </SuperChipGroup>
               <SuperAlert tone="success" title="Guardado">
                 Los cambios ya están en producción.
               </SuperAlert>
