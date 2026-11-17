@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.28.0 — 2026-11-17
+
+- **`SuperTypography` acepta `successText`, `warningText`, `dangerText` e `infoText`** como
+  `color`: el tono semántico legible sobre la superficie (los tokens ya existían). Lo pide
+  SuperOffice, que pinta en naranja legible el contexto alto y quién necesita respuesta.
+  Aditivo: nada de lo anterior cambia.
+
 ## 0.27.0 — 2026-11-16
 
 - Nuevo **`SuperChip`** (lo pide Splitio para el filtro por pagador, que lo tenía en local):
