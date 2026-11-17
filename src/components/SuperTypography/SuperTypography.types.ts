@@ -15,6 +15,11 @@ export type TypographyColor =
   | 'warning'
   | 'danger'
   | 'info'
+  /** Variantes para texto: legibles (4,5:1) sobre la superficie, a diferencia del tono pleno. */
+  | 'successText'
+  | 'warningText'
+  | 'dangerText'
+  | 'infoText'
   | 'inherit';
 
 export type TypographyAlign = 'left' | 'center' | 'right';

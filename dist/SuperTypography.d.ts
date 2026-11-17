@@ -1,7 +1,9 @@
 import { ElementType, ReactNode, ReactElement } from 'react';
 import { TextVariant, FontWeight } from './scale.js';
 
-type TypographyColor = 'text' | 'textBody' | 'textMuted' | 'textSubtle' | 'primary' | 'accent' | 'onAccent' | 'onPrimary' | 'primarySoftText' | 'success' | 'warning' | 'danger' | 'info' | 'inherit';
+type TypographyColor = 'text' | 'textBody' | 'textMuted' | 'textSubtle' | 'primary' | 'accent' | 'onAccent' | 'onPrimary' | 'primarySoftText' | 'success' | 'warning' | 'danger' | 'info'
+/** Variantes para texto: legibles (4,5:1) sobre la superficie, a diferencia del tono pleno. */
+ | 'successText' | 'warningText' | 'dangerText' | 'infoText' | 'inherit';
 type TypographyAlign = 'left' | 'center' | 'right';
 interface SuperTypographyProps {
     variant?: TextVariant;
