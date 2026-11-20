@@ -50,7 +50,12 @@ export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boo
             borderBottom: 'none',
             paddingBottom: 'env(safe-area-inset-bottom)',
             animation: `${slideUp} 220ms ease-out`,
-            '& > [data-sd-modal-header]': { padding: `${space.md} ${space.lg}` },
+            // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
+            // quedaría el gesto para desplazar la página.
+            '& > [data-sd-modal-header]': {
+              padding: `${space.md} ${space.lg}`,
+              touchAction: 'none',
+            },
             '& > [data-sd-modal-body]': {
               padding: $padded ? `0 ${space.lg} ${space.lg}` : 0,
             },
@@ -63,17 +68,25 @@ export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boo
   }),
 );
 
-/** Asa del bottom sheet: solo se ve en móvil. */
+/**
+ * Asa del bottom sheet: solo se ve en móvil. La raya mide 40×4, pero la zona que se
+ * puede arrastrar es más alta (relleno con `background-clip`), para el pulgar.
+ */
 export const Grabber = styled.div({
   display: 'none',
   [belowMd]: {
     display: 'block',
     flexShrink: 0,
+    boxSizing: 'content-box',
     width: '40px',
     height: '4px',
-    margin: `${space.sm} auto 0`,
+    padding: `${space.sm} 48px ${space.xxs}`,
+    margin: '0 auto',
     borderRadius: v.radius.pill,
     background: v.border,
+    backgroundClip: 'content-box',
+    cursor: 'grab',
+    touchAction: 'none',
   },
 });
 

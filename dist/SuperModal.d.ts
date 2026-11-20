@@ -16,7 +16,8 @@ interface SuperModalProps {
     closeOnBackdrop?: boolean;
     /**
      * En móvil y Fold (por debajo de `md`, 900 px) se abre como bottom sheet: pegado
-     * abajo, a todo el ancho, con asa y subiendo desde abajo. En escritorio no cambia.
+     * abajo, a todo el ancho, con asa y subiendo desde abajo. Se cierra también
+     * arrastrando el asa o la cabecera hacia abajo. En escritorio no cambia.
      */
     mobileSheet?: boolean;
     children: ReactNode;

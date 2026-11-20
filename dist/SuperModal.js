@@ -5,7 +5,7 @@ import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { breakpoints, space, scrim, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
-import { useId } from 'react';
+import { useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -53,7 +53,12 @@ var Dialog = styled.div(
         borderBottom: "none",
         paddingBottom: "env(safe-area-inset-bottom)",
         animation: `${slideUp} 220ms ease-out`,
-        "& > [data-sd-modal-header]": { padding: `${space.md} ${space.lg}` },
+        // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
+        // quedaría el gesto para desplazar la página.
+        "& > [data-sd-modal-header]": {
+          padding: `${space.md} ${space.lg}`,
+          touchAction: "none"
+        },
         "& > [data-sd-modal-body]": {
           padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
         },
@@ -69,11 +74,16 @@ var Grabber = styled.div({
   [belowMd]: {
     display: "block",
     flexShrink: 0,
+    boxSizing: "content-box",
     width: "40px",
     height: "4px",
-    margin: `${space.sm} auto 0`,
+    padding: `${space.sm} 48px ${space.xxs}`,
+    margin: "0 auto",
     borderRadius: v.radius.pill,
-    background: v.border
+    background: v.border,
+    backgroundClip: "content-box",
+    cursor: "grab",
+    touchAction: "none"
   }
 });
 var Header = styled.div({
@@ -104,6 +114,53 @@ var Close = styled.button({
   "&:hover": { color: v.text },
   "&:focus-visible": focusVisible
 });
+var SHEET_CLOSE_DISTANCE = 96;
+var FLICK_SPEED = 0.5;
+var FLICK_DISTANCE = 32;
+var isSheetViewport = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(`(max-width: ${breakpoints.md - 1}px)`).matches;
+var prefersReducedMotion = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var useSheetDrag = (dialogRef, enabled, onClose) => {
+  const drag = useRef(null);
+  const setOffset = (dy, animate) => {
+    const el = dialogRef.current;
+    if (!el) return;
+    el.style.transition = animate && !prefersReducedMotion() ? "transform 180ms ease-out" : "none";
+    el.style.transform = dy > 0 ? `translateY(${dy}px)` : "";
+  };
+  const end = (event, cancelled) => {
+    const d = drag.current;
+    if (!d || d.id !== event.pointerId) return;
+    drag.current = null;
+    const elapsed = Math.max(1, performance.now() - d.startT);
+    const fast = d.dy >= FLICK_DISTANCE && d.dy / elapsed > FLICK_SPEED;
+    if (!cancelled && (d.dy >= SHEET_CLOSE_DISTANCE || fast)) {
+      onClose();
+      return;
+    }
+    setOffset(0, true);
+  };
+  return {
+    onPointerDown: (event) => {
+      if (!enabled || !isSheetViewport() || event.button !== 0) return;
+      if (event.target.closest("button, a, input, select, textarea")) return;
+      drag.current = {
+        id: event.pointerId,
+        startY: event.clientY,
+        startT: performance.now(),
+        dy: 0
+      };
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    },
+    onPointerMove: (event) => {
+      const d = drag.current;
+      if (!d || d.id !== event.pointerId) return;
+      d.dy = Math.max(0, event.clientY - d.startY);
+      setOffset(d.dy, false);
+    },
+    onPointerUp: (event) => end(event, false),
+    onPointerCancel: (event) => end(event, true)
+  };
+};
 var SuperModal = ({
   open,
   onClose,
@@ -120,6 +177,7 @@ var SuperModal = ({
   const labels = useSuperLabels();
   const titleId = useId();
   const dialogRef = useSuperModal(open, onClose);
+  const dragHandlers = useSheetDrag(dialogRef, mobileSheet, onClose);
   if (!open || typeof document === "undefined") return null;
   return createPortal(
     /* @__PURE__ */ jsx(
@@ -143,8 +201,8 @@ var SuperModal = ({
             $padded: padded,
             $sheet: mobileSheet,
             children: [
-              mobileSheet ? /* @__PURE__ */ jsx(Grabber, { "aria-hidden": "true" }) : null,
-              /* @__PURE__ */ jsxs(Header, { "data-sd-modal-header": true, children: [
+              mobileSheet ? /* @__PURE__ */ jsx(Grabber, { "aria-hidden": "true", "data-sd-modal-grabber": true, ...dragHandlers }) : null,
+              /* @__PURE__ */ jsxs(Header, { "data-sd-modal-header": true, ...mobileSheet ? dragHandlers : {}, children: [
                 title || subtitle ? /* @__PURE__ */ jsxs("div", { children: [
                   title ? /* @__PURE__ */ jsx(SuperTypography, { variant: "h3", as: "h2", id: titleId, children: title }) : null,
                   subtitle ? /* @__PURE__ */ jsx(SuperTypography, { variant: "bodySmall", color: "textMuted", children: subtitle }) : null

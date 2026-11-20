@@ -5,6 +5,7 @@ import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
 import { Backdrop, Body, Close, Dialog, Footer, Grabber, Header } from './SuperModal.styles';
 import type { SuperModalProps } from './SuperModal.types';
+import { useSheetDrag } from './useSheetDrag';
 import { useSuperModal } from './useSuperModal';
 
 /** Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar. */
@@ -24,6 +25,7 @@ export const SuperModal = ({
   const labels = useSuperLabels();
   const titleId = useId();
   const dialogRef = useSuperModal(open, onClose);
+  const dragHandlers = useSheetDrag(dialogRef, mobileSheet, onClose);
 
   if (!open || typeof document === 'undefined') return null;
 
@@ -46,8 +48,10 @@ export const SuperModal = ({
         $padded={padded}
         $sheet={mobileSheet}
       >
-        {mobileSheet ? <Grabber aria-hidden="true" /> : null}
-        <Header data-sd-modal-header>
+        {mobileSheet ? (
+          <Grabber aria-hidden="true" data-sd-modal-grabber {...dragHandlers} />
+        ) : null}
+        <Header data-sd-modal-header {...(mobileSheet ? dragHandlers : {})}>
           {title || subtitle ? (
             <div>
               {title ? (
