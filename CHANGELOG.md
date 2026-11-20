@@ -1,5 +1,14 @@
 # Changelog — @davidyero/ui-web
 
+## 0.29.0 — 2026-11-20
+
+- Nuevo **`SuperLogin`**: el login de las webs de uso propio (backoffice, dashboard,
+  SuperOffice y SuperAppsInfo), la misma pantalla en todas. Es `SuperAuthTemplate` con un
+  formulario de **solo contraseña**: campo con ojo y `autoFocus`, botón con `loading` que no
+  deja enviar vacío ni dos veces, `error` enlazado al campo y la versión al pie (`version`, con `credit` opcional detrás).
+  `account` añade un campo oculto para que el gestor de contraseñas ofrezca guardarla.
+  La petición, la sesión y los toasts siguen en la app. Aditivo: nada cambia.
+
 ## 0.28.0 — 2026-11-17
 
 - **`SuperTypography` acepta `successText`, `warningText`, `dangerText` e `infoText`** como
