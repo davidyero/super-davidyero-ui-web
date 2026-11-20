@@ -8,6 +8,11 @@
   `prefers-reduced-motion`). Solo por debajo de `md`; el botón de cerrar no arrastra.
   El asa tiene ahora una zona táctil más alta (la raya sigue midiendo 40×4).
   Aditivo: tocar fuera, Escape, la trampa de foco y el foco de vuelta no cambian.
+- **`SuperGoogleButton` encaja con el formulario** (lo pide Splitio, login en oscuro):
+  - el hueco lleva `color-scheme: light`, así el iframe de Google queda transparente y en
+    oscuro ya no sale la caja blanca rectangular alrededor del botón `filled_black`;
+  - el botón mide exactamente el ancho del hueco (entre 200 y 400 px, el rango de Google)
+    y se vuelve a pintar si cambia (`ResizeObserver`), así no sobresale de los campos.
 
 ## 0.29.0 — 2026-11-20
 

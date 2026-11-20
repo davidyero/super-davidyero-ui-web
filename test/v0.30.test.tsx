@@ -1,7 +1,7 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SuperModal } from '../src/components/SuperModal/SuperModal';
-import { renderWithTheme } from './renderWithTheme';
+import { renderWithTheme, TEST_LABELS } from './renderWithTheme';
 
 const setViewport = (mobile: boolean): void => {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -92,5 +92,89 @@ describe('0.30 · SuperModal mobileSheet se cierra arrastrando', () => {
     const { onClose, header } = renderSheet();
     drag(header, 300);
     expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+describe('0.30 · SuperGoogleButton encaja con el formulario', () => {
+  const GSI = 'https://accounts.google.com/gsi/client';
+  let resize: (() => void) | undefined;
+  let width = 350;
+  const renderButton = vi.fn((parent: HTMLElement) => {
+    parent.append(document.createElement('div'));
+  });
+
+  beforeEach(() => {
+    width = 350;
+    window.google = { accounts: { id: { initialize: vi.fn(), renderButton } } };
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockImplementation(() => width);
+    globalThis.ResizeObserver = class {
+      constructor(cb: () => void) {
+        resize = cb;
+      }
+      observe() {}
+      disconnect() {}
+      unobserve() {}
+    } as unknown as typeof ResizeObserver;
+  });
+  afterEach(() => {
+    document.head.querySelectorAll(`script[src="${GSI}"]`).forEach((n) => n.remove());
+    delete window.google;
+    vi.restoreAllMocks();
+    renderButton.mockClear();
+  });
+
+  const mount = async (mode: 'light' | 'dark') => {
+    vi.resetModules();
+    const [{ SuperGoogleButton }, { SuperThemeProvider }] = await Promise.all([
+      import('../src/components/SuperGoogleButton/SuperGoogleButton'),
+      import('../src/theme/SuperThemeProvider'),
+    ]);
+    const view = render(
+      <SuperThemeProvider mode={mode} labels={TEST_LABELS}>
+        <SuperGoogleButton
+          clientId="web"
+          locale="es"
+          onCredential={() => undefined}
+          className="slot"
+        />
+      </SuperThemeProvider>,
+    );
+    await act(async () => {
+      document.head.querySelector(`script[src="${GSI}"]`)?.dispatchEvent(new Event('load'));
+      await Promise.resolve();
+    });
+    return view;
+  };
+
+  it('pinta el botón al ancho exacto del hueco y en filled_black en oscuro', async () => {
+    await mount('dark');
+    expect(renderButton).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.objectContaining({ width: 350, theme: 'filled_black', shape: 'pill' }),
+    );
+  });
+
+  it('si el hueco cambia de ancho, lo vuelve a pintar a la medida', async () => {
+    await mount('light');
+    width = 300;
+    await act(async () => {
+      resize?.();
+      await Promise.resolve();
+    });
+    expect(renderButton).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.objectContaining({ width: 300, theme: 'outline' }),
+    );
+  });
+
+  it('el hueco fuerza color-scheme claro para que el iframe de Google no pinte fondo blanco', async () => {
+    const { container } = await mount('dark');
+    const slot = container.querySelector('.slot') as HTMLElement;
+    const css = Array.from(document.querySelectorAll('style'))
+      .map((n) => n.textContent ?? '')
+      .join('');
+    const cls = Array.from(slot.classList).find((c) => c.startsWith('css-'));
+    expect(cls).toBeDefined();
+    expect(css).toMatch(new RegExp(`\\.${cls}\\{[^}]*color-scheme:light`));
   });
 });

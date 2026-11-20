@@ -1,9 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useSuperTheme } from '../../theme/SuperThemeContext';
 
 const SCRIPT = 'https://accounts.google.com/gsi/client';
-/** Google no pinta el botón por encima de 400 px. */
+/** Google pinta el botón entre 200 y 400 px de ancho. */
+const MIN_WIDTH = 200;
 const MAX_WIDTH = 400;
+
+/** Ancho del hueco en px, al día cuando cambia (columna que se estrecha, giro). */
+const useSlotWidth = (slot: RefObject<HTMLDivElement | null>, active: boolean): number => {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const node = slot.current;
+    if (!active || !node) return undefined;
+    const read = (): void => setWidth(Math.round(node.clientWidth));
+    read();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(read);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [slot, active]);
+  return width;
+};
 let loading: Promise<void> | null = null;
 
 const loadScript = (): Promise<void> => {
@@ -29,6 +46,7 @@ export const useSuperGoogleButton = (
 ) => {
   const slot = useRef<HTMLDivElement>(null);
   const { mode } = useSuperTheme();
+  const slotWidth = useSlotWidth(slot, Boolean(clientId));
   const callback = useRef(onCredential);
   useEffect(() => {
     callback.current = onCredential;
@@ -55,7 +73,8 @@ export const useSuperGoogleButton = (
           size: 'large',
           shape: 'pill',
           text: 'continue_with',
-          width: Math.min(node.clientWidth || 360, MAX_WIDTH),
+          // El mismo ancho que el formulario: el botón no sobresale de los campos.
+          width: Math.max(MIN_WIDTH, Math.min(slotWidth || node.clientWidth || 360, MAX_WIDTH)),
           locale,
         });
       })
@@ -64,7 +83,7 @@ export const useSuperGoogleButton = (
     return () => {
       cancelled = true;
     };
-  }, [clientId, locale, mode]);
+  }, [clientId, locale, mode, slotWidth]);
 
   return { slot, available: Boolean(clientId) };
 };
