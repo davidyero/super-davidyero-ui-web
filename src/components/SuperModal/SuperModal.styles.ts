@@ -70,23 +70,27 @@ export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boo
 
 /**
  * Asa del bottom sheet: solo se ve en móvil. La raya mide 40×4, pero la zona que se
- * puede arrastrar es más alta (relleno con `background-clip`), para el pulgar.
+ * puede arrastrar es más alta y ancha, para el pulgar.
  */
 export const Grabber = styled.div({
   display: 'none',
   [belowMd]: {
     display: 'block',
     flexShrink: 0,
-    boxSizing: 'content-box',
-    width: '40px',
-    height: '4px',
-    padding: `${space.sm} 48px ${space.xxs}`,
-    margin: '0 auto',
-    borderRadius: v.radius.pill,
-    background: v.border,
-    backgroundClip: 'content-box',
+    alignSelf: 'center',
+    width: '136px',
+    padding: `${space.sm} 0 ${space.xxs}`,
     cursor: 'grab',
     touchAction: 'none',
+    '&::before': {
+      content: '""',
+      display: 'block',
+      width: '40px',
+      height: '4px',
+      margin: '0 auto',
+      borderRadius: v.radius.pill,
+      background: v.border,
+    },
   },
 });
 

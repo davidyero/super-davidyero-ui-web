@@ -74,16 +74,20 @@ var Grabber = styled.div({
   [belowMd]: {
     display: "block",
     flexShrink: 0,
-    boxSizing: "content-box",
-    width: "40px",
-    height: "4px",
-    padding: `${space.sm} 48px ${space.xxs}`,
-    margin: "0 auto",
-    borderRadius: v.radius.pill,
-    background: v.border,
-    backgroundClip: "content-box",
+    alignSelf: "center",
+    width: "136px",
+    padding: `${space.sm} 0 ${space.xxs}`,
     cursor: "grab",
-    touchAction: "none"
+    touchAction: "none",
+    "&::before": {
+      content: '""',
+      display: "block",
+      width: "40px",
+      height: "4px",
+      margin: "0 auto",
+      borderRadius: v.radius.pill,
+      background: v.border
+    }
   }
 });
 var Header = styled.div({
