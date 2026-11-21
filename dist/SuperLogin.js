@@ -38,6 +38,22 @@ var HiddenAccount = styled.input({
 var Extra = styled.div({
   marginTop: space.lg
 });
+
+// src/components/SuperLogin/SuperLogin.texts.ts
+var SUPER_LOGIN_TEXTS = {
+  es: {
+    title: "Bienvenido de vuelta",
+    subtitle: "La misma contrase\xF1a de todas tus webs.",
+    password: "Contrase\xF1a",
+    submit: "Entrar"
+  },
+  en: {
+    title: "Welcome back",
+    subtitle: "The same password for all your sites.",
+    password: "Password",
+    submit: "Sign in"
+  }
+};
 var useSuperLogin = (submit, loading, onPasswordChange) => {
   const [password, setPassword] = useState("");
   const canSubmit = password.length > 0 && !loading;
@@ -55,7 +71,8 @@ var useSuperLogin = (submit, loading, onPasswordChange) => {
   };
 };
 var SuperLogin = ({
-  labels,
+  locale = "es",
+  labels: custom,
   onSubmit,
   loading = false,
   error,
@@ -67,6 +84,7 @@ var SuperLogin = ({
   ...template
 }) => {
   const form = useSuperLogin(onSubmit, loading, onPasswordChange);
+  const labels = { ...SUPER_LOGIN_TEXTS[locale], ...custom };
   return /* @__PURE__ */ jsxs(
     SuperAuthTemplate,
     {
@@ -122,4 +140,4 @@ var SuperLogin = ({
   );
 };
 
-export { SuperLogin };
+export { SUPER_LOGIN_TEXTS, SuperLogin };

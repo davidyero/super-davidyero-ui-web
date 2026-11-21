@@ -3,7 +3,10 @@ import type { SuperPrefToggleVariant } from '../SuperPrefToggle/SuperPrefToggle.
 export type SuperLocale = 'es' | 'en';
 export type SuperColorMode = 'light' | 'dark';
 
-/** Textos del selector, desde el i18n de la app (EN/ES). La librería no trae textos. */
+/**
+ * Textos del selector. Por defecto salen de `SUPER_LOCALE_THEME_SWITCH_TEXTS` según `locale`,
+ * iguales en todas las webs; la app solo pasa los que quiera cambiar.
+ */
 export interface SuperLocaleThemeSwitchLabels {
   /** Nombres visibles con `showLabels` ("Español", "Claro"…). */
   es: string;
@@ -27,7 +30,8 @@ export interface SuperLocaleThemeSwitchProps {
   onLocaleChange: (next: SuperLocale) => void;
   mode: SuperColorMode;
   onModeChange: (next: SuperColorMode) => void;
-  labels: SuperLocaleThemeSwitchLabels;
+  /** Opcional: por defecto, los textos comunes en el idioma de `locale`. */
+  labels?: Partial<SuperLocaleThemeSwitchLabels>;
   /** soft = gris (sobre hojas y tarjetas, por defecto); surface = superficie con sombra. */
   variant?: SuperPrefToggleVariant;
   /** end = arriba a la derecha (login, registro); start = dentro de un bloque (menú). */

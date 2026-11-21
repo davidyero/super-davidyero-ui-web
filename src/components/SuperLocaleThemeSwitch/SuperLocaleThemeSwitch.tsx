@@ -10,9 +10,11 @@ import { PREF_COLORS, PREF_GLYPH_SIZE, SuperPrefToggle } from '../SuperPrefToggl
 import { SuperSegmented } from '../SuperSegmented/SuperSegmented';
 import { ModeGlyph } from './SuperLocaleThemeSwitch.glyphs';
 import { Row } from './SuperLocaleThemeSwitch.styles';
+import { SUPER_LOCALE_THEME_SWITCH_TEXTS } from './SuperLocaleThemeSwitch.texts';
 import type {
   SuperColorMode,
   SuperLocale,
+  SuperLocaleThemeSwitchLabels,
   SuperLocaleThemeSwitchProps,
 } from './SuperLocaleThemeSwitch.types';
 
@@ -23,8 +25,8 @@ const SEGMENT_MODE = { sm: 20, md: 24 } as const;
 
 type SegmentedProps = Pick<
   SuperLocaleThemeSwitchProps,
-  'locale' | 'onLocaleChange' | 'mode' | 'onModeChange' | 'labels' | 'align' | 'className'
-> & { size: 'sm' | 'md' };
+  'locale' | 'onLocaleChange' | 'mode' | 'onModeChange' | 'align' | 'className'
+> & { size: 'sm' | 'md'; labels: Required<SuperLocaleThemeSwitchLabels> };
 
 /** Las dos píldoras: banderas y sol/luna con las dos opciones a la vista. */
 const Segmented = ({
@@ -43,7 +45,7 @@ const Segmented = ({
       <SuperSegmented<SuperLocale>
         variant="icon"
         size={size}
-        ariaLabel={labels.language ?? `${labels.es} / ${labels.en}`}
+        ariaLabel={labels.language}
         value={locale}
         onChange={(next) => next !== locale && onLocaleChange(next)}
         options={(['es', 'en'] as const).map((l) => ({
@@ -55,7 +57,7 @@ const Segmented = ({
       <SuperSegmented<SuperColorMode>
         variant="icon"
         size={size}
-        ariaLabel={labels.theme ?? `${labels.light} / ${labels.dark}`}
+        ariaLabel={labels.theme}
         value={mode}
         onChange={(next) => next !== mode && onModeChange(next)}
         options={(['light', 'dark'] as const).map((m) => ({
@@ -83,7 +85,7 @@ export const SuperLocaleThemeSwitch = ({
   onLocaleChange,
   mode,
   onModeChange,
-  labels,
+  labels: custom,
   variant = 'soft',
   align = 'end',
   showLabels = false,
@@ -91,6 +93,7 @@ export const SuperLocaleThemeSwitch = ({
   size = 'md',
   className,
 }: SuperLocaleThemeSwitchProps): ReactElement => {
+  const labels = { ...SUPER_LOCALE_THEME_SWITCH_TEXTS[locale], ...custom };
   if (look === 'segmented') {
     return (
       <Segmented
@@ -130,6 +133,7 @@ export const SuperLocaleThemeSwitch = ({
   );
 };
 
+export { SUPER_LOCALE_THEME_SWITCH_TEXTS } from './SuperLocaleThemeSwitch.texts';
 export type {
   SuperColorMode,
   SuperLocale,

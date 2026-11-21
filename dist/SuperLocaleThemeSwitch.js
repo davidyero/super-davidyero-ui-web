@@ -35,6 +35,34 @@ var Row = styled.div(({ $align }) => ({
   justifyContent: $align === "end" ? "flex-end" : "flex-start",
   gap: space.sm
 }));
+
+// src/components/SuperLocaleThemeSwitch/SuperLocaleThemeSwitch.texts.ts
+var SUPER_LOCALE_THEME_SWITCH_TEXTS = {
+  es: {
+    es: "Espa\xF1ol",
+    en: "English",
+    light: "Claro",
+    dark: "Oscuro",
+    switchToEs: "Cambiar a espa\xF1ol",
+    switchToEn: "Cambiar a ingl\xE9s",
+    switchToLight: "Cambiar a tema claro",
+    switchToDark: "Cambiar a tema oscuro",
+    language: "Idioma",
+    theme: "Tema"
+  },
+  en: {
+    es: "Espa\xF1ol",
+    en: "English",
+    light: "Light",
+    dark: "Dark",
+    switchToEs: "Switch to Spanish",
+    switchToEn: "Switch to English",
+    switchToLight: "Switch to light theme",
+    switchToDark: "Switch to dark theme",
+    language: "Language",
+    theme: "Theme"
+  }
+};
 var FLAG = { es: "co", en: "us" };
 var SEGMENT_FLAG = { sm: 22, md: 28 };
 var SEGMENT_MODE = { sm: 20, md: 24 };
@@ -55,7 +83,7 @@ var Segmented = ({
       {
         variant: "icon",
         size,
-        ariaLabel: labels.language ?? `${labels.es} / ${labels.en}`,
+        ariaLabel: labels.language,
         value: locale,
         onChange: (next) => next !== locale && onLocaleChange(next),
         options: ["es", "en"].map((l) => ({
@@ -70,7 +98,7 @@ var Segmented = ({
       {
         variant: "icon",
         size,
-        ariaLabel: labels.theme ?? `${labels.light} / ${labels.dark}`,
+        ariaLabel: labels.theme,
         value: mode,
         onChange: (next) => next !== mode && onModeChange(next),
         options: ["light", "dark"].map((m) => ({
@@ -94,7 +122,7 @@ var SuperLocaleThemeSwitch = ({
   onLocaleChange,
   mode,
   onModeChange,
-  labels,
+  labels: custom,
   variant = "soft",
   align = "end",
   showLabels = false,
@@ -102,6 +130,7 @@ var SuperLocaleThemeSwitch = ({
   size = "md",
   className
 }) => {
+  const labels = { ...SUPER_LOCALE_THEME_SWITCH_TEXTS[locale], ...custom };
   if (look === "segmented") {
     return /* @__PURE__ */ jsx(
       Segmented,
@@ -146,4 +175,4 @@ var SuperLocaleThemeSwitch = ({
   ] });
 };
 
-export { SuperLocaleThemeSwitch };
+export { SUPER_LOCALE_THEME_SWITCH_TEXTS, SuperLocaleThemeSwitch };

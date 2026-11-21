@@ -74,4 +74,22 @@ describe('SuperLogin', () => {
     expect(hidden).toHaveValue('davidyero');
     expect(hidden).toHaveAttribute('tabindex', '-1');
   });
+
+  it('sin labels usa los textos comunes en español', () => {
+    setup({ labels: undefined });
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Bienvenido de vuelta' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('La misma contraseña de todas tus webs.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Contraseña')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Entrar' })).toBeInTheDocument();
+  });
+
+  it('con locale en usa los textos en inglés y labels cambia solo lo que pasa', () => {
+    setup({ labels: { submit: 'Go' }, locale: 'en' });
+    expect(screen.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeInTheDocument();
+    expect(screen.getByText('The same password for all your sites.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Go' })).toBeInTheDocument();
+  });
 });

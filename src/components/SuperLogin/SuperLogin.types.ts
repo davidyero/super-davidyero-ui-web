@@ -1,9 +1,13 @@
 import type { ReactNode } from 'react';
 import type { SuperAuthTemplateProps } from '../SuperAuthTemplate/SuperAuthTemplate.types';
+import type { SuperLocale } from '../SuperLocaleThemeSwitch/SuperLocaleThemeSwitch.types';
 
-/** Textos del login, desde el i18n de la app (EN/ES). La librería no trae textos. */
+/**
+ * Textos del login. Por defecto salen de `SUPER_LOGIN_TEXTS` según `locale`, iguales en
+ * todas las webs; la app solo pasa los que quiera cambiar.
+ */
 export interface SuperLoginLabels {
-  /** Titular de la tarjeta («Bienvenido de nuevo»). */
+  /** Titular de la tarjeta («Bienvenido de vuelta»). */
   title: string;
   /** Una línea bajo el titular. */
   subtitle?: string;
@@ -22,7 +26,10 @@ export interface SuperLoginProps extends Omit<
   SuperAuthTemplateProps,
   'children' | 'footer' | 'screenKey' | 'screenDirection'
 > {
-  labels: SuperLoginLabels;
+  /** Idioma de los textos por defecto. Por defecto, español. */
+  locale?: SuperLocale;
+  /** Opcional: por defecto, los textos comunes en el idioma de `locale`. */
+  labels?: Partial<SuperLoginLabels>;
   /** Recibe la contraseña al enviar. El botón no deja enviar el campo vacío. */
   onSubmit: (password: string) => void;
   /** Mientras la petición está en curso: spinner en el botón y sin doble envío. */

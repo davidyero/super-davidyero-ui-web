@@ -1,5 +1,21 @@
 # Changelog — @davidyero/ui-web
 
+## 0.32.0 — 2026-11-20
+
+- **`SuperLogin` trae sus textos por defecto**, iguales en las cinco webs de uso propio
+  (backoffice, dashboard, SuperOffice, SuperAppsInfo y Super QA Reports): título
+  «Bienvenido de vuelta», subtítulo «La misma contraseña de todas tus webs.», campo
+  «Contraseña» y botón «Entrar» (en inglés «Welcome back», «The same password for all your
+  sites.», «Password», «Sign in»). Nueva prop `locale` (`es` por defecto) y `labels` pasa a
+  ser opcional y parcial: solo cambia lo que se pase. Los textos viven en
+  `SUPER_LOGIN_TEXTS`, así se cambian en un solo sitio.
+- **`SuperLocaleThemeSwitch` trae sus textos por defecto** según `locale`, para que el nombre
+  accesible sea el mismo en todas las webs: «Cambiar a inglés» / «Cambiar a español» y
+  «Cambiar a tema claro» / «Cambiar a tema oscuro» (en inglés «Switch to English»…). `labels`
+  pasa a ser opcional y parcial (`SUPER_LOCALE_THEME_SWITCH_TEXTS`). Las píldoras de
+  `look="segmented"` se llaman «Idioma» y «Tema» por defecto.
+- Compatible: quien ya pasa `labels` completos ve lo mismo que antes.
+
 ## 0.31.0 — 2026-11-20
 
 - **`SuperBrand`, la marca de la web (logo + nombre)**, para que el login sea idéntico en

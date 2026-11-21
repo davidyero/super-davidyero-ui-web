@@ -4,6 +4,7 @@ import { SuperButton } from '../SuperButton/SuperButton';
 import { SuperInput } from '../SuperInput/SuperInput';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
 import { Extra, Form, Header, HiddenAccount } from './SuperLogin.styles';
+import { SUPER_LOGIN_TEXTS } from './SuperLogin.texts';
 import type { SuperLoginProps } from './SuperLogin.types';
 import { useSuperLogin } from './useSuperLogin';
 
@@ -14,7 +15,8 @@ import { useSuperLogin } from './useSuperLogin';
  * La petición, la sesión y los toasts los lleva la app.
  */
 export const SuperLogin = ({
-  labels,
+  locale = 'es',
+  labels: custom,
   onSubmit,
   loading = false,
   error,
@@ -26,6 +28,7 @@ export const SuperLogin = ({
   ...template
 }: SuperLoginProps): ReactElement => {
   const form = useSuperLogin(onSubmit, loading, onPasswordChange);
+  const labels = { ...SUPER_LOGIN_TEXTS[locale], ...custom };
 
   return (
     <SuperAuthTemplate
@@ -86,4 +89,5 @@ export const SuperLogin = ({
   );
 };
 
+export { SUPER_LOGIN_TEXTS } from './SuperLogin.texts';
 export type { SuperLoginLabels, SuperLoginProps } from './SuperLogin.types';
