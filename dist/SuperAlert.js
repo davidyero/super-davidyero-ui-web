@@ -1,6 +1,6 @@
+import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { SuperIcon } from './chunk-DGDXZTZH.js';
 import { useSuperLabels } from './chunk-2OYI3VCV.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
 import { space, focusVisible } from './chunk-GSUBWCY7.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
