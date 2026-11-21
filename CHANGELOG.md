@@ -1,5 +1,14 @@
 # Changelog — @davidyero/ui-web
 
+## 0.31.0 — 2026-11-20
+
+- **`SuperBrand`, la marca de la web (logo + nombre)**, para que el login sea idéntico en
+  todas las webs de uso propio (lo pide Super QA Reports). Hasta ahora cada web montaba su
+  propia fila de logo y nombre para `SuperLogin brand` (backoffice, SuperOffice, SuperAppsInfo).
+  `size="md"` en el login (logo de 36 px, nombre en `h3`) y `size="sm"` en el sidebar (28 px).
+  `logo` recibe el SVG de la app; sin él, la inicial sobre el color de marca. `hideName`
+  deja solo el logo, con el nombre para lectores de pantalla. Aditivo.
+
 ## 0.30.0 — 2026-11-20
 
 - **`SuperModal` con `mobileSheet` se cierra arrastrando hacia abajo** el asa o la cabecera
