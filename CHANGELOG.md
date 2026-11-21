@@ -1,5 +1,12 @@
 # Changelog — @davidyero/ui-web
 
+## 0.33.0 — 2026-11-21
+
+- **`SuperThemeProvider` mantiene `<html lang>` al día.** Nueva prop opcional `locale` (el
+  idioma activo de la app): al montarse y en cada cambio de idioma escribe
+  `document.documentElement.lang`, para los lectores de pantalla y el traductor del navegador.
+  Sin `locale` no toca nada (compatible).
+
 ## 0.32.0 — 2026-11-20
 
 - **`SuperLogin` trae sus textos por defecto**, iguales en las cinco webs de uso propio

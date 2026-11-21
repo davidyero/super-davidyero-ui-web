@@ -62,6 +62,11 @@ interface SuperThemeProviderProps {
     icons?: Readonly<Record<string, string>>;
     /** Enlace interno de la app para `SuperButton href` (ver `SuperLinkComponent`). */
     LinkComponent?: SuperLinkComponent;
+    /**
+     * Idioma activo de la app (`es`, `en`…). Si se pasa, `<html lang>` lo sigue al cambiar de
+     * idioma: lo necesitan los lectores de pantalla y el traductor del navegador.
+     */
+    locale?: string;
     children: ReactNode;
 }
 /**
@@ -69,7 +74,7 @@ interface SuperThemeProviderProps {
  * CSS `--sd-*` en `:root` y da a los componentes los textos e iconos.
  * Se monta UNA vez en la raíz.
  */
-declare const SuperThemeProvider: ({ tokens, mode, labels, icons, LinkComponent, children, }: SuperThemeProviderProps) => ReactElement;
+declare const SuperThemeProvider: ({ tokens, mode, labels, icons, LinkComponent, locale, children, }: SuperThemeProviderProps) => ReactElement;
 
 export { DEFAULT_ICONS, SuperThemeMode, SuperThemeProvider, SuperThemeTokens, useSuperLabels, useSuperTheme };
 export type { SuperLabels, SuperLinkComponent, SuperThemeProviderProps };

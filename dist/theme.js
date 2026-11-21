@@ -4,7 +4,7 @@ import { tokensToCssVars } from './chunk-VQ2WXUA7.js';
 import { resolveTokens } from './chunk-X7SCOXRS.js';
 export { DEFAULT_TOKENS, defineTokens, resolveTokens } from './chunk-X7SCOXRS.js';
 import { Global } from '@emotion/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
 var SuperThemeProvider = ({
@@ -13,8 +13,12 @@ var SuperThemeProvider = ({
   labels,
   icons,
   LinkComponent,
+  locale,
   children
 }) => {
+  useEffect(() => {
+    if (locale) document.documentElement.lang = locale;
+  }, [locale]);
   const vars = useMemo(() => tokensToCssVars(resolveTokens(mode, tokens?.[mode])), [mode, tokens]);
   const value = useMemo(
     () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons }, LinkComponent }),

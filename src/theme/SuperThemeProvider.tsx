@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import { useMemo, type ReactElement, type ReactNode } from 'react';
+import { useEffect, useMemo, type ReactElement, type ReactNode } from 'react';
 import {
   DEFAULT_ICONS,
   SuperThemeContext,
@@ -20,6 +20,11 @@ export interface SuperThemeProviderProps {
   icons?: Readonly<Record<string, string>>;
   /** Enlace interno de la app para `SuperButton href` (ver `SuperLinkComponent`). */
   LinkComponent?: SuperLinkComponent;
+  /**
+   * Idioma activo de la app (`es`, `en`…). Si se pasa, `<html lang>` lo sigue al cambiar de
+   * idioma: lo necesitan los lectores de pantalla y el traductor del navegador.
+   */
+  locale?: string;
   children: ReactNode;
 }
 
@@ -34,8 +39,12 @@ export const SuperThemeProvider = ({
   labels,
   icons,
   LinkComponent,
+  locale,
   children,
 }: SuperThemeProviderProps): ReactElement => {
+  useEffect(() => {
+    if (locale) document.documentElement.lang = locale;
+  }, [locale]);
   const vars = useMemo(() => tokensToCssVars(resolveTokens(mode, tokens?.[mode])), [mode, tokens]);
   const value = useMemo<SuperThemeContextValue>(
     () => ({ mode, labels, icons: { ...DEFAULT_ICONS, ...icons }, LinkComponent }),

@@ -40,7 +40,7 @@ import { appTokens } from './theme/tokens';
 import { appIcons } from './theme/icons';
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const mode = useThemeMode(); // 'light' | 'dark', del store de la app
   // useMemo para no reescribir las variables en cada render.
   const labels = useMemo(
@@ -54,7 +54,13 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
     [t],
   );
   return (
-    <SuperThemeProvider tokens={appTokens} mode={mode} labels={labels} icons={appIcons}>
+    <SuperThemeProvider
+      tokens={appTokens}
+      mode={mode}
+      labels={labels}
+      icons={appIcons}
+      locale={i18n.language}
+    >
       {children}
       <SuperLoaderOverlay />
       <SuperToast />
@@ -65,6 +71,9 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
 
 La librería **no trae textos en ningún idioma**: los textos accesibles (`labels`) salen
 del i18n de la app, en EN y ES.
+
+Con `locale` (el idioma activo), el provider mantiene `<html lang>` al día al cambiar de
+idioma, para los lectores de pantalla y el traductor del navegador.
 
 ## Tokens: el aspecto de cada app
 
