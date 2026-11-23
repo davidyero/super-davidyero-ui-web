@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { motion, reducedMotion, timing } from '../../styles/motion';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 import type { ButtonSize, ButtonVariant } from './SuperButton.types';
@@ -88,8 +89,13 @@ const base = ({ $variant, $size, $fullWidth, $iconOnly }: ButtonStyleProps) => {
       textDecoration: 'none',
       cursor: 'pointer',
       userSelect: 'none',
-      transition: `background ${transition}, border-color ${transition}, color ${transition}, opacity ${transition}`,
+      transition: `background ${transition}, border-color ${transition}, color ${transition}, opacity ${transition}, transform ${timing('instant')}`,
       '&:focus-visible': focusVisible,
+      // Escala al pulsar; ni deshabilitado ni cargando.
+      '&:active:not([aria-disabled="true"]):not([aria-busy="true"])': {
+        transform: `scale(${motion.scale.press})`,
+      },
+      [reducedMotion]: { '&:active': { transform: 'none' } },
       '&[aria-disabled="true"]': { opacity: 0.55, cursor: 'not-allowed' },
       '&[aria-busy="true"]': { cursor: 'progress' },
     },

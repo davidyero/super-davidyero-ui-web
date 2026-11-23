@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { motion, reducedMotion, timing } from '../../styles/motion';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 import type { CardPadding, CardVariant } from './SuperCard.types';
@@ -38,9 +39,11 @@ export const CardRoot = styled('div', {
   ...($interactive
     ? {
         cursor: 'pointer',
-        transition: `border-color ${transition}, box-shadow ${transition}`,
+        transition: `border-color ${transition}, box-shadow ${transition}, transform ${timing('instant')}`,
         '&:hover': { borderColor: v.accent, boxShadow: v.shadow.md },
         '&:focus-visible': focusVisible,
+        '&:active': { transform: `scale(${motion.scale.press})` },
+        [reducedMotion]: { '&:active': { transform: 'none' } },
       }
     : {}),
 }));

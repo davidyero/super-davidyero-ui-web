@@ -1,72 +1,85 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { motion, reducedMotion, timing } from '../../styles/motion';
+import { fadeIn, fadeOut, scrimMotion } from '../../styles/overlayMotion';
 import { breakpoints, focusVisible, scrim, space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 /** Por debajo de `md` (móvil y Fold) el modal con `mobileSheet` sube desde abajo. */
 const belowMd = `@media (max-width: ${breakpoints.md - 1}px)`;
-const reduced = '@media (prefers-reduced-motion: reduce)';
-
-const slideUp = keyframes({
-  '0%': { transform: 'translateY(100%)' },
-  '100%': { transform: 'translateY(0)' },
+const slideUp = keyframes({ from: { transform: 'translateY(100%)' } });
+const slideDown = keyframes({ to: { transform: 'translateY(100%)' } });
+const popIn = keyframes({ from: { opacity: 0, transform: `scale(${motion.scale.enter})` } });
+const popOut = keyframes({ to: { opacity: 0, transform: `scale(${motion.scale.enter})` } });
+/** Entra en `slow` con `out` y sale en `base` con `in`; con «Reducir movimiento», fundido. */
+const dialogMotion = (closing: boolean, enter: string, exit: string) => ({
+  animation: closing ? `${exit} ${timing('base', 'in')} both` : `${enter} ${timing('slow')} both`,
+  [reducedMotion]: {
+    animation: `${closing ? fadeOut : fadeIn} ${timing('fast')} both`,
+  },
 });
 
-export const Backdrop = styled.div<{ $align: 'center' | 'top'; $sheet: boolean }>(
-  ({ $align, $sheet }) => ({
-    position: 'fixed',
-    inset: 0,
-    zIndex: zIndex.modal,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: $align === 'center' ? 'center' : 'flex-start',
-    padding: $align === 'center' ? space.lg : `10vh ${space.lg} ${space.lg}`,
-    background: scrim,
-    overflowY: 'auto',
-    ...($sheet ? { [belowMd]: { alignItems: 'flex-end', padding: `${space.xl} 0 0` } } : {}),
-  }),
-);
+export const Backdrop = styled.div<{
+  $align: 'center' | 'top';
+  $sheet: boolean;
+  $closing: boolean;
+}>(({ $align, $sheet, $closing }) => ({
+  ...scrimMotion($closing),
+  position: 'fixed',
+  inset: 0,
+  zIndex: zIndex.modal,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: $align === 'center' ? 'center' : 'flex-start',
+  padding: $align === 'center' ? space.lg : `10vh ${space.lg} ${space.lg}`,
+  background: scrim,
+  overflowY: 'auto',
+  ...($sheet ? { [belowMd]: { alignItems: 'flex-end', padding: `${space.xl} 0 0` } } : {}),
+}));
 
-export const Dialog = styled.div<{ $width: number; $padded: boolean; $sheet: boolean }>(
-  ({ $width, $padded, $sheet }) => ({
-    width: '100%',
-    maxWidth: `${$width}px`,
-    maxHeight: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    borderRadius: v.radius.lg,
-    background: v.surfaceElevated,
-    border: `1px solid ${v.border}`,
-    boxShadow: v.shadow.lg,
-    color: v.textBody,
-    outline: 'none',
-    '& > [data-sd-modal-body]': { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 },
-    ...($sheet
-      ? {
-          [belowMd]: {
-            maxWidth: 'none',
-            maxHeight: '90dvh',
-            borderRadius: `${v.radius.lg} ${v.radius.lg} 0 0`,
-            borderBottom: 'none',
-            paddingBottom: 'env(safe-area-inset-bottom)',
-            animation: `${slideUp} 220ms ease-out`,
-            // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
-            // quedaría el gesto para desplazar la página.
-            '& > [data-sd-modal-header]': {
-              padding: `${space.md} ${space.lg}`,
-              touchAction: 'none',
-            },
-            '& > [data-sd-modal-body]': {
-              padding: $padded ? `0 ${space.lg} ${space.lg}` : 0,
-            },
-            // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
-            '& > [data-sd-modal-footer]': { padding: `${space.md} ${space.lg} ${space.lg}` },
-            [reduced]: { animation: 'none' },
+export const Dialog = styled.div<{
+  $width: number;
+  $padded: boolean;
+  $sheet: boolean;
+  $closing: boolean;
+}>(({ $width, $padded, $sheet, $closing }) => ({
+  ...dialogMotion($closing, popIn, popOut),
+  width: '100%',
+  maxWidth: `${$width}px`,
+  maxHeight: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: v.radius.lg,
+  background: v.surfaceElevated,
+  border: `1px solid ${v.border}`,
+  boxShadow: v.shadow.lg,
+  color: v.textBody,
+  outline: 'none',
+  '& > [data-sd-modal-body]': { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 },
+  ...($sheet
+    ? {
+        [belowMd]: {
+          maxWidth: 'none',
+          maxHeight: '90dvh',
+          borderRadius: `${v.radius.lg} ${v.radius.lg} 0 0`,
+          borderBottom: 'none',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+          ...dialogMotion($closing, slideUp, slideDown),
+          // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
+          // quedaría el gesto para desplazar la página.
+          '& > [data-sd-modal-header]': {
+            padding: `${space.md} ${space.lg}`,
+            touchAction: 'none',
           },
-        }
-      : {}),
-  }),
-);
+          '& > [data-sd-modal-body]': {
+            padding: $padded ? `0 ${space.lg} ${space.lg}` : 0,
+          },
+          // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
+          '& > [data-sd-modal-footer]': { padding: `${space.md} ${space.lg} ${space.lg}` },
+        },
+      }
+    : {}),
+}));
 
 /**
  * Asa del bottom sheet: solo se ve en móvil. La raya mide 40×4, pero la zona que se

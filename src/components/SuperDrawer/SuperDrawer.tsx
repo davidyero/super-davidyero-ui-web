@@ -1,5 +1,6 @@
 import { useId, type ReactElement } from 'react';
 import { createPortal } from 'react-dom';
+import { usePresence } from '../../hooks/usePresence';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { useSuperModal } from '../SuperModal/useSuperModal';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
@@ -25,13 +26,16 @@ export const SuperDrawer = ({
   const labels = useSuperLabels();
   const titleId = useId();
   const panelRef = useSuperModal(open, onClose);
+  const { mounted, closing } = usePresence(open, 'base');
 
-  if (!open || typeof document === 'undefined') return null;
+  if (!mounted || typeof document === 'undefined') return null;
 
   return createPortal(
     <Backdrop
+      $closing={closing}
+      aria-hidden={closing || undefined}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
+        if (!closing && event.target === event.currentTarget) onClose();
       }}
     >
       <Panel
@@ -42,6 +46,7 @@ export const SuperDrawer = ({
         aria-label={title ? undefined : labels.close}
         tabIndex={-1}
         $width={width}
+        $closing={closing}
       >
         <Header>
           <Titles>

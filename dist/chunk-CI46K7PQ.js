@@ -1,5 +1,6 @@
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { space, focusVisible, transition } from './chunk-GSUBWCY7.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { space, focusVisible, transition } from './chunk-HF3T4CF3.js';
+import { motion, reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
@@ -31,9 +32,11 @@ var CardRoot = styled("div", {
   ...BG[$variant],
   ...$interactive ? {
     cursor: "pointer",
-    transition: `border-color ${transition}, box-shadow ${transition}`,
+    transition: `border-color ${transition}, box-shadow ${transition}, transform ${timing("instant")}`,
     "&:hover": { borderColor: v.accent, boxShadow: v.shadow.md },
-    "&:focus-visible": focusVisible
+    "&:focus-visible": focusVisible,
+    "&:active": { transform: `scale(${motion.scale.press})` },
+    [reducedMotion]: { "&:active": { transform: "none" } }
   } : {}
 }));
 var CardHeader = styled.div(({ $padding }) => ({

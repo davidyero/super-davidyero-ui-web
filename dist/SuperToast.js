@@ -1,5 +1,6 @@
 import { toast } from './chunk-PNPDL4XQ.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
+import { motion, ms } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { css, Global } from '@emotion/react';
@@ -15,7 +16,12 @@ var dingTheme = css({
     "--tst-error": v.danger,
     "--tst-warning": v.warning,
     "--tst-info": v.info,
-    fontFamily: v.font.base
+    fontFamily: v.font.base,
+    // Movimiento de Ding desde los tokens: entrada y apilado en `base` con `out`.
+    "--tst-pop-dur": ms("base"),
+    "--tst-pop": motion.easing.out,
+    "--tst-stack-dur": ms("base"),
+    "--tst-stack": motion.easing.out
   }
 });
 var DING_TYPE = {

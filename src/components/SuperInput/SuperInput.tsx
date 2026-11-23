@@ -22,6 +22,7 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
     invalid = false,
     mono = false,
     onClear,
+    shakeKey,
     prefix,
     id,
     type = 'text',
@@ -32,14 +33,37 @@ export const SuperInput = forwardRef<HTMLInputElement, SuperInputProps>(function
   ref,
 ): ReactElement {
   const labels = useSuperLabels();
-  const { inputId, isPassword, revealed, toggleReveal, effectiveType, describedBy } = useSuperInput(
-    { id, type, error, hint, ariaDescribedBy: rest['aria-describedby'] },
-  );
+  const {
+    inputId,
+    isPassword,
+    revealed,
+    toggleReveal,
+    effectiveType,
+    describedBy,
+    shaking,
+    stopShaking,
+  } = useSuperInput({
+    id,
+    type,
+    error,
+    hint,
+    ariaDescribedBy: rest['aria-describedby'],
+    invalid,
+    shakeKey,
+  });
 
   return (
     <FieldRoot $fullWidth={fullWidth} className={className}>
       {label ? <FieldLabel htmlFor={inputId}>{label}</FieldLabel> : null}
-      <Box $invalid={Boolean(error) || invalid} $size={size} $disabled={Boolean(disabled)}>
+      <Box
+        $invalid={Boolean(error) || invalid}
+        $size={size}
+        $disabled={Boolean(disabled)}
+        $shaking={shaking}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget) stopShaking();
+        }}
+      >
         {prefix ? <Prefix aria-hidden="true">{prefix}</Prefix> : null}
         {leftIcon ? <SuperIcon name={leftIcon} size={18} /> : null}
         <Input

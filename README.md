@@ -175,6 +175,42 @@ export const Panel = styled.section({
 });
 ```
 
+## Movimiento
+
+Toda animación sale de `@davidyero/ui-web/motion` (regla 14 de la UX del ecosistema): nada
+de milisegundos ni `cubic-bezier` escritos a mano en la app.
+
+```ts
+import { motion, reducedMotion, timing, transitionOf } from '@davidyero/ui-web/motion';
+
+export const Panel = styled.section({
+  transition: transitionOf(['opacity', 'transform'], 'base'), // 220 ms, easing.out
+  '&:active': { transform: `scale(${motion.scale.press})` },
+  [reducedMotion]: { transition: 'none' },
+});
+
+export const Live = styled.span({
+  animation: `pulse ${timing('pulse', 'inOut')} infinite`,
+  [reducedMotion]: { animation: 'none' },
+});
+```
+
+- Duraciones: `instant` 100 · `fast` 150 · `base` 220 · `slow` 280 (tope para lo que
+  responde) · `intro` 560 · `spin` 900 · `shimmer` 1400 · `pulse` 1600.
+- Curvas: `out` (por defecto), `in` (salidas), `inOut` (cambiar de sitio o tamaño),
+  `overshoot` (interruptores y checks) y `linear` (solo bucles).
+- Lista que entra por primera vez: `useStagger` de `@davidyero/ui-web/useStagger`.
+
+```tsx
+const stagger = useStagger(items.length);
+items.map((item, i) => <SuperListItem key={item.id} {...stagger(i)} />);
+```
+
+Los componentes ya traen lo suyo: escala al pulsar en `SuperButton` y las cards táctiles,
+sacudida de `SuperInput` al aparecer un error (o al cambiar `shakeKey`), entrada y salida de
+`SuperModal` y `SuperDrawer`, menú de `SuperDropdown`, toasts, interruptores y skeleton. Todo
+respeta «Reducir movimiento».
+
 ## Iconos
 
 `SuperIcon name="settings"` resuelve el nombre en el registro `icons` del provider

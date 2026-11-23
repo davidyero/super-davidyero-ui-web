@@ -1,6 +1,19 @@
-import { useRef, useEffect } from 'react';
+import { prefersReducedMotion, motion, timing } from './chunk-KETZYNAG.js';
+import { useState, useEffect, useRef } from 'react';
+import { keyframes } from '@emotion/react';
 
-// src/components/SuperModal/useSuperModal.ts
+var usePresence = (open, exit) => {
+  const [mounted, setMounted] = useState(open);
+  if (open && !mounted) setMounted(true);
+  useEffect(() => {
+    if (open || !mounted) return void 0;
+    const canAnimate = typeof window !== "undefined" && typeof window.matchMedia === "function";
+    const wait = canAnimate && !prefersReducedMotion() ? motion.duration[exit] : 0;
+    const timer = setTimeout(() => setMounted(false), wait);
+    return () => clearTimeout(timer);
+  }, [open, mounted, exit]);
+  return { mounted: open || mounted, closing: !open && mounted };
+};
 var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 var stack = [];
 var isTop = (token) => stack[stack.length - 1] === token;
@@ -67,5 +80,11 @@ var useSuperModal = (open, onClose) => {
   }, [open]);
   return dialogRef;
 };
+var fadeIn = keyframes({ from: { opacity: 0 } });
+var fadeOut = keyframes({ to: { opacity: 0 } });
+var scrimMotion = (closing) => ({
+  animation: `${closing ? fadeOut : fadeIn} ${timing("fast")} both`,
+  pointerEvents: closing ? "none" : void 0
+});
 
-export { useSuperModal };
+export { fadeIn, fadeOut, scrimMotion, usePresence, useSuperModal };

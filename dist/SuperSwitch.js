@@ -1,6 +1,7 @@
-import { ChoiceWrap, ChoiceHiddenInput, ChoiceTexts } from './chunk-NCEVD4EE.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { focusVisible, transition } from './chunk-GSUBWCY7.js';
+import { ChoiceWrap, ChoiceHiddenInput, ChoiceTexts } from './chunk-UMAEJRDW.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { focusVisible, transition } from './chunk-HF3T4CF3.js';
+import { reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId } from 'react';
@@ -20,13 +21,15 @@ var Track = styled.span(({ $checked }) => ({
 var Thumb = styled.span(({ $checked }) => ({
   position: "absolute",
   top: "3px",
-  left: $checked ? "19px" : "3px",
+  left: "3px",
+  transform: $checked ? "translateX(16px)" : "none",
   width: "16px",
   height: "16px",
   borderRadius: "50%",
   background: $checked ? v.onAccent : v.surface,
   boxShadow: v.shadow.sm,
-  transition: `left ${transition}`
+  transition: `transform ${timing("fast", "overshoot")}, background ${transition}`,
+  [reducedMotion]: { transition: `background ${transition}` }
 }));
 var SuperSwitch = ({
   checked,

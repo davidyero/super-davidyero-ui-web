@@ -17,6 +17,11 @@ interface SuperInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 's
     prefix?: string;
     /** Si se pasa y hay valor, aparece una X para vaciar el campo. */
     onClear?: () => void;
+    /**
+     * Cámbialo en cada envío del formulario (p. ej. un contador): si el campo sigue
+     * inválido, se vuelve a sacudir aunque el mensaje de error sea el mismo.
+     */
+    shakeKey?: string | number;
 }
 
 /**

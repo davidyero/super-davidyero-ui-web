@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { motion, reducedMotion, timing } from '../../styles/motion';
 import { v } from '../../theme/vars';
 import { space } from '../../styles/scale';
 import type { LoaderLayout, LoaderSize } from './SuperLoader.types';
@@ -25,8 +26,9 @@ export const Spinner = styled.span<{ $size: LoaderSize; $color: 'primary' | 'inh
       border: `${Math.max(2, Math.round(px / 10))}px solid currentColor`,
       borderRightColor: 'transparent',
       color: $color === 'primary' ? v.accent : 'currentColor',
-      animation: 'sd-spin 0.75s linear infinite',
-      '@media (prefers-reduced-motion: reduce)': { animationDuration: '1.6s' },
+      animation: `sd-spin ${timing('spin', 'linear')} infinite`,
+      // Con «Reducir movimiento» sigue girando (indica que carga), a la mitad de velocidad.
+      [reducedMotion]: { animationDuration: `${motion.duration.spin * 2}ms` },
     };
   },
 );

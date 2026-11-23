@@ -1,6 +1,7 @@
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
-import { space, media, fluidText } from './chunk-GSUBWCY7.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
+import { space, media, fluidText } from './chunk-HF3T4CF3.js';
+import { motion, timing, staggerDelay, reducedMotion } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { useState } from 'react';
 import { keyframes } from '@emotion/react';
@@ -17,7 +18,7 @@ var scroll = keyframes({
   "100%": { transform: "translateX(-50%)" }
 });
 var rise = keyframes({
-  "0%": { opacity: 0, transform: "translateY(12px)" },
+  "0%": { opacity: 0, transform: `translateY(${motion.offset.md}px)` },
   "100%": { opacity: 1, transform: "translateY(0)" }
 });
 var SHIFT = "72px";
@@ -31,7 +32,7 @@ var SLIDES = {
   "exit-forward": slideKeyframes("0", `-${SHIFT}`, 1, 0),
   "exit-back": slideKeyframes("0", SHIFT, 1, 0)
 };
-var reduced = "@media (prefers-reduced-motion: reduce)";
+var reduced = reducedMotion;
 var Shell = styled.div({
   position: "relative",
   isolation: "isolate",
@@ -101,7 +102,7 @@ var Hero = styled.section({
   alignItems: "center",
   textAlign: "center",
   gap: space.md,
-  animation: `${rise} 420ms ease both`,
+  animation: `${rise} ${timing("slow")} both`,
   [reduced]: { animation: "none" },
   [media.lg]: {
     alignItems: "flex-start",
@@ -196,7 +197,7 @@ var Card = styled.div(({ $motion }) => ({
   backdropFilter: "blur(14px)",
   WebkitBackdropFilter: "blur(14px)",
   boxShadow: v.shadow.lg,
-  animation: $motion === "rise" ? `${rise} 520ms 80ms ease both` : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
+  animation: $motion === "rise" ? `${rise} ${timing("slow")} ${staggerDelay(2)} both` : $motion.startsWith("exit") ? `${SLIDES[$motion]} ${timing("base", "in")} both` : `${SLIDES[$motion]} ${timing("slow")} both`,
   pointerEvents: $motion.startsWith("exit") ? "none" : void 0,
   // La saliente va después en el DOM (ids repetidos): la entrante se pinta encima igual.
   zIndex: $motion.startsWith("exit") ? 0 : 1,

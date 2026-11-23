@@ -1,5 +1,40 @@
 # Changelog — @davidyero/ui-web
 
+## 0.34.0 — 2026-11-22
+
+- **Tokens de movimiento en `@davidyero/ui-web/motion`** (regla 14 de la UX,
+  `proyecto-claude/movimiento.md`): `motion.duration` (`instant` 100, `fast` 150, `base` 220,
+  `slow` 280, `intro` 560, `spin` 900, `shimmer` 1400, `pulse` 1600), `motion.easing` (`out`,
+  `in`, `inOut`, `overshoot`, `linear`), `offset`, `scale`, `stagger` y `shake`, más
+  `timing()`, `transitionOf()`, `reducedMotion`, `prefersReducedMotion()` y
+  `staggerDelay()`. Son los únicos milisegundos y curvas de la librería.
+- `transition` y `slide` de `scale` quedan como alias de `fast` y `base` con `easing.out`.
+  El hover pasa de `150ms ease` a `150ms easing.out`; los indicadores de `SuperTabs` y
+  `SuperSegmented`, de 260 a 220 ms.
+- **Migrado a los tokens:**
+  - la tarjeta de `SuperAuthTemplate` (360 → 280 ms; sale en 220 con `easing.in`);
+  - el ancho de `SuperSidebar` (`slow` + `inOut`);
+  - el arrastre de `SuperModal` (180 ms `ease-out` → `base` + `out`);
+  - el menú de `SuperDropdown` (120 ms → `base` con `scale.enter`; flecha en `fast`);
+  - `SuperLoader` y `SuperIcon spin` (`spin`), `SuperSkeleton` (`shimmer` lineal),
+    `SuperTooltip` (`base`) y `SuperBarChart`.
+- **Microinteracciones:**
+  - `SuperButton` y `SuperCard` táctil escalan a 0.97 al pulsar (no si está deshabilitado
+    o cargando);
+  - `SuperInput` se sacude una vez (±6 px, 280 ms) cuando aparece o cambia el error, o
+    cuando cambia la nueva prop `shakeKey` con el campo inválido;
+  - `SuperModal` y `SuperDrawer` entran en `slow` y **salen en `base`** (se quedan montados
+    durante la salida, sin recibir toques), con el velo fundido en `fast`;
+  - los toasts de Ding entran y se apilan en `base` + `out`;
+  - la bolita de `SuperSwitch` y el icono de `SuperLocaleThemeSwitch` usan `overshoot`
+    (la bolita pasa de animar `left` a `transform`);
+  - nuevo `useStagger` (`@davidyero/ui-web/useStagger`) para la primera carga de una lista.
+- Con «Reducir movimiento», lo que se desliza o escala pasa a fundido en `fast` o no se
+  mueve, y los spinners giran a la mitad de velocidad.
+- Sin cambiar todavía: los dos bucles decorativos de fondo de `SuperAuthTemplate` (manchas
+  de 18 y 23 s y la cinta de 28 s). El estándar prohíbe bucles que no sean de carga, pero
+  quitarlos cambia el login que ya está aprobado, así que la decisión es de David.
+
 ## 0.33.0 — 2026-11-21
 
 - **`SuperThemeProvider` mantiene `<html lang>` al día.** Nueva prop opcional `locale` (el

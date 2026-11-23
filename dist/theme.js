@@ -1,5 +1,6 @@
 import { DEFAULT_ICONS, SuperThemeContext } from './chunk-2OYI3VCV.js';
 export { DEFAULT_ICONS, useSuperLabels, useSuperTheme } from './chunk-2OYI3VCV.js';
+import { motion } from './chunk-KETZYNAG.js';
 import { tokensToCssVars } from './chunk-VQ2WXUA7.js';
 import { resolveTokens } from './chunk-X7SCOXRS.js';
 export { DEFAULT_TOKENS, defineTokens, resolveTokens } from './chunk-X7SCOXRS.js';
@@ -36,6 +37,10 @@ var SuperThemeProvider = ({
             "input, textarea, select": { fontSize: "16px !important" }
           },
           "@keyframes sd-spin": { to: { transform: "rotate(360deg)" } },
+          // Entrada de `useStagger`: fundido con `offset.sm`.
+          "@keyframes sd-rise": {
+            from: { opacity: 0, transform: `translateY(${motion.offset.sm}px)` }
+          },
           "@keyframes sd-shimmer": {
             "0%": { backgroundPosition: "200% 0" },
             "100%": { backgroundPosition: "-200% 0" }

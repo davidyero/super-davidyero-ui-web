@@ -18,6 +18,9 @@ export default defineConfig({
     toast: 'src/stores/toastStore.ts',
     // Para los estilos de la app: espaciado, breakpoints, escala y `v.primary` → var(--sd-primary).
     scale: 'src/styles/scale.ts',
+    // Tokens de movimiento (`motion`, `timing`, `reducedMotion`) y la entrada escalonada.
+    motion: 'src/styles/motion.ts',
+    useStagger: 'src/hooks/useStagger.ts',
     vars: 'src/theme/vars.ts',
   },
   format: ['esm'],

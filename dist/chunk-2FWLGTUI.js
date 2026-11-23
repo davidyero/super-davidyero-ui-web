@@ -1,7 +1,8 @@
-import { SuperLoader } from './chunk-5QH3G7FH.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { SuperLoader } from './chunk-YUSD5QDM.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
-import { space, focusVisible, transition } from './chunk-GSUBWCY7.js';
+import { space, focusVisible, transition } from './chunk-HF3T4CF3.js';
+import { motion, reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -80,8 +81,13 @@ var base = ({ $variant, $size, $fullWidth, $iconOnly }) => {
       textDecoration: "none",
       cursor: "pointer",
       userSelect: "none",
-      transition: `background ${transition}, border-color ${transition}, color ${transition}, opacity ${transition}`,
+      transition: `background ${transition}, border-color ${transition}, color ${transition}, opacity ${transition}, transform ${timing("instant")}`,
       "&:focus-visible": focusVisible,
+      // Escala al pulsar; ni deshabilitado ni cargando.
+      '&:active:not([aria-disabled="true"]):not([aria-busy="true"])': {
+        transform: `scale(${motion.scale.press})`
+      },
+      [reducedMotion]: { "&:active": { transform: "none" } },
       '&[aria-disabled="true"]': { opacity: 0.55, cursor: "not-allowed" },
       '&[aria-busy="true"]': { cursor: "progress" }
     },

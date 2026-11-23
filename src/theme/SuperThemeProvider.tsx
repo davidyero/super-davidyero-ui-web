@@ -8,6 +8,7 @@ import {
   type SuperThemeContextValue,
 } from './SuperThemeContext';
 import { resolveTokens, type SuperThemeMode, type SuperThemeTokens } from './tokens';
+import { motion } from '../styles/motion';
 import { tokensToCssVars } from './vars';
 
 export interface SuperThemeProviderProps {
@@ -62,6 +63,10 @@ export const SuperThemeProvider = ({
             'input, textarea, select': { fontSize: '16px !important' },
           },
           '@keyframes sd-spin': { to: { transform: 'rotate(360deg)' } },
+          // Entrada de `useStagger`: fundido con `offset.sm`.
+          '@keyframes sd-rise': {
+            from: { opacity: 0, transform: `translateY(${motion.offset.sm}px)` },
+          },
           '@keyframes sd-shimmer': {
             '0%': { backgroundPosition: '200% 0' },
             '100%': { backgroundPosition: '-200% 0' },

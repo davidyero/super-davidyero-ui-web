@@ -1,6 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { space, transition } from '../../styles/scale';
+import { motion, reducedMotion, timing } from '../../styles/motion';
+import { space } from '../../styles/scale';
 import type { SuperThemeMode } from '../../theme/tokens';
 import { v } from '../../theme/vars';
 import type { SuperPrefToggleTone, SuperPrefToggleVariant } from './SuperPrefToggle.types';
@@ -41,9 +42,9 @@ export const Button = styled.button<{
   boxShadow: $variant === 'surface' ? v.shadow.md : 'none',
   font: 'inherit',
   cursor: 'pointer',
-  transition: `transform ${transition}`,
-  '&:hover': { transform: 'translateY(-1px)' },
-  '&:active': { transform: 'scale(0.94)' },
+  transition: `transform ${timing('instant')}`,
+  '&:active': { transform: `scale(${motion.scale.press})` },
+  [reducedMotion]: { '&:active': { transform: 'none' } },
   '&:focus-visible': { outline: `2px solid ${v.focusRing}`, outlineOffset: '2px' },
 }));
 
@@ -57,7 +58,7 @@ export const Glyph = styled.span<{ $tone?: SuperPrefToggleTone; $mode: SuperThem
     display: 'inline-flex',
     color:
       $tone === 'sun' ? PREF_COLORS.sun[$mode] : $tone === 'night' ? PREF_COLORS.moon : 'inherit',
-    animation: `${swap} 300ms cubic-bezier(0.2, 0.8, 0.2, 1)`,
-    '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+    animation: `${swap} ${timing('fast', 'overshoot')}`,
+    [reducedMotion]: { animation: 'none' },
   }),
 );

@@ -1,5 +1,6 @@
 import { useId, type ReactElement } from 'react';
 import { createPortal } from 'react-dom';
+import { usePresence } from '../../hooks/usePresence';
 import { useSuperLabels } from '../../theme/SuperThemeContext';
 import { SuperIcon } from '../SuperIcon/SuperIcon';
 import { SuperTypography } from '../SuperTypography/SuperTypography';
@@ -8,7 +9,10 @@ import type { SuperModalProps } from './SuperModal.types';
 import { useSheetDrag } from './useSheetDrag';
 import { useSuperModal } from './useSuperModal';
 
-/** Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar. */
+/**
+ * Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar.
+ * Entra en `slow` y sale en `base` (en móvil, como hoja desde abajo con `mobileSheet`).
+ */
 export const SuperModal = ({
   open,
   onClose,
@@ -26,15 +30,18 @@ export const SuperModal = ({
   const titleId = useId();
   const dialogRef = useSuperModal(open, onClose);
   const dragHandlers = useSheetDrag(dialogRef, mobileSheet, onClose);
+  const { mounted, closing } = usePresence(open, 'base');
 
-  if (!open || typeof document === 'undefined') return null;
+  if (!mounted || typeof document === 'undefined') return null;
 
   return createPortal(
     <Backdrop
       $align={align}
       $sheet={mobileSheet}
+      $closing={closing}
+      aria-hidden={closing || undefined}
       onMouseDown={(event) => {
-        if (closeOnBackdrop && event.target === event.currentTarget) onClose();
+        if (!closing && closeOnBackdrop && event.target === event.currentTarget) onClose();
       }}
     >
       <Dialog
@@ -47,6 +54,7 @@ export const SuperModal = ({
         $width={width}
         $padded={padded}
         $sheet={mobileSheet}
+        $closing={closing}
       >
         {mobileSheet ? (
           <Grabber aria-hidden="true" data-sd-modal-grabber {...dragHandlers} />

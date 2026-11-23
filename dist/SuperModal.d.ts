@@ -23,7 +23,10 @@ interface SuperModalProps {
     children: ReactNode;
 }
 
-/** Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar. */
+/**
+ * Diálogo modal accesible: portal, Escape, trampa de foco y foco de vuelta al cerrar.
+ * Entra en `slow` y sale en `base` (en móvil, como hoja desde abajo con `mobileSheet`).
+ */
 declare const SuperModal: ({ open, onClose, title, subtitle, footer, align, width, padded, closeOnBackdrop, mobileSheet, children, }: SuperModalProps) => ReactElement | null;
 
 export { SuperModal };

@@ -1,4 +1,5 @@
 import { v } from '../theme/vars';
+import { timing } from './motion';
 
 /** Espaciado fijo de la librería (no es token: igual en todas las apps). */
 export const space = {
@@ -74,10 +75,14 @@ export const zIndex = {
 /** Velo neutro bajo SuperModal y SuperDrawer: el mismo en todos los temas. */
 export const scrim = 'rgba(0, 0, 0, 0.45)';
 
-/** Deslizamiento de los indicadores (SuperTabs, SuperSegmented). */
-export const slide = '260ms cubic-bezier(0.22, 1, 0.36, 1)';
+/**
+ * Deslizamiento de los indicadores (SuperTabs, SuperSegmented). Alias de
+ * `motion.duration.base` + `easing.out`: lo nuevo usa `timing('base')` de `./motion`.
+ */
+export const slide = timing('base');
 
-export const transition = '150ms ease';
+/** Hover y colores. Alias de `motion.duration.fast` + `easing.out` (`timing('fast')`). */
+export const transition = timing('fast');
 
 /** Anillo de foco visible, el mismo en todos los controles. */
 export const focusVisible = {

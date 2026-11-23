@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { motion, reducedMotion, timing } from '../../styles/motion';
 import { v } from '../../theme/vars';
 import type { IconColor } from './SuperIcon.types';
 
@@ -14,7 +15,7 @@ export const IconWrap = styled.span<{ $spin: boolean; $size: number; $color: Ico
     width: `${$size}px`,
     height: `${$size}px`,
     color: iconColor($color),
-    ...($spin ? { animation: 'sd-spin 0.9s linear infinite' } : {}),
-    '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+    ...($spin ? { animation: `sd-spin ${timing('spin', 'linear')} infinite` } : {}),
+    [reducedMotion]: $spin ? { animationDuration: `${motion.duration.spin * 2}ms` } : {},
   }),
 );

@@ -1,4 +1,5 @@
-import { space, transition, zIndex } from './chunk-GSUBWCY7.js';
+import { space, zIndex } from './chunk-HF3T4CF3.js';
+import { timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { useId, isValidElement, cloneElement } from 'react';
 import styled from '@emotion/styled';
@@ -35,7 +36,7 @@ var Bubble = styled.span(({ $placement }) => ({
   pointerEvents: "none",
   opacity: 0,
   visibility: "hidden",
-  transition: `opacity ${transition}`
+  transition: `opacity ${timing("base")}`
 }));
 var SuperTooltip = ({
   label,

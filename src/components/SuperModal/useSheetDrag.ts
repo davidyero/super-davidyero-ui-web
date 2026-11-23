@@ -1,4 +1,5 @@
 import { useRef, type PointerEvent, type RefObject } from 'react';
+import { prefersReducedMotion, timing } from '../../styles/motion';
 import { breakpoints } from '../../styles/scale';
 
 /** Arrastre mínimo hacia abajo (px) para cerrar al soltar. */
@@ -11,11 +12,6 @@ const isSheetViewport = (): boolean =>
   typeof window !== 'undefined' &&
   typeof window.matchMedia === 'function' &&
   window.matchMedia(`(max-width: ${breakpoints.md - 1}px)`).matches;
-
-const prefersReducedMotion = (): boolean =>
-  typeof window !== 'undefined' &&
-  typeof window.matchMedia === 'function' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 interface DragHandlers {
   onPointerDown: (event: PointerEvent<HTMLElement>) => void;
@@ -40,7 +36,8 @@ export const useSheetDrag = (
   const setOffset = (dy: number, animate: boolean): void => {
     const el = dialogRef.current;
     if (!el) return;
-    el.style.transition = animate && !prefersReducedMotion() ? 'transform 180ms ease-out' : 'none';
+    el.style.transition =
+      animate && !prefersReducedMotion() ? `transform ${timing('base')}` : 'none';
     el.style.transform = dy > 0 ? `translateY(${dy}px)` : '';
   };
 

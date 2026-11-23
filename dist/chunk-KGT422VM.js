@@ -1,6 +1,7 @@
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
-import { transition, space } from './chunk-GSUBWCY7.js';
+import { space } from './chunk-HF3T4CF3.js';
+import { motion, reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -30,9 +31,9 @@ var Button = styled.button(({ $variant, $withLabel, $tone }) => ({
   boxShadow: $variant === "surface" ? v.shadow.md : "none",
   font: "inherit",
   cursor: "pointer",
-  transition: `transform ${transition}`,
-  "&:hover": { transform: "translateY(-1px)" },
-  "&:active": { transform: "scale(0.94)" },
+  transition: `transform ${timing("instant")}`,
+  "&:active": { transform: `scale(${motion.scale.press})` },
+  [reducedMotion]: { "&:active": { transform: "none" } },
   "&:focus-visible": { outline: `2px solid ${v.focusRing}`, outlineOffset: "2px" }
 }));
 var swap = keyframes({
@@ -42,8 +43,8 @@ var Glyph = styled.span(
   ({ $tone, $mode }) => ({
     display: "inline-flex",
     color: $tone === "sun" ? PREF_COLORS.sun[$mode] : $tone === "night" ? PREF_COLORS.moon : "inherit",
-    animation: `${swap} 300ms cubic-bezier(0.2, 0.8, 0.2, 1)`,
-    "@media (prefers-reduced-motion: reduce)": { animation: "none" }
+    animation: `${swap} ${timing("fast", "overshoot")}`,
+    [reducedMotion]: { animation: "none" }
   })
 );
 var SuperPrefToggle = ({

@@ -1,5 +1,6 @@
 import { useSuperLabels } from './chunk-2OYI3VCV.js';
-import { space } from './chunk-GSUBWCY7.js';
+import { space } from './chunk-HF3T4CF3.js';
+import { reducedMotion, motion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import styled from '@emotion/styled';
 import { jsx } from '@emotion/react/jsx-runtime';
@@ -24,8 +25,9 @@ var Spinner = styled.span(
       border: `${Math.max(2, Math.round(px / 10))}px solid currentColor`,
       borderRightColor: "transparent",
       color: $color === "primary" ? v.accent : "currentColor",
-      animation: "sd-spin 0.75s linear infinite",
-      "@media (prefers-reduced-motion: reduce)": { animationDuration: "1.6s" }
+      animation: `sd-spin ${timing("spin", "linear")} infinite`,
+      // Con «Reducir movimiento» sigue girando (indica que carga), a la mitad de velocidad.
+      [reducedMotion]: { animationDuration: `${motion.duration.spin * 2}ms` }
     };
   }
 );

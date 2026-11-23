@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { reducedMotion, timing } from '../../styles/motion';
 import { focusVisible, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
@@ -16,11 +17,13 @@ export const Track = styled.span<{ $checked: boolean }>(({ $checked }) => ({
 export const Thumb = styled.span<{ $checked: boolean }>(({ $checked }) => ({
   position: 'absolute',
   top: '3px',
-  left: $checked ? '19px' : '3px',
+  left: '3px',
+  transform: $checked ? 'translateX(16px)' : 'none',
   width: '16px',
   height: '16px',
   borderRadius: '50%',
   background: $checked ? v.onAccent : v.surface,
   boxShadow: v.shadow.sm,
-  transition: `left ${transition}`,
+  transition: `transform ${timing('fast', 'overshoot')}, background ${transition}`,
+  [reducedMotion]: { transition: `background ${transition}` },
 }));

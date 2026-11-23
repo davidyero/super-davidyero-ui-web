@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { motion, ms } from '../../styles/motion';
 import { v } from '../../theme/vars';
 
 /**
@@ -15,5 +16,10 @@ export const dingTheme = css({
     '--tst-warning': v.warning,
     '--tst-info': v.info,
     fontFamily: v.font.base,
+    // Movimiento de Ding desde los tokens: entrada y apilado en `base` con `out`.
+    '--tst-pop-dur': ms('base'),
+    '--tst-pop': motion.easing.out,
+    '--tst-stack-dur': ms('base'),
+    '--tst-stack': motion.easing.out,
   },
 });

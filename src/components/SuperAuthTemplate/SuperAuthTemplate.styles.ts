@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { motion, reducedMotion, staggerDelay, timing } from '../../styles/motion';
 import { fluidText, media, space } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
@@ -17,7 +18,7 @@ const scroll = keyframes({
 });
 
 const rise = keyframes({
-  '0%': { opacity: 0, transform: 'translateY(12px)' },
+  '0%': { opacity: 0, transform: `translateY(${motion.offset.md}px)` },
   '100%': { opacity: 1, transform: 'translateY(0)' },
 });
 
@@ -35,7 +36,7 @@ const SLIDES = {
 } as const;
 export type CardMotion = keyof typeof SLIDES | 'rise';
 
-const reduced = '@media (prefers-reduced-motion: reduce)';
+const reduced = reducedMotion;
 
 // Móvil: barra, marca, formulario y pie en una columna. Escritorio: la marca
 // ocupa la columna izquierda entera y el formulario la derecha.
@@ -113,7 +114,7 @@ export const Hero = styled.section({
   alignItems: 'center',
   textAlign: 'center',
   gap: space.md,
-  animation: `${rise} 420ms ease both`,
+  animation: `${rise} ${timing('slow')} both`,
   [reduced]: { animation: 'none' },
   [media.lg]: {
     alignItems: 'flex-start',
@@ -224,8 +225,10 @@ export const Card = styled.div<{ $motion: CardMotion }>(({ $motion }) => ({
   boxShadow: v.shadow.lg,
   animation:
     $motion === 'rise'
-      ? `${rise} 520ms 80ms ease both`
-      : `${SLIDES[$motion]} 360ms cubic-bezier(0.22, 1, 0.36, 1) both`,
+      ? `${rise} ${timing('slow')} ${staggerDelay(2)} both`
+      : $motion.startsWith('exit')
+        ? `${SLIDES[$motion]} ${timing('base', 'in')} both`
+        : `${SLIDES[$motion]} ${timing('slow')} both`,
   pointerEvents: $motion.startsWith('exit') ? 'none' : undefined,
   // La saliente va después en el DOM (ids repetidos): la entrante se pinta encima igual.
   zIndex: $motion.startsWith('exit') ? 0 : 1,

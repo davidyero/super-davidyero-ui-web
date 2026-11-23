@@ -1,6 +1,7 @@
-import { controlBox, controlText, FieldRoot, FieldLabel, describedBy, FieldMessage } from './chunk-SG6MIYR5.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
-import { space, transition, zIndex } from './chunk-GSUBWCY7.js';
+import { controlBox, controlText, FieldRoot, FieldLabel, describedBy, FieldMessage } from './chunk-S3WIIN6X.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
+import { space, zIndex } from './chunk-HF3T4CF3.js';
+import { timing, motion, reducedMotion } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
@@ -42,7 +43,7 @@ var Chevron = styled.span(({ $open }) => ({
   right: space.md,
   top: "50%",
   transform: `translateY(-50%) rotate(${$open ? 180 : 0}deg)`,
-  transition: `transform ${transition}`,
+  transition: `transform ${timing("fast")}`,
   display: "inline-flex",
   pointerEvents: "none",
   color: v.textMuted
@@ -62,11 +63,17 @@ var List = styled.ul(({ $up }) => ({
   background: v.surfaceElevated,
   boxShadow: v.shadow.lg,
   transform: $up ? "translateY(-100%)" : "none",
-  animation: "sd-dropdown-in 120ms ease",
-  "@keyframes sd-dropdown-in": {
-    from: { opacity: 0, marginTop: $up ? "4px" : "-4px" }
+  transformOrigin: $up ? "bottom center" : "top center",
+  // Aparece con `scale.enter` y fundido; hacia arriba conserva su `translateY(-100%)`.
+  animation: `${$up ? "sd-dropdown-up" : "sd-dropdown-down"} ${timing("base")}`,
+  "@keyframes sd-dropdown-down": {
+    from: { opacity: 0, transform: `scale(${motion.scale.enter})` }
   },
-  "@media (prefers-reduced-motion: reduce)": { animation: "none" }
+  "@keyframes sd-dropdown-up": {
+    from: { opacity: 0, transform: `translateY(-100%) scale(${motion.scale.enter})` }
+  },
+  [reducedMotion]: { animation: `sd-fade ${timing("fast")}` },
+  "@keyframes sd-fade": { from: { opacity: 0 } }
 }));
 var Option = styled.li(
   ({ $active, $selected, $disabled }) => ({

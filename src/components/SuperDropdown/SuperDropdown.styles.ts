@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { controlBox, controlText } from '../../styles/field';
-import { space, transition, zIndex } from '../../styles/scale';
+import { motion, reducedMotion, timing } from '../../styles/motion';
+import { space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
 const HEIGHT = { sm: '34px', md: '42px', lg: '50px' } as const;
@@ -43,7 +44,7 @@ export const Chevron = styled.span<{ $open: boolean }>(({ $open }) => ({
   right: space.md,
   top: '50%',
   transform: `translateY(-50%) rotate(${$open ? 180 : 0}deg)`,
-  transition: `transform ${transition}`,
+  transition: `transform ${timing('fast')}`,
   display: 'inline-flex',
   pointerEvents: 'none',
   color: v.textMuted,
@@ -65,11 +66,17 @@ export const List = styled.ul<{ $up: boolean }>(({ $up }) => ({
   background: v.surfaceElevated,
   boxShadow: v.shadow.lg,
   transform: $up ? 'translateY(-100%)' : 'none',
-  animation: 'sd-dropdown-in 120ms ease',
-  '@keyframes sd-dropdown-in': {
-    from: { opacity: 0, marginTop: $up ? '4px' : '-4px' },
+  transformOrigin: $up ? 'bottom center' : 'top center',
+  // Aparece con `scale.enter` y fundido; hacia arriba conserva su `translateY(-100%)`.
+  animation: `${$up ? 'sd-dropdown-up' : 'sd-dropdown-down'} ${timing('base')}`,
+  '@keyframes sd-dropdown-down': {
+    from: { opacity: 0, transform: `scale(${motion.scale.enter})` },
   },
-  '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+  '@keyframes sd-dropdown-up': {
+    from: { opacity: 0, transform: `translateY(-100%) scale(${motion.scale.enter})` },
+  },
+  [reducedMotion]: { animation: `sd-fade ${timing('fast')}` },
+  '@keyframes sd-fade': { from: { opacity: 0 } },
 }));
 
 export const Option = styled.li<{ $active: boolean; $selected: boolean; $disabled: boolean }>(

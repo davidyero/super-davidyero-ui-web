@@ -1,17 +1,31 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { reducedMotion, timing } from '../../styles/motion';
 import { focusVisible, media, scrim, space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
+import { fadeIn, fadeOut, scrimMotion } from '../../styles/overlayMotion';
 
-export const Backdrop = styled.div({
+const slideIn = keyframes({ from: { transform: 'translateX(100%)' } });
+const slideOut = keyframes({ to: { transform: 'translateX(100%)' } });
+
+export const Backdrop = styled.div<{ $closing: boolean }>(({ $closing }) => ({
+  ...scrimMotion($closing),
   position: 'fixed',
   inset: 0,
   zIndex: zIndex.modal,
   display: 'flex',
   justifyContent: 'flex-end',
   background: scrim,
-});
+}));
 
-export const Panel = styled.div<{ $width: number }>(({ $width }) => ({
+export const Panel = styled.div<{ $width: number; $closing: boolean }>(({ $width, $closing }) => ({
+  // Entra desde la derecha en `slow` y sale en `base`; con «Reducir movimiento», fundido.
+  animation: $closing
+    ? `${slideOut} ${timing('base', 'in')} both`
+    : `${slideIn} ${timing('slow')} both`,
+  [reducedMotion]: {
+    animation: `${$closing ? fadeOut : fadeIn} ${timing('fast')} both`,
+  },
   display: 'flex',
   flexDirection: 'column',
   width: '100%',

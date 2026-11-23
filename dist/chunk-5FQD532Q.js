@@ -1,4 +1,5 @@
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
+import { reducedMotion, motion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import { Icon } from '@iconify/react';
 import { useId } from 'react';
@@ -140,8 +141,8 @@ var IconWrap = styled.span(
     width: `${$size}px`,
     height: `${$size}px`,
     color: iconColor($color),
-    ...$spin ? { animation: "sd-spin 0.9s linear infinite" } : {},
-    "@media (prefers-reduced-motion: reduce)": { animation: "none" }
+    ...$spin ? { animation: `sd-spin ${timing("spin", "linear")} infinite` } : {},
+    [reducedMotion]: $spin ? { animationDuration: `${motion.duration.spin * 2}ms` } : {}
   })
 );
 var SuperIcon = ({

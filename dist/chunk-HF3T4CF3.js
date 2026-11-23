@@ -1,3 +1,4 @@
+import { timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 
 // src/styles/scale.ts
@@ -47,8 +48,8 @@ var zIndex = {
   overlay: 1400
 };
 var scrim = "rgba(0, 0, 0, 0.45)";
-var slide = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
-var transition = "150ms ease";
+var slide = timing("base");
+var transition = timing("fast");
 var focusVisible = {
   outline: "none",
   boxShadow: `0 0 0 3px ${v.focusRing}`

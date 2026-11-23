@@ -1,24 +1,34 @@
-import { useSuperModal } from './chunk-IVWDWLQA.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { scrimMotion, fadeOut, fadeIn, useSuperModal, usePresence } from './chunk-E6W5N3XY.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
 import { useSuperLabels } from './chunk-2OYI3VCV.js';
-import { scrim, zIndex, media, space, focusVisible } from './chunk-GSUBWCY7.js';
+import { scrim, zIndex, media, space, focusVisible } from './chunk-HF3T4CF3.js';
+import { reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId } from 'react';
 import { createPortal } from 'react-dom';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
 
-var Backdrop = styled.div({
+var slideIn = keyframes({ from: { transform: "translateX(100%)" } });
+var slideOut = keyframes({ to: { transform: "translateX(100%)" } });
+var Backdrop = styled.div(({ $closing }) => ({
+  ...scrimMotion($closing),
   position: "fixed",
   inset: 0,
   zIndex: zIndex.modal,
   display: "flex",
   justifyContent: "flex-end",
   background: scrim
-});
-var Panel = styled.div(({ $width }) => ({
+}));
+var Panel = styled.div(({ $width, $closing }) => ({
+  // Entra desde la derecha en `slow` y sale en `base`; con «Reducir movimiento», fundido.
+  animation: $closing ? `${slideOut} ${timing("base", "in")} both` : `${slideIn} ${timing("slow")} both`,
+  [reducedMotion]: {
+    animation: `${$closing ? fadeOut : fadeIn} ${timing("fast")} both`
+  },
   display: "flex",
   flexDirection: "column",
   width: "100%",
@@ -89,13 +99,16 @@ var SuperDrawer = ({
   const labels = useSuperLabels();
   const titleId = useId();
   const panelRef = useSuperModal(open, onClose);
-  if (!open || typeof document === "undefined") return null;
+  const { mounted, closing } = usePresence(open, "base");
+  if (!mounted || typeof document === "undefined") return null;
   return createPortal(
     /* @__PURE__ */ jsx(
       Backdrop,
       {
+        $closing: closing,
+        "aria-hidden": closing || void 0,
         onMouseDown: (event) => {
-          if (event.target === event.currentTarget) onClose();
+          if (!closing && event.target === event.currentTarget) onClose();
         },
         children: /* @__PURE__ */ jsxs(
           Panel,
@@ -107,6 +120,7 @@ var SuperDrawer = ({
             "aria-label": title ? void 0 : labels.close,
             tabIndex: -1,
             $width: width,
+            $closing: closing,
             children: [
               /* @__PURE__ */ jsxs(Header, { children: [
                 /* @__PURE__ */ jsxs(Titles, { children: [

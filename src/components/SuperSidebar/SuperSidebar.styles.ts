@@ -1,5 +1,6 @@
 import type { CSSObject } from '@emotion/react';
 import styled from '@emotion/styled';
+import { reducedMotion, transitionOf } from '../../styles/motion';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
@@ -16,8 +17,9 @@ export const Aside = styled.aside<{ $collapsed: boolean }>(({ $collapsed }) => (
   padding: $collapsed ? `${space.lg} ${space.sm}` : space.lg,
   background: v.surface,
   borderRight: `1px solid ${v.border}`,
-  transition: `width ${transition}, padding ${transition}`,
-  '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+  // El ancho es la única excepción a «solo transform y opacity» (movimiento.md §5).
+  transition: transitionOf(['width', 'padding'], 'slow', 'inOut'),
+  [reducedMotion]: { transition: 'none' },
 }));
 
 export const Header = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({

@@ -1,9 +1,10 @@
-import { SuperSkeleton } from './chunk-ZJKOTCBT.js';
-import { SuperTooltip } from './chunk-TU2LGXLM.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { SuperSkeleton } from './chunk-IDZFHVAY.js';
+import { SuperTooltip } from './chunk-X3F24Z4J.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
 import './chunk-2OYI3VCV.js';
-import { space, transition, focusVisible } from './chunk-GSUBWCY7.js';
+import { space, transition, focusVisible } from './chunk-HF3T4CF3.js';
+import { reducedMotion, timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import styled from '@emotion/styled';
@@ -66,8 +67,8 @@ var Fill = styled.span(({ $tone, $pct }) => ({
   width: `${$pct}%`,
   borderRadius: v.radius.pill,
   background: FILL[$tone],
-  transition: "width 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 150ms ease",
-  "@media (prefers-reduced-motion: reduce)": { transition: "none" }
+  transition: `width ${timing("slow")}, opacity ${timing("fast")}`,
+  [reducedMotion]: { transition: "none" }
 }));
 var SKELETON_WIDTHS = ["92%", "74%", "58%", "41%", "27%", "18%"];
 var SuperBarChart = ({

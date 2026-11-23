@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { space, transition, zIndex } from '../../styles/scale';
+import { timing } from '../../styles/motion';
+import { space, zIndex } from '../../styles/scale';
 import { v } from '../../theme/vars';
 import type { TooltipPlacement } from './SuperTooltip.types';
 
@@ -36,5 +37,5 @@ export const Bubble = styled.span<{ $placement: TooltipPlacement }>(({ $placemen
   pointerEvents: 'none',
   opacity: 0,
   visibility: 'hidden',
-  transition: `opacity ${transition}`,
+  transition: `opacity ${timing('base')}`,
 }));

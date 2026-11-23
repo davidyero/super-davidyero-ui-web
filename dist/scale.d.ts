@@ -141,9 +141,13 @@ declare const zIndex: {
 };
 /** Velo neutro bajo SuperModal y SuperDrawer: el mismo en todos los temas. */
 declare const scrim = "rgba(0, 0, 0, 0.45)";
-/** Deslizamiento de los indicadores (SuperTabs, SuperSegmented). */
-declare const slide = "260ms cubic-bezier(0.22, 1, 0.36, 1)";
-declare const transition = "150ms ease";
+/**
+ * Deslizamiento de los indicadores (SuperTabs, SuperSegmented). Alias de
+ * `motion.duration.base` + `easing.out`: lo nuevo usa `timing('base')` de `./motion`.
+ */
+declare const slide: string;
+/** Hover y colores. Alias de `motion.duration.fast` + `easing.out` (`timing('fast')`). */
+declare const transition: string;
 /** Anillo de foco visible, el mismo en todos los controles. */
 declare const focusVisible: {
     readonly outline: "none";

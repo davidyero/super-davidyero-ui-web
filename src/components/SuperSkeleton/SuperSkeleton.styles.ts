@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { timing } from '../../styles/motion';
 import { space } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
@@ -12,7 +13,7 @@ export const Shimmer = styled.span<{ $w: string; $h: string; $round: boolean }>(
     // no se distingue y el esqueleto desaparecía.
     background: `linear-gradient(90deg, ${v.border} 25%, ${v.borderStrong} 37%, ${v.border} 63%)`,
     backgroundSize: '400% 100%',
-    animation: 'sd-shimmer 1.4s ease infinite',
+    animation: `sd-shimmer ${timing('shimmer', 'linear')} infinite`,
     '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
   }),
 );

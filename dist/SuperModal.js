@@ -1,8 +1,9 @@
-import { useSuperModal } from './chunk-IVWDWLQA.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { scrimMotion, fadeOut, fadeIn, useSuperModal, usePresence } from './chunk-E6W5N3XY.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
 import { useSuperLabels } from './chunk-2OYI3VCV.js';
-import { breakpoints, space, scrim, zIndex, focusVisible } from './chunk-GSUBWCY7.js';
+import { breakpoints, space, scrim, zIndex, focusVisible } from './chunk-HF3T4CF3.js';
+import { motion, reducedMotion, timing, prefersReducedMotion } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import { useId, useRef } from 'react';
@@ -12,63 +13,65 @@ import styled from '@emotion/styled';
 import { jsx, jsxs } from '@emotion/react/jsx-runtime';
 
 var belowMd = `@media (max-width: ${breakpoints.md - 1}px)`;
-var reduced = "@media (prefers-reduced-motion: reduce)";
-var slideUp = keyframes({
-  "0%": { transform: "translateY(100%)" },
-  "100%": { transform: "translateY(0)" }
+var slideUp = keyframes({ from: { transform: "translateY(100%)" } });
+var slideDown = keyframes({ to: { transform: "translateY(100%)" } });
+var popIn = keyframes({ from: { opacity: 0, transform: `scale(${motion.scale.enter})` } });
+var popOut = keyframes({ to: { opacity: 0, transform: `scale(${motion.scale.enter})` } });
+var dialogMotion = (closing, enter, exit) => ({
+  animation: closing ? `${exit} ${timing("base", "in")} both` : `${enter} ${timing("slow")} both`,
+  [reducedMotion]: {
+    animation: `${closing ? fadeOut : fadeIn} ${timing("fast")} both`
+  }
 });
-var Backdrop = styled.div(
-  ({ $align, $sheet }) => ({
-    position: "fixed",
-    inset: 0,
-    zIndex: zIndex.modal,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: $align === "center" ? "center" : "flex-start",
-    padding: $align === "center" ? space.lg : `10vh ${space.lg} ${space.lg}`,
-    background: scrim,
-    overflowY: "auto",
-    ...$sheet ? { [belowMd]: { alignItems: "flex-end", padding: `${space.xl} 0 0` } } : {}
-  })
-);
-var Dialog = styled.div(
-  ({ $width, $padded, $sheet }) => ({
-    width: "100%",
-    maxWidth: `${$width}px`,
-    maxHeight: "100%",
-    display: "flex",
-    flexDirection: "column",
-    borderRadius: v.radius.lg,
-    background: v.surfaceElevated,
-    border: `1px solid ${v.border}`,
-    boxShadow: v.shadow.lg,
-    color: v.textBody,
-    outline: "none",
-    "& > [data-sd-modal-body]": { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 },
-    ...$sheet ? {
-      [belowMd]: {
-        maxWidth: "none",
-        maxHeight: "90dvh",
-        borderRadius: `${v.radius.lg} ${v.radius.lg} 0 0`,
-        borderBottom: "none",
-        paddingBottom: "env(safe-area-inset-bottom)",
-        animation: `${slideUp} 220ms ease-out`,
-        // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
-        // quedaría el gesto para desplazar la página.
-        "& > [data-sd-modal-header]": {
-          padding: `${space.md} ${space.lg}`,
-          touchAction: "none"
-        },
-        "& > [data-sd-modal-body]": {
-          padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
-        },
-        // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
-        "& > [data-sd-modal-footer]": { padding: `${space.md} ${space.lg} ${space.lg}` },
-        [reduced]: { animation: "none" }
-      }
-    } : {}
-  })
-);
+var Backdrop = styled.div(({ $align, $sheet, $closing }) => ({
+  ...scrimMotion($closing),
+  position: "fixed",
+  inset: 0,
+  zIndex: zIndex.modal,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: $align === "center" ? "center" : "flex-start",
+  padding: $align === "center" ? space.lg : `10vh ${space.lg} ${space.lg}`,
+  background: scrim,
+  overflowY: "auto",
+  ...$sheet ? { [belowMd]: { alignItems: "flex-end", padding: `${space.xl} 0 0` } } : {}
+}));
+var Dialog = styled.div(({ $width, $padded, $sheet, $closing }) => ({
+  ...dialogMotion($closing, popIn, popOut),
+  width: "100%",
+  maxWidth: `${$width}px`,
+  maxHeight: "100%",
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: v.radius.lg,
+  background: v.surfaceElevated,
+  border: `1px solid ${v.border}`,
+  boxShadow: v.shadow.lg,
+  color: v.textBody,
+  outline: "none",
+  "& > [data-sd-modal-body]": { padding: $padded ? `0 ${space.xl} ${space.xl}` : 0 },
+  ...$sheet ? {
+    [belowMd]: {
+      maxWidth: "none",
+      maxHeight: "90dvh",
+      borderRadius: `${v.radius.lg} ${v.radius.lg} 0 0`,
+      borderBottom: "none",
+      paddingBottom: "env(safe-area-inset-bottom)",
+      ...dialogMotion($closing, slideUp, slideDown),
+      // La cabecera también arrastra la hoja: sin `touch-action` el navegador se
+      // quedaría el gesto para desplazar la página.
+      "& > [data-sd-modal-header]": {
+        padding: `${space.md} ${space.lg}`,
+        touchAction: "none"
+      },
+      "& > [data-sd-modal-body]": {
+        padding: $padded ? `0 ${space.lg} ${space.lg}` : 0
+      },
+      // El footer también pasa al margen lateral del sheet, alineado con lo de arriba.
+      "& > [data-sd-modal-footer]": { padding: `${space.md} ${space.lg} ${space.lg}` }
+    }
+  } : {}
+}));
 var Grabber = styled.div({
   display: "none",
   [belowMd]: {
@@ -122,13 +125,12 @@ var SHEET_CLOSE_DISTANCE = 96;
 var FLICK_SPEED = 0.5;
 var FLICK_DISTANCE = 32;
 var isSheetViewport = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(`(max-width: ${breakpoints.md - 1}px)`).matches;
-var prefersReducedMotion = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var useSheetDrag = (dialogRef, enabled, onClose) => {
   const drag = useRef(null);
   const setOffset = (dy, animate) => {
     const el = dialogRef.current;
     if (!el) return;
-    el.style.transition = animate && !prefersReducedMotion() ? "transform 180ms ease-out" : "none";
+    el.style.transition = animate && !prefersReducedMotion() ? `transform ${timing("base")}` : "none";
     el.style.transform = dy > 0 ? `translateY(${dy}px)` : "";
   };
   const end = (event, cancelled) => {
@@ -182,15 +184,18 @@ var SuperModal = ({
   const titleId = useId();
   const dialogRef = useSuperModal(open, onClose);
   const dragHandlers = useSheetDrag(dialogRef, mobileSheet, onClose);
-  if (!open || typeof document === "undefined") return null;
+  const { mounted, closing } = usePresence(open, "base");
+  if (!mounted || typeof document === "undefined") return null;
   return createPortal(
     /* @__PURE__ */ jsx(
       Backdrop,
       {
         $align: align,
         $sheet: mobileSheet,
+        $closing: closing,
+        "aria-hidden": closing || void 0,
         onMouseDown: (event) => {
-          if (closeOnBackdrop && event.target === event.currentTarget) onClose();
+          if (!closing && closeOnBackdrop && event.target === event.currentTarget) onClose();
         },
         children: /* @__PURE__ */ jsxs(
           Dialog,
@@ -204,6 +209,7 @@ var SuperModal = ({
             $width: width,
             $padded: padded,
             $sheet: mobileSheet,
+            $closing: closing,
             children: [
               mobileSheet ? /* @__PURE__ */ jsx(Grabber, { "aria-hidden": "true", "data-sd-modal-grabber": true, ...dragHandlers }) : null,
               /* @__PURE__ */ jsxs(Header, { "data-sd-modal-header": true, ...mobileSheet ? dragHandlers : {}, children: [

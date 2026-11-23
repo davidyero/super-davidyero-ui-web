@@ -1,8 +1,9 @@
-import { SuperTooltip } from './chunk-TU2LGXLM.js';
-import { SuperTypography } from './chunk-6OHDPNJ7.js';
-import { SuperIcon } from './chunk-DGDXZTZH.js';
+import { SuperTooltip } from './chunk-X3F24Z4J.js';
+import { SuperTypography } from './chunk-YEEOPOLF.js';
+import { SuperIcon } from './chunk-5FQD532Q.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
-import { transition, space, focusVisible } from './chunk-GSUBWCY7.js';
+import { space, focusVisible, transition } from './chunk-HF3T4CF3.js';
+import { reducedMotion, transitionOf } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
 import './chunk-X7SCOXRS.js';
 import styled from '@emotion/styled';
@@ -19,8 +20,9 @@ var Aside = styled.aside(({ $collapsed }) => ({
   padding: $collapsed ? `${space.lg} ${space.sm}` : space.lg,
   background: v.surface,
   borderRight: `1px solid ${v.border}`,
-  transition: `width ${transition}, padding ${transition}`,
-  "@media (prefers-reduced-motion: reduce)": { transition: "none" }
+  // El ancho es la única excepción a «solo transform y opacity» (movimiento.md §5).
+  transition: transitionOf(["width", "padding"], "slow", "inOut"),
+  [reducedMotion]: { transition: "none" }
 }));
 var Header = styled.div(({ $collapsed }) => ({
   display: "flex",

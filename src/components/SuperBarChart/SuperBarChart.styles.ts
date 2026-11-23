@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { reducedMotion, timing } from '../../styles/motion';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 import type { BarChartTone } from './SuperBarChart.types';
@@ -68,6 +69,6 @@ export const Fill = styled.span<{ $tone: BarChartTone; $pct: number }>(({ $tone,
   width: `${$pct}%`,
   borderRadius: v.radius.pill,
   background: FILL[$tone],
-  transition: 'width 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 150ms ease',
-  '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+  transition: `width ${timing('slow')}, opacity ${timing('fast')}`,
+  [reducedMotion]: { transition: 'none' },
 }));
