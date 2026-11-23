@@ -1,5 +1,22 @@
 # Changelog — @davidyero/ui-web
 
+## 0.35.0 — 2026-11-22
+
+- **`SuperSidebar` con secciones, contadores y entradas sueltas**, para que el dashboard y el
+  backoffice dejen sus copias locales (lo piden los dos). Aditivo: sin estas props se ve igual.
+  - `section` en la entrada y `sections` (`{ id, label, defaultCollapsed? }`) la agrupan
+    bajo un encabezado plegable: botón con `aria-expanded` y la flecha girando en `fast`;
+    se pliega en `base` con `inOut`. Se recuerda en el navegador qué secciones están
+    plegadas (`storageKey`, por defecto `ariaLabel`). Con la barra plegada (`collapsed`),
+    cada sección es una raya y no se pliega.
+  - `standalone`: la entrada va al final, fuera de las secciones y siempre visible.
+  - `badge` (número; `0` o sin valor no se pinta; más de 99 sale «99+») con `badgeLabel`
+    para el nombre accesible («Apps, 3 por revisar»). Con la barra plegada, el contador va
+    sobre la esquina del icono.
+  - `trailing`: algo propio a la derecha (icono o insignia de la app), solo con la barra
+    completa.
+  - Nuevo tipo `SuperSidebarSection`. Ejemplo en el playground.
+
 ## 0.34.0 — 2026-11-22
 
 - **Tokens de movimiento en `@davidyero/ui-web/motion`** (regla 14 de la UX,

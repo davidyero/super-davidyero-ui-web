@@ -1,6 +1,6 @@
 import type { CSSObject } from '@emotion/react';
 import styled from '@emotion/styled';
-import { reducedMotion, transitionOf } from '../../styles/motion';
+import { ms, reducedMotion, timing, transitionOf } from '../../styles/motion';
 import { focusVisible, space, transition } from '../../styles/scale';
 import { v } from '../../theme/vars';
 
@@ -51,6 +51,7 @@ interface EntryState {
 }
 
 const entryStyles = ({ $active, $collapsed }: EntryState): CSSObject => ({
+  position: 'relative',
   display: 'flex',
   alignItems: 'center',
   justifyContent: $collapsed ? 'center' : 'flex-start',
@@ -91,3 +92,104 @@ export const Footer = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({
   gap: space.sm,
   minWidth: 0,
 }));
+
+/** Encabezado de sección: botón que pliega y despliega, con la flecha a la derecha. */
+export const SectionToggle = styled.button({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: space.sm,
+  width: '100%',
+  minHeight: '36px',
+  marginTop: space.sm,
+  padding: `0 ${space.md}`,
+  boxSizing: 'border-box',
+  border: 'none',
+  borderRadius: v.radius.md,
+  background: 'transparent',
+  color: v.textMuted,
+  font: 'inherit',
+  textAlign: 'left',
+  cursor: 'pointer',
+  transition: `color ${transition}, background ${transition}`,
+  '&:hover': { color: v.text, background: v.surfaceSunken },
+  '&:focus-visible': focusVisible,
+});
+
+export const SectionChevron = styled.span<{ $folded: boolean }>(({ $folded }) => ({
+  display: 'inline-flex',
+  flexShrink: 0,
+  transform: $folded ? 'rotate(-90deg)' : 'none',
+  transition: `transform ${timing('fast')}`,
+  [reducedMotion]: { transition: 'none' },
+}));
+
+/**
+ * Cuerpo plegable: la fila de la rejilla pasa de `1fr` a `0fr` en `base` con `inOut`.
+ * Plegado queda `visibility: hidden` (fuera del tabulador y del lector de pantalla), pero
+ * solo cuando termina de cerrarse.
+ */
+export const SectionBody = styled.div<{ $folded: boolean }>(({ $folded }) => ({
+  display: 'grid',
+  gridTemplateRows: $folded ? '0fr' : '1fr',
+  visibility: $folded ? 'hidden' : 'visible',
+  transition: $folded
+    ? `grid-template-rows ${timing('base', 'inOut')}, visibility 0s linear ${ms('base')}`
+    : `grid-template-rows ${timing('base', 'inOut')}`,
+  [reducedMotion]: { transition: 'none' },
+  '& > div': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: space.xxs,
+    minHeight: 0,
+    overflow: 'hidden',
+  },
+}));
+
+/** Con la barra plegada, cada sección es solo una raya. */
+export const SectionRule = styled.hr({
+  width: '24px',
+  margin: `${space.sm} auto`,
+  border: 'none',
+  borderTop: `1px solid ${v.border}`,
+});
+
+/** Las entradas `standalone`: al final, separadas de las secciones. */
+export const StandaloneGroup = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: space.xxs,
+  marginTop: 'auto',
+  paddingTop: space.sm,
+  borderTop: `1px solid ${v.border}`,
+});
+
+/** Contador a la derecha (barra completa) o sobre la esquina del icono (plegada). */
+export const Count = styled.span<{ $rail: boolean }>(({ $rail }) => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  minWidth: '20px',
+  height: '20px',
+  padding: `0 ${space.xs}`,
+  boxSizing: 'border-box',
+  borderRadius: v.radius.pill,
+  background: v.primary,
+  color: v.onPrimary,
+  fontSize: '13px',
+  fontWeight: 600,
+  lineHeight: 1,
+  fontVariantNumeric: 'tabular-nums',
+  marginLeft: $rail ? undefined : 'auto',
+  ...($rail
+    ? { position: 'absolute', top: '2px', right: '2px', minWidth: '18px', height: '18px' }
+    : {}),
+}));
+
+export const Trailing = styled.span({
+  display: 'inline-flex',
+  alignItems: 'center',
+  flexShrink: 0,
+  marginLeft: 'auto',
+});

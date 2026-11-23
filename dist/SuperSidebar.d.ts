@@ -8,9 +8,46 @@ interface SuperSidebarItem<TId extends string = string> {
     icon: string;
     /** Ruta interna: navega con el `LinkComponent` del provider, sin recargar. */
     href?: string;
+    /**
+     * `id` de la sección a la que pertenece (ver `sections`). Las entradas de una misma
+     * sección se agrupan bajo su encabezado, en el orden en que aparece la primera.
+     */
+    section?: string;
+    /**
+     * Fuera de las secciones y siempre visible, al final de la lista (p. ej. «Notas»).
+     * Gana a `section`.
+     */
+    standalone?: boolean;
+    /** Contador a la derecha. `0` o sin valor: no se pinta. Más de 99 sale como «99+». */
+    badge?: number;
+    /**
+     * Lo que oye el lector de pantalla para el contador, ya traducido: «3 por leer».
+     * Sin él, el número a secas.
+     */
+    badgeLabel?: string;
+    /** Algo propio a la derecha (icono o insignia de la app). Solo con la barra completa. */
+    trailing?: ReactNode;
+}
+interface SuperSidebarSection {
+    /** El que usan las entradas en `section` y la clave con que se recuerda si está plegada. */
+    id: string;
+    /** Encabezado ya traducido. */
+    label: string;
+    /** Plegada la primera vez (después manda lo que eligió el usuario). */
+    defaultCollapsed?: boolean;
 }
 interface SuperSidebarProps<TId extends string = string> {
     items: ReadonlyArray<SuperSidebarItem<TId>>;
+    /**
+     * Encabezados de las secciones, plegables. Una entrada cuya `section` no esté aquí usa
+     * el `id` como encabezado. Con la barra plegada (`collapsed`) cada sección es una raya.
+     */
+    sections?: ReadonlyArray<SuperSidebarSection>;
+    /**
+     * Clave con que se recuerda en el navegador qué secciones están plegadas. Cámbiala si
+     * hay dos barras con secciones en la misma web. Por defecto, `ariaLabel`.
+     */
+    storageKey?: string;
     /** Entrada de la página actual: se marca y lleva `aria-current="page"`. */
     activeId?: TId;
     /** Al elegir una entrada sin `href` (o además de navegar). */
@@ -32,8 +69,12 @@ interface SuperSidebarProps<TId extends string = string> {
 /**
  * Navegación lateral. Completa en escritorio y solo iconos con `collapsed` (con el nombre
  * en un tooltip). En móvil se mete en un `SuperDrawer`: el mismo componente, no otro.
+ *
+ * Con `section` en las entradas y `sections`, las agrupa bajo encabezados plegables (se
+ * recuerda cuáles están plegados); `standalone` las deja al final, siempre visibles.
+ * `badge` pinta un contador y `trailing`, algo propio a la derecha.
  */
-declare const SuperSidebar: <TId extends string = string>({ items, activeId, onSelect, ariaLabel, collapsed, header, footer, className, }: SuperSidebarProps<TId>) => ReactElement;
+declare const SuperSidebar: <TId extends string = string>({ items, sections, storageKey, activeId, onSelect, ariaLabel, collapsed, header, footer, className, }: SuperSidebarProps<TId>) => ReactElement;
 
 export { SuperSidebar };
-export type { SuperSidebarItem, SuperSidebarProps };
+export type { SuperSidebarItem, SuperSidebarProps, SuperSidebarSection };

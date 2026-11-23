@@ -18,6 +18,7 @@ import { SuperLoader } from '../src/components/SuperLoader/SuperLoader';
 import { SuperLoaderOverlay } from '../src/components/SuperLoaderOverlay/SuperLoaderOverlay';
 import { SuperModal } from '../src/components/SuperModal/SuperModal';
 import { SuperProgressBar } from '../src/components/SuperProgressBar/SuperProgressBar';
+import { SuperSidebar } from '../src/components/SuperSidebar/SuperSidebar';
 import { SuperSkeleton } from '../src/components/SuperSkeleton/SuperSkeleton';
 import { SuperSwitch } from '../src/components/SuperSwitch/SuperSwitch';
 import { SuperTabs } from '../src/components/SuperTabs/SuperTabs';
@@ -382,6 +383,69 @@ export const Playground = (): ReactElement => {
               <SuperButton variant="danger" onClick={() => toast.error('No se pudo borrar')}>
                 Toast de error
               </SuperButton>
+            </Row>
+          </Section>
+          <Section title="Sidebar con secciones">
+            <Row>
+              <div style={{ height: 460 }} data-testid="sidebar-full">
+                <SuperSidebar
+                  ariaLabel="Menú de ejemplo"
+                  storageKey="playground"
+                  activeId="apps"
+                  sections={[
+                    { id: 'gestion', label: 'Gestión' },
+                    { id: 'datos', label: 'Datos' },
+                  ]}
+                  items={[
+                    { id: 'home', label: 'Inicio', icon: 'info' },
+                    {
+                      id: 'apps',
+                      label: 'Apps',
+                      icon: 'success',
+                      section: 'gestion',
+                      badge: 3,
+                      badgeLabel: '3 por revisar',
+                    },
+                    {
+                      id: 'users',
+                      label: 'Usuarios',
+                      icon: 'eye',
+                      section: 'gestion',
+                      trailing: (
+                        <SuperBadge tone="info" size="sm">
+                          iOS
+                        </SuperBadge>
+                      ),
+                    },
+                    { id: 'costs', label: 'Costos', icon: 'trendUp', section: 'datos', badge: 128 },
+                    { id: 'notes', label: 'Notas', icon: 'empty', standalone: true },
+                  ]}
+                />
+              </div>
+              <div style={{ height: 460 }} data-testid="sidebar-rail">
+                <SuperSidebar
+                  ariaLabel="Menú plegado"
+                  collapsed
+                  activeId="apps"
+                  sections={[
+                    { id: 'gestion', label: 'Gestión' },
+                    { id: 'datos', label: 'Datos' },
+                  ]}
+                  items={[
+                    { id: 'home', label: 'Inicio', icon: 'info' },
+                    {
+                      id: 'apps',
+                      label: 'Apps',
+                      icon: 'success',
+                      section: 'gestion',
+                      badge: 3,
+                      badgeLabel: '3 por revisar',
+                    },
+                    { id: 'costs', label: 'Costos', icon: 'trendUp', section: 'datos' },
+                    { id: 'notes', label: 'Notas', icon: 'empty', standalone: true },
+                  ]}
+                />
+              </div>
             </Row>
           </Section>
         </Wrap>
