@@ -11,6 +11,7 @@ import {
   Footer,
   Header,
   ItemWrap,
+  Leading,
   NavList,
   SectionBody,
   SectionChevron,
@@ -50,6 +51,7 @@ export const SuperSidebar = <TId extends string = string>({
     items,
     sections,
     storageKey ?? ariaLabel,
+    activeId,
   );
 
   const renderEntry = (item: SuperSidebarItem<TId>): ReactElement => {
@@ -58,7 +60,11 @@ export const SuperSidebar = <TId extends string = string>({
     const badgeSpoken = badge ? (item.badgeLabel ?? countText(badge)) : '';
     const content = (
       <>
-        <SuperIcon name={item.icon} size={20} />
+        {item.leading ? (
+          <Leading aria-hidden="true">{item.leading}</Leading>
+        ) : item.icon ? (
+          <SuperIcon name={item.icon} size={20} />
+        ) : null}
         {collapsed ? null : (
           <SuperTypography
             variant="bodySmall"

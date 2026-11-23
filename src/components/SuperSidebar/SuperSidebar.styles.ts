@@ -31,8 +31,9 @@ export const Header = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({
 }));
 
 /*
- * Plegada no hace scroll: un overflow distinto de visible recorta en los dos ejes, y el
- * tooltip con el nombre de cada entrada sale por la derecha de los 64 px de la barra.
+ * Con muchas entradas la lista hace scroll, también plegada: si no, los iconos se salen
+ * por abajo y quedan bajo el pie. El tooltip con el nombre de cada entrada va con
+ * `position: fixed` (SuperTooltip), así que el scroll no lo recorta.
  */
 export const NavList = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => ({
   display: 'flex',
@@ -40,7 +41,9 @@ export const NavList = styled.div<{ $collapsed: boolean }>(({ $collapsed }) => (
   gap: space.xxs,
   flex: 1,
   minHeight: 0,
-  overflowY: $collapsed ? 'visible' : 'auto',
+  overflowY: 'auto',
+  overflowX: $collapsed ? 'hidden' : undefined,
+  overscrollBehavior: 'contain',
 }));
 
 export const ItemWrap = styled.div({ display: 'flex', width: '100%' });
@@ -192,4 +195,16 @@ export const Trailing = styled.span({
   alignItems: 'center',
   flexShrink: 0,
   marginLeft: 'auto',
+});
+
+/** Caja del icono propio (`leading`): 20×20, como los iconos, y lo que sobre se recorta. */
+export const Leading = styled.span({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: '20px',
+  height: '20px',
+  overflow: 'hidden',
+  '& > img, & > svg': { width: '100%', height: '100%', objectFit: 'contain' },
 });

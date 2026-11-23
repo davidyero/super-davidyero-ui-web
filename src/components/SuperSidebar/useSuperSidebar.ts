@@ -35,6 +35,7 @@ export const useSuperSidebar = <TId extends string>(
   items: ReadonlyArray<SuperSidebarItem<TId>>,
   sections: ReadonlyArray<SuperSidebarSection> | undefined,
   storageKey: string,
+  activeId?: TId,
 ) => {
   const groups = useMemo(() => {
     const meta = new Map((sections ?? []).map((s) => [s.id, s]));
@@ -71,6 +72,20 @@ export const useSuperSidebar = <TId extends string>(
     const stored = typeof window === 'undefined' ? null : readStored(storageKey);
     return { ...defaults, ...stored };
   });
+
+  // Si la página actual cae en una sección plegada, la sección se abre sola: al montar y
+  // cada vez que se navega a otra entrada.
+  const activeSection = items.find((item) => item.id === activeId && !item.standalone)?.section;
+  const [openedFor, setOpenedFor] = useState<string | undefined>(undefined);
+  const openKey = activeSection ? `${String(activeId)}@${activeSection}` : undefined;
+  if (openKey !== openedFor) {
+    setOpenedFor(openKey);
+    if (activeSection && folded[activeSection]) {
+      const next = { ...folded, [activeSection]: false };
+      setFolded(next);
+      writeStored(storageKey, next);
+    }
+  }
 
   const toggle = useCallback(
     (id: string) => {

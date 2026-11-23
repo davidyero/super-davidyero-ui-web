@@ -1,5 +1,5 @@
 import { SuperSkeleton } from './chunk-IDZFHVAY.js';
-import { SuperTooltip } from './chunk-X3F24Z4J.js';
+import { SuperTooltip } from './chunk-XPCTM7N5.js';
 import { SuperTypography } from './chunk-YEEOPOLF.js';
 import { SuperIcon } from './chunk-5FQD532Q.js';
 import './chunk-2OYI3VCV.js';

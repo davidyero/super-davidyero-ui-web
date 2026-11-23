@@ -4,8 +4,16 @@ interface SuperSidebarItem<TId extends string = string> {
     id: TId;
     /** Texto ya traducido. Con la barra plegada sale como tooltip y nombre accesible. */
     label: string;
-    /** Nombre de icono (obligatorio: es lo único que se ve plegada). */
-    icon: string;
+    /**
+     * Nombre de icono. Obligatorio salvo que la entrada lleve `leading`: plegada, el icono
+     * es lo único que se ve.
+     */
+    icon?: string;
+    /**
+     * Icono propio en lugar de `icon` (gana a `icon`), p. ej. el logo de la app en «Mis apps».
+     * Va en una caja de 20×20, la misma que los iconos, también con la barra plegada.
+     */
+    leading?: ReactNode;
     /** Ruta interna: navega con el `LinkComponent` del provider, sin recargar. */
     href?: string;
     /**

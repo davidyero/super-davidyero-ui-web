@@ -1,4 +1,4 @@
-import { SuperTooltip } from './chunk-X3F24Z4J.js';
+import { SuperTooltip } from './chunk-XPCTM7N5.js';
 import { SuperTypography } from './chunk-YEEOPOLF.js';
 import { focusVisible, transition, space } from './chunk-HF3T4CF3.js';
 import './chunk-KETZYNAG.js';

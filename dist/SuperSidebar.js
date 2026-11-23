@@ -1,4 +1,4 @@
-import { SuperTooltip } from './chunk-X3F24Z4J.js';
+import { SuperTooltip } from './chunk-XPCTM7N5.js';
 import { SuperTypography } from './chunk-YEEOPOLF.js';
 import { SuperIcon } from './chunk-5FQD532Q.js';
 import { useSuperTheme } from './chunk-2OYI3VCV.js';
@@ -38,7 +38,9 @@ var NavList = styled.div(({ $collapsed }) => ({
   gap: space.xxs,
   flex: 1,
   minHeight: 0,
-  overflowY: $collapsed ? "visible" : "auto"
+  overflowY: "auto",
+  overflowX: $collapsed ? "hidden" : void 0,
+  overscrollBehavior: "contain"
 }));
 var ItemWrap = styled.div({ display: "flex", width: "100%" });
 var entryStyles = ({ $active, $collapsed }) => ({
@@ -159,6 +161,16 @@ var Trailing = styled.span({
   flexShrink: 0,
   marginLeft: "auto"
 });
+var Leading = styled.span({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  width: "20px",
+  height: "20px",
+  overflow: "hidden",
+  "& > img, & > svg": { width: "100%", height: "100%", objectFit: "contain" }
+});
 var STORAGE_PREFIX = "sd-sidebar-sections:";
 var readStored = (key) => {
   try {
@@ -175,7 +187,7 @@ var writeStored = (key, value) => {
   } catch {
   }
 };
-var useSuperSidebar = (items, sections, storageKey) => {
+var useSuperSidebar = (items, sections, storageKey, activeId) => {
   const groups = useMemo(() => {
     const meta = new Map((sections ?? []).map((s) => [s.id, s]));
     const out = [];
@@ -210,6 +222,17 @@ var useSuperSidebar = (items, sections, storageKey) => {
     const stored = typeof window === "undefined" ? null : readStored(storageKey);
     return { ...defaults, ...stored };
   });
+  const activeSection = items.find((item) => item.id === activeId && !item.standalone)?.section;
+  const [openedFor, setOpenedFor] = useState(void 0);
+  const openKey = activeSection ? `${String(activeId)}@${activeSection}` : void 0;
+  if (openKey !== openedFor) {
+    setOpenedFor(openKey);
+    if (activeSection && folded[activeSection]) {
+      const next = { ...folded, [activeSection]: false };
+      setFolded(next);
+      writeStored(storageKey, next);
+    }
+  }
   const toggle = useCallback(
     (id) => {
       setFolded((prev) => {
@@ -240,14 +263,15 @@ var SuperSidebar = ({
   const { groups, standalone, isFolded, toggle } = useSuperSidebar(
     items,
     sections,
-    storageKey ?? ariaLabel
+    storageKey ?? ariaLabel,
+    activeId
   );
   const renderEntry = (item) => {
     const active = item.id === activeId;
     const badge = item.badge && item.badge > 0 ? item.badge : 0;
     const badgeSpoken = badge ? item.badgeLabel ?? countText(badge) : "";
     const content = /* @__PURE__ */ jsxs(Fragment, { children: [
-      /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 20 }),
+      item.leading ? /* @__PURE__ */ jsx(Leading, { "aria-hidden": "true", children: item.leading }) : item.icon ? /* @__PURE__ */ jsx(SuperIcon, { name: item.icon, size: 20 }) : null,
       collapsed ? null : /* @__PURE__ */ jsx(
         SuperTypography,
         {

@@ -446,6 +446,35 @@ export const Playground = (): ReactElement => {
                   ]}
                 />
               </div>
+              <div style={{ height: 460 }} data-testid="sidebar-rail-long">
+                <SuperSidebar
+                  ariaLabel="Menú largo plegado"
+                  collapsed
+                  items={Array.from({ length: 45 }, (_, i) => ({
+                    id: `e${i}`,
+                    label: `Entrada ${i + 1}`,
+                    icon: 'info',
+                    // Las 3 primeras con logo propio (`leading`), como «Mis apps» del backoffice.
+                    leading:
+                      i < 3 ? (
+                        <span
+                          style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: 6,
+                            background: ['#6C5CE7', '#00B894', '#E17055'][i],
+                          }}
+                        />
+                      ) : undefined,
+                    section: i < 20 ? 'a' : 'b',
+                  }))}
+                  footer={
+                    <SuperButton variant="ghost" iconOnly aria-label="Salir">
+                      ✕
+                    </SuperButton>
+                  }
+                />
+              </div>
             </Row>
           </Section>
         </Wrap>

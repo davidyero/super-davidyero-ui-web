@@ -1,7 +1,7 @@
 import { space, zIndex } from './chunk-HF3T4CF3.js';
 import { timing } from './chunk-KETZYNAG.js';
 import { v } from './chunk-VQ2WXUA7.js';
-import { useId, isValidElement, cloneElement } from 'react';
+import { useId, useState, isValidElement, cloneElement } from 'react';
 import styled from '@emotion/styled';
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
 
@@ -38,6 +38,17 @@ var Bubble = styled.span(({ $placement }) => ({
   visibility: "hidden",
   transition: `opacity ${timing("base")}`
 }));
+var gap = (token) => Number.parseFloat(token);
+var fixedPosition = (rect, placement) => {
+  if (placement === "right")
+    return {
+      top: rect.top + rect.height / 2,
+      left: rect.right + gap(space.sm),
+      transform: "translateY(-50%)"
+    };
+  const left = rect.left + rect.width / 2;
+  return placement === "top" ? { top: rect.top - gap(space.xs), left, transform: "translate(-50%, -100%)" } : { top: rect.bottom + gap(space.xs), left, transform: "translateX(-50%)" };
+};
 var SuperTooltip = ({
   label,
   children,
@@ -46,11 +57,31 @@ var SuperTooltip = ({
   className
 }) => {
   const id = useId();
+  const [fixed, setFixed] = useState(null);
+  const place = (el) => setFixed(fixedPosition(el.getBoundingClientRect(), placement));
   const trigger = isValidElement(children) ? cloneElement(children, { "aria-describedby": id }) : children;
-  return /* @__PURE__ */ jsxs(Wrap, { $block: block, className, children: [
-    trigger,
-    /* @__PURE__ */ jsx(Bubble, { role: "tooltip", id, $placement: placement, children: label })
-  ] });
+  return /* @__PURE__ */ jsxs(
+    Wrap,
+    {
+      $block: block,
+      className,
+      onMouseEnter: (event) => place(event.currentTarget),
+      onFocus: (event) => place(event.currentTarget),
+      children: [
+        trigger,
+        /* @__PURE__ */ jsx(
+          Bubble,
+          {
+            role: "tooltip",
+            id,
+            $placement: placement,
+            style: fixed ? { position: "fixed", bottom: "auto", right: "auto", ...fixed } : void 0,
+            children: label
+          }
+        )
+      ]
+    }
+  );
 };
 
 export { SuperTooltip };

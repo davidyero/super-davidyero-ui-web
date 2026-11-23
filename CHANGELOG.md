@@ -1,5 +1,20 @@
 # Changelog — @davidyero/ui-web
 
+## 0.35.1 — 2026-11-22
+
+- **Arreglo: el riel de `SuperSidebar` (`collapsed`) con muchas entradas** ya no se sale por
+  abajo bajo el pie. Con unas 45 entradas (el dashboard), los iconos quedaban bajo tema,
+  idioma y salir. Ahora la lista hace scroll también plegada (`overflowY: auto`,
+  `overflowX: hidden`).
+- **`SuperTooltip` se coloca con `position: fixed`** junto al elemento al pasar el ratón o
+  enfocar, así que ningún contenedor con scroll lo recorta (el del riel, una tabla, un modal).
+- **La sección de la página actual se abre sola**: si `activeId` cae en una sección plegada,
+  se despliega al montar y cada vez que se navega a otra entrada. El usuario puede volver a
+  plegarla.
+- **`leading` en la entrada: icono propio** en lugar de `icon` (gana a `icon`), p. ej. el
+  logo de cada app en «Mis apps» del backoffice. Va en una caja de 20×20, también en el
+  riel. `icon` pasa a ser opcional cuando hay `leading`. Aditivo.
+
 ## 0.35.0 — 2026-11-22
 
 - **`SuperSidebar` con secciones, contadores y entradas sueltas**, para que el dashboard y el

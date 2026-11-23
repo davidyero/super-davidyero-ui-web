@@ -28,12 +28,13 @@ describe('0.26 · tooltips de bloque y foco en filas', () => {
     expect(getComputedStyle(wrap()).display).toBe('inline-flex');
   });
 
-  it('SuperSidebar plegada no recorta el tooltip: la lista no hace scroll', () => {
+  it('SuperSidebar plegada lleva tooltip por entrada y la lista hace scroll (0.35.1)', () => {
     const { unmount } = renderWithTheme(
       <SuperSidebar ariaLabel="Principal" collapsed items={ITEMS} />,
     );
     const nav = () => screen.getByRole('navigation', { name: 'Principal' });
-    expect(getComputedStyle(nav()).overflowY).toBe('visible');
+    // Desde 0.35.1 el riel también hace scroll; el tooltip va con position fixed.
+    expect(getComputedStyle(nav()).overflowY).toBe('auto');
     expect(screen.getAllByRole('tooltip', { hidden: true }).map((t) => t.textContent)).toEqual([
       'Usuarios',
       'Ajustes',
